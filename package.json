@@ -1,0 +1,25 @@
+{
+  "name": "speakeasy",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Daigor/SpeakEasy.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Daigor/SpeakEasy/issues"
+  },
+  "homepage": "https://github.com/Daigor/SpeakEasy#readme",
+  "dependencies": {
+    "body-parser": "^1.14.2",
+    "express": "^4.13.4",
+    "mongoose": "^4.3.6",
+    "react": "^0.14.6"
+  }
+}
