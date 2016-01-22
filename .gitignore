@@ -5,3 +5,5 @@ client/node_modules/
 build/
 dist/
 .idea/
+.floo
+.flooignore
