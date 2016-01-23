@@ -1,6 +1,10 @@
 var express = require('express');
-var videoLoader = require('./analysis/videoLoader.js');
-var videoAnalyzer = require('./analysis/videoAnalyzer.js');
+var analysis = require('./controllers/analysis/analysis.js');
 var router = express.Router();
 
 // eventually use Auth
+
+
+router.get('/api/analyze', analysis.getVideo);
+
+module.exports = router;
