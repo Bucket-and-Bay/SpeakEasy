@@ -11,7 +11,7 @@ var VideoInput = React.createClass({
   var video = this.refs.video.files[0]; 
   submitVideo(video).then(function(data){
     //post this data to local server
-    console.log(data);
+    console.log(data, 'line 14 in video input');
   })   
 
   },

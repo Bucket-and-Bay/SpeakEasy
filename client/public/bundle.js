@@ -24241,7 +24241,7 @@
 	    var video = this.refs.video.files[0];
 	    submitVideo(video).then(function (data) {
 	      //post this data to local server
-	      console.log(data);
+	      console.log(data, 'line 14 in video input');
 	    });
 	  },
 	  render: function render() {
@@ -25364,6 +25364,7 @@
 	  formData.append('file', video);
 	  return axios.post('https://api.streamable.com/upload', formData).then(function (response) {
 	    //shortcode to send to server
+	    console.log(response.data.shortcode, 'line 10 in helper');
 	    return response.data.shortcode;
 	  }).catch(function (err) {
 	    return err;
