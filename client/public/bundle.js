@@ -49,7 +49,7 @@
 	var React = __webpack_require__(1);
 	var ReactDOM = __webpack_require__(158);
 	var Router = __webpack_require__(159).Router;
-	var routes = __webpack_require__(207);
+	var routes = __webpack_require__(206);
 
 	ReactDOM.render(React.createElement(
 	  Router,
@@ -23986,18 +23986,173 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 206 */,
-/* 207 */
+/* 206 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
 	var React = __webpack_require__(1);
-	var Main = __webpack_require__(208);
+	var Main = __webpack_require__(207);
 	var Router = __webpack_require__(159);
 	var Route = Router.Route;
+	var Dashboard = __webpack_require__(208);
+	var IndexRoute = Router.IndexRoute;
 
-	module.exports = React.createElement(Route, { path: '/', component: Main });
+	module.exports = React.createElement(
+	  Route,
+	  { path: '/', component: Main },
+	  React.createElement(IndexRoute, { component: Dashboard })
+	);
+
+/***/ },
+/* 207 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	var React = __webpack_require__(1);
+
+	var Main = React.createClass({
+	  displayName: "Main",
+
+	  render: function render() {
+	    return React.createElement(
+	      "div",
+	      { className: "main-container" },
+	      React.createElement(
+	        "nav",
+	        null,
+	        React.createElement(
+	          "div",
+	          { className: "nav-wrapper" },
+	          React.createElement(
+	            "a",
+	            { href: "#", className: "brand-logo" },
+	            "SpeakEasy"
+	          ),
+	          React.createElement(
+	            "ul",
+	            { id: "nav-mobile", className: "right hide-on-med-and-down" },
+	            React.createElement(
+	              "li",
+	              null,
+	              React.createElement(
+	                "a",
+	                { href: "#" },
+	                "Your Videos"
+	              )
+	            ),
+	            React.createElement(
+	              "li",
+	              null,
+	              React.createElement(
+	                "a",
+	                { href: "" },
+	                "Logout"
+	              )
+	            )
+	          )
+	        )
+	      ),
+	      React.createElement(
+	        "div",
+	        { className: "container" },
+	        this.props.children
+	      ),
+	      React.createElement(
+	        "footer",
+	        { className: "page-footer" },
+	        React.createElement(
+	          "div",
+	          { className: "container" },
+	          React.createElement(
+	            "div",
+	            { className: "row" },
+	            React.createElement(
+	              "div",
+	              { className: "col l6 s12" },
+	              React.createElement(
+	                "h5",
+	                { className: "white-text" },
+	                "Footer Content"
+	              ),
+	              React.createElement(
+	                "p",
+	                { className: "grey-text text-lighten-4" },
+	                "You can use rows and columns here to organize your footer content."
+	              )
+	            ),
+	            React.createElement(
+	              "div",
+	              { className: "col l4 offset-l2 s12" },
+	              React.createElement(
+	                "h5",
+	                { className: "white-text" },
+	                "Links"
+	              ),
+	              React.createElement(
+	                "ul",
+	                null,
+	                React.createElement(
+	                  "li",
+	                  null,
+	                  React.createElement(
+	                    "a",
+	                    { className: "grey-text text-lighten-3", href: "#!" },
+	                    "Link 1"
+	                  )
+	                ),
+	                React.createElement(
+	                  "li",
+	                  null,
+	                  React.createElement(
+	                    "a",
+	                    { className: "grey-text text-lighten-3", href: "#!" },
+	                    "Link 2"
+	                  )
+	                ),
+	                React.createElement(
+	                  "li",
+	                  null,
+	                  React.createElement(
+	                    "a",
+	                    { className: "grey-text text-lighten-3", href: "#!" },
+	                    "Link 3"
+	                  )
+	                ),
+	                React.createElement(
+	                  "li",
+	                  null,
+	                  React.createElement(
+	                    "a",
+	                    { className: "grey-text text-lighten-3", href: "#!" },
+	                    "Link 4"
+	                  )
+	                )
+	              )
+	            )
+	          )
+	        ),
+	        React.createElement(
+	          "div",
+	          { className: "footer-copyright" },
+	          React.createElement(
+	            "div",
+	            { className: "container" },
+	            "© 2014 Copyright Text",
+	            React.createElement(
+	              "a",
+	              { className: "grey-text text-lighten-4 right", href: "#!" },
+	              "More Links"
+	            )
+	          )
+	        )
+	      )
+	    );
+	  }
+	});
+
+	module.exports = Main;
 
 /***/ },
 /* 208 */
@@ -24006,20 +24161,110 @@
 	'use strict';
 
 	var React = __webpack_require__(1);
+	var Video = __webpack_require__(209);
+	var VideoInput = __webpack_require__(210);
 
-	var Main = React.createClass({
-	  displayName: 'Main',
+	var Dashboard = React.createClass({
+	  displayName: 'Dashboard',
 
+	  getInitialState: function getInitialState() {
+	    var array = [];
+	    for (var i = 0; i < 30; i++) {
+	      array.push('https://i.kinja-img.com/gawker-media/image/upload/s--2oOjJtqB--/c_fill,fl_progressive,g_center,h_180,q_80,w_320/18r4jm5tivy08jpg.jpg');
+	    }
+	    return {
+	      video: array
+	    };
+	  },
 	  render: function render() {
 	    return React.createElement(
 	      'div',
-	      null,
-	      'Hello World!'
+	      { className: 'row' },
+	      React.createElement(VideoInput, null),
+	      React.createElement(Video, { image: this.state.video })
 	    );
 	  }
 	});
 
-	module.exports = Main;
+	module.exports = Dashboard;
+
+/***/ },
+/* 209 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	var React = __webpack_require__(1);
+
+	var Video = React.createClass({
+	  displayName: "Video",
+
+	  propTypes: {
+	    image: React.PropTypes.array.isRequired
+	  },
+	  render: function render() {
+	    var pictures = this.props.image.map(function (item, idx) {
+	      return React.createElement(
+	        "div",
+	        { id: "photo", key: idx },
+	        React.createElement("image", { src: item })
+	      );
+	    });
+	    return React.createElement(
+	      "div",
+	      null,
+	      pictures
+	    );
+	  }
+	});
+
+	module.exports = Video;
+
+/***/ },
+/* 210 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	var React = __webpack_require__(1);
+
+	var VideoInput = React.createClass({
+	  displayName: "VideoInput",
+
+	  handleSubmit: function handleSubmit(e) {
+	    e.preventDefault();
+	  },
+	  handleFile: function handleFile() {
+	    console.log(this.refs.video.files[0]);
+	  },
+	  render: function render() {
+	    return React.createElement(
+	      "form",
+	      { onSubmit: this.handleSubmit },
+	      React.createElement(
+	        "div",
+	        { className: "file-field input-field" },
+	        React.createElement(
+	          "div",
+	          { className: "btn" },
+	          React.createElement(
+	            "span",
+	            null,
+	            "File"
+	          ),
+	          React.createElement("input", { type: "file", ref: "video", onChange: this.handleFile })
+	        ),
+	        React.createElement(
+	          "div",
+	          { className: "file-path-wrapper" },
+	          React.createElement("input", { className: "file-path validate", type: "text" })
+	        )
+	      )
+	    );
+	  }
+	});
+
+	module.exports = VideoInput;
 
 /***/ }
 /******/ ]);
