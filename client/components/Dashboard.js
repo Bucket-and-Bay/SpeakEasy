@@ -1,5 +1,6 @@
 var React = require('react');
 var Video = require('./Video.js');
+var VideoInput = require('./VideoInput.js');
 
 var Dashboard = React.createClass({
   getInitialState: function() {
@@ -14,6 +15,7 @@ var Dashboard = React.createClass({
   render: function(){
     return (
     <div className="row">
+      <VideoInput />
        <Video image={this.state.video}/>
     </div>
     )

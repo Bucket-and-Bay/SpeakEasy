@@ -24162,6 +24162,7 @@
 
 	var React = __webpack_require__(1);
 	var Video = __webpack_require__(209);
+	var VideoInput = __webpack_require__(210);
 
 	var Dashboard = React.createClass({
 	  displayName: 'Dashboard',
@@ -24179,6 +24180,7 @@
 	    return React.createElement(
 	      'div',
 	      { className: 'row' },
+	      React.createElement(VideoInput, null),
 	      React.createElement(Video, { image: this.state.video })
 	    );
 	  }
@@ -24217,6 +24219,52 @@
 	});
 
 	module.exports = Video;
+
+/***/ },
+/* 210 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	var React = __webpack_require__(1);
+
+	var VideoInput = React.createClass({
+	  displayName: "VideoInput",
+
+	  handleSubmit: function handleSubmit(e) {
+	    e.preventDefault();
+	  },
+	  handleFile: function handleFile() {
+	    console.log(this.refs.video.files[0]);
+	  },
+	  render: function render() {
+	    return React.createElement(
+	      "form",
+	      { onSubmit: this.handleSubmit },
+	      React.createElement(
+	        "div",
+	        { className: "file-field input-field" },
+	        React.createElement(
+	          "div",
+	          { className: "btn" },
+	          React.createElement(
+	            "span",
+	            null,
+	            "File"
+	          ),
+	          React.createElement("input", { type: "file", ref: "video", onChange: this.handleFile })
+	        ),
+	        React.createElement(
+	          "div",
+	          { className: "file-path-wrapper" },
+	          React.createElement("input", { className: "file-path validate", type: "text" })
+	        )
+	      )
+	    );
+	  }
+	});
+
+	module.exports = VideoInput;
 
 /***/ }
 /******/ ]);
