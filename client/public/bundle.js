@@ -24227,7 +24227,7 @@
 	'use strict';
 
 	var React = __webpack_require__(1);
-	var axios = __webpack_require__(211);
+	var submitVideo = __webpack_require__(228);
 
 	var VideoInput = React.createClass({
 	  displayName: 'VideoInput',
@@ -24236,12 +24236,11 @@
 	    e.preventDefault();
 	  },
 	  handleFile: function handleFile() {
+
 	    var video = this.refs.video.files[0];
-	    var formData = new FormData();
-	    formData.append('file', video);
-	    axios.post('https://api.streamable.com/upload', formData).then(function (response) {
-	      //shortcode to send to server
-	      console.log(response.data.shortcode, 'line 15');
+	    submitVideo(video).then(function (data) {
+	      //post this data to local server
+	      console.log(data);
 	    });
 	  },
 	  render: function render() {
@@ -25350,6 +25349,25 @@
 	  };
 	};
 
+
+/***/ },
+/* 228 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var axios = __webpack_require__(211);
+
+	var submitVideo = function submitVideo(video) {
+	  var formData = new FormData();
+	  formData.append('file', video);
+	  return axios.post('https://api.streamable.com/upload', formData).then(function (response) {
+	    //shortcode to send to server
+	    return response.data.shortcode;
+	  });
+	};
+
+	module.exports = submitVideo;
 
 /***/ }
 /******/ ]);
