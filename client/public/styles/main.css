@@ -1,0 +1,12 @@
+#photo {
+  height: 100px;
+  width: 200px;
+  float: left;
+  padding: 10px;
+}
+
+#photo > img {
+  max-width: 100%;
+  max-height: 100%;
+}
+
