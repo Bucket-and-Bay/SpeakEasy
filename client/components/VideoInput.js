@@ -3,6 +3,7 @@ var submitVideo = require('../config/helper.js');
 
 var VideoInput = React.createClass({
   handleSubmit: function(e) {
+    console.log('submit');
     e.preventDefault();
   },
   handleFile: function() {

@@ -9,6 +9,9 @@ var submitVideo = function(video){
       //shortcode to send to server
       return response.data.shortcode;
     })
+    .catch(function(err){
+      return err;
+    })
 }
 
 module.exports = submitVideo;

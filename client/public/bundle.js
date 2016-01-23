@@ -24233,6 +24233,7 @@
 	  displayName: 'VideoInput',
 
 	  handleSubmit: function handleSubmit(e) {
+	    console.log('submit');
 	    e.preventDefault();
 	  },
 	  handleFile: function handleFile() {
@@ -25364,6 +25365,8 @@
 	  return axios.post('https://api.streamable.com/upload', formData).then(function (response) {
 	    //shortcode to send to server
 	    return response.data.shortcode;
+	  }).catch(function (err) {
+	    return err;
 	  });
 	};
 
