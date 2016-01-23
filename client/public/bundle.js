@@ -24164,13 +24164,46 @@
 	var Video = __webpack_require__(209);
 	var VideoInput = __webpack_require__(210);
 
+	//image property
+	//video url property
+	//analysis of the video
+	//title
+	//associated user
+
 	var Dashboard = React.createClass({
 	  displayName: 'Dashboard',
 
 	  getInitialState: function getInitialState() {
+	    var obj = {
+	      image: "http://cdn.streamable.com/image/t0qb.jpg",
+	      video: "http://cdn.streamable.com/video/mp4/t0qb.mp4",
+	      analysis: [{
+	        "person": {
+	          "time": 0,
+	          "person_id": "0",
+	          "emotions": {
+	            "smile": 1.82501,
+	            "surprise": 1.65042,
+	            "negative": 0.375578,
+	            "attention": 100
+	          }
+	        }
+	      }, {
+	        "person": {
+	          "time": 83,
+	          "person_id": "0",
+	          "emotions": {
+	            "smile": 1.76976,
+	            "surprise": 1.76893,
+	            "negative": 0.468632,
+	            "attention": 100
+	          }
+	        }
+	      }]
+	    };
 	    var array = [];
-	    for (var i = 0; i < 30; i++) {
-	      array.push('https://i.kinja-img.com/gawker-media/image/upload/s--2oOjJtqB--/c_fill,fl_progressive,g_center,h_180,q_80,w_320/18r4jm5tivy08jpg.jpg');
+	    for (var i = 0; i < 5; i++) {
+	      array.push(obj);
 	    }
 	    return {
 	      video: array
@@ -24181,7 +24214,7 @@
 	      'div',
 	      { className: 'row' },
 	      React.createElement(VideoInput, null),
-	      React.createElement(Video, { image: this.state.video })
+	      React.createElement(Video, { data: this.state.video })
 	    );
 	  }
 	});
@@ -24200,14 +24233,18 @@
 	  displayName: "Video",
 
 	  propTypes: {
-	    image: React.PropTypes.array.isRequired
+	    data: React.PropTypes.array.isRequired
 	  },
 	  render: function render() {
-	    var pictures = this.props.image.map(function (item, idx) {
+	    var pictures = this.props.data.map(function (item, idx) {
 	      return React.createElement(
 	        "div",
-	        { id: "photo", key: idx },
-	        React.createElement("image", { src: item })
+	        { key: idx },
+	        React.createElement(
+	          "a",
+	          { id: "photo", href: "#" },
+	          React.createElement("image", { src: item.image })
+	        )
 	      );
 	    });
 	    return React.createElement(
