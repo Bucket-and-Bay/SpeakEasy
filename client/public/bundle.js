@@ -23997,10 +23997,12 @@
 	var Route = Router.Route;
 	var Dashboard = __webpack_require__(208);
 	var IndexRoute = Router.IndexRoute;
+	var Analysis = __webpack_require__(229);
 
 	module.exports = React.createElement(
 	  Route,
 	  { path: '/', component: Main },
+	  React.createElement(Route, { path: 'analysis', component: Analysis }),
 	  React.createElement(IndexRoute, { component: Dashboard })
 	);
 
@@ -24242,7 +24244,7 @@
 	        { key: idx },
 	        React.createElement(
 	          "a",
-	          { id: "photo", href: "#" },
+	          { id: "photo", href: "#/analysis" },
 	          React.createElement("image", { src: item.image })
 	        )
 	      );
@@ -25409,6 +25411,61 @@
 	};
 
 	module.exports = submitVideo;
+
+/***/ },
+/* 229 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	var React = __webpack_require__(1);
+
+	// will contain VideoFrame, VideoInfo, Graphs components
+	var Analysis = React.createClass({
+	  displayName: "Analysis",
+
+	  render: function render() {
+	    return React.createElement(
+	      "div",
+	      null,
+	      React.createElement(
+	        "div",
+	        { className: "row" },
+	        React.createElement(
+	          "div",
+	          { className: "video-frame" },
+	          React.createElement(
+	            "video",
+	            { width: "700", height: "400", controls: true },
+	            React.createElement("source", { src: "http://cdn.streamable.com/video/mp4/t0qb.mp4", type: "video/mp4" }),
+	            "Your browser does not support the eo tag."
+	          )
+	        ),
+	        React.createElement(
+	          "div",
+	          { className: "video-info" },
+	          React.createElement(
+	            "h4",
+	            null,
+	            "Project Title"
+	          ),
+	          React.createElement(
+	            "p",
+	            null,
+	            "Date updated: January 22, 2016"
+	          )
+	        )
+	      ),
+	      React.createElement(
+	        "div",
+	        { className: "graph" },
+	        React.createElement("image", { src: "http://i0.wp.com/analyzecore.com/wp-content/uploads/2014/04/plot.jpg" })
+	      )
+	    );
+	  }
+	});
+
+	module.exports = Analysis;
 
 /***/ }
 /******/ ]);
