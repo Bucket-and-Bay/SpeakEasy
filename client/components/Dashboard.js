@@ -2,11 +2,44 @@ var React = require('react');
 var Video = require('./Video.js');
 var VideoInput = require('./VideoInput.js');
 
+//image property
+//video url property
+//analysis of the video
+//title
+//associated user
+
 var Dashboard = React.createClass({
   getInitialState: function() {
+    var obj = {
+      image: "http://cdn.streamable.com/image/t0qb.jpg",
+      video: "http://cdn.streamable.com/video/mp4/t0qb.mp4",
+      analysis: [{
+        "person": {
+          "time": 0,
+          "person_id": "0",
+          "emotions": {
+            "smile": 1.82501,
+            "surprise": 1.65042,
+            "negative": 0.375578,
+            "attention": 100
+          }
+        }
+      }, {
+        "person": {
+          "time": 83,
+          "person_id": "0",
+          "emotions": {
+            "smile": 1.76976,
+            "surprise": 1.76893,
+            "negative": 0.468632,
+            "attention": 100
+          }
+        }
+      }]
+    }
     var array = [];
-    for ( var i = 0; i < 30; i++) {
-      array.push('https://i.kinja-img.com/gawker-media/image/upload/s--2oOjJtqB--/c_fill,fl_progressive,g_center,h_180,q_80,w_320/18r4jm5tivy08jpg.jpg');
+    for ( var i = 0; i < 5; i++) {
+      array.push(obj);
     }
     return {
       video: array
@@ -16,7 +49,7 @@ var Dashboard = React.createClass({
     return (
     <div className="row">
       <VideoInput />
-       <Video image={this.state.video}/>
+       <Video data={this.state.video}/>
     </div>
     )
   }

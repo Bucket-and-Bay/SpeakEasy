@@ -10,3 +10,30 @@
   max-height: 100%;
 }
 
+.video-info  {
+  float: left;
+  padding-left: 10px;
+}
+
+.video-frame {
+  float: left;
+}
+
+nav {
+  background-color: steelblue;
+}
+
+footer.page-footer {
+  background-color: steelblue;
+}
+
+.graph {
+  height: 400px;
+  width: 700px;
+}
+
+.graph > img {
+  max-height: 100%;
+  max-width: 100%;
+}
+
