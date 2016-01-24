@@ -25,8 +25,11 @@
         $('#responseFromServer').append(data);
         console.log('SUCCESS!')
       },
+        // for some reason the success is never called but error is
+        // error comes back with the wanted data from kairos
       error: function(error){
-        console.log('ERROR', error);
+        console.log('ERROR', error.responseText);
+        $('#responseFromServer').html(error.responseText);
       }
     });
   });
