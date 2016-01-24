@@ -5,8 +5,9 @@ var router = require('./routes');
 var app = express();
 var port = process.env.PORT || 3000;
 
-app.use(bodyParser.json({type: 'application/*+json'}));
-
+// app.use(bodyParser.json({type: 'application/*+json'}));
+app.use(bodyParser.json()); // support json encoded bodies
+app.use(bodyParser.urlencoded({ extended: true }));
 
 ///api/analyze
 
