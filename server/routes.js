@@ -5,6 +5,10 @@ var router = express.Router();
 // eventually use Auth
 
 
-router.get('/api/analyze', analysis.getVideo);
+router.post('/api/analyze', function(req){
+  console.log('anon req.body: ', req.body);
+
+  analysis.getVideo(req.body.shortcode);
+});
 
 module.exports = router;

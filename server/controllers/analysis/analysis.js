@@ -1,10 +1,10 @@
 var https = require('https');
 var request = require('request-promise');
 var videoAnalyzer = require('./videoAnalyzer.js');
-var shortcode = 'ocf1';
+// var shortcode = 'vhhl';
 
 
-module.exports.getVideo = function () {
+module.exports.getVideo = function (shortcode) {
   request('https://api.streamable.com/videos/'+shortcode)
     .then( function (res, err) {
     if (err) {
