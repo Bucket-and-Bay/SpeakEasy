@@ -1,5 +1,6 @@
 var axios = require('axios');
 
+var serverURI = 'http://localhost:3000';
 
 var submitVideo = function(video){
   var formData = new FormData();
@@ -15,4 +16,17 @@ var submitVideo = function(video){
     })
 }
 
-module.exports = submitVideo;
+var sendCode = function(data) {
+  return axios.post(serverURI + '/api/analyze', { shortcode: data })
+    .then(function(response) {
+      return response
+    })
+    .catch(function(err) {
+      return err;
+    })
+}
+
+module.exports = {
+  submitVideo: submitVideo,
+  sendCode: sendCode
+};
