@@ -1,5 +1,5 @@
 var React = require('react');
-var submitVideo = require('../config/helper.js');
+var helpers = require('../config/helper.js');
 
 var VideoInput = React.createClass({
   handleSubmit: function(e) {
@@ -9,10 +9,14 @@ var VideoInput = React.createClass({
   handleFile: function() {
 
   var video = this.refs.video.files[0]; 
-  submitVideo(video).then(function(data){
-    //post this data to local server
-    console.log(data, 'line 14 in video input');
-  })   
+    helpers.submitVideo(video)
+      .then(function(data){
+      helpers.sendCode(data)
+        .then(function(response){
+        //successful post to local server
+        console.log('submitted video for analysis');
+        });
+      })   
 
   },
   render: function() {

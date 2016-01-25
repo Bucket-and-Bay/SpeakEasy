@@ -1,5 +1,5 @@
 var React = require('react');
-
+var Graph = require('./Graph.js');
 
 // will contain VideoFrame, VideoInfo, Graphs components
 var Analysis = React.createClass({
@@ -19,7 +19,7 @@ var Analysis = React.createClass({
              </div>
         </div>
         <div className="graph">
-          <image src="http://i0.wp.com/analyzecore.com/wp-content/uploads/2014/04/plot.jpg" />
+          <Graph />
         </div>
       </div>
     )
