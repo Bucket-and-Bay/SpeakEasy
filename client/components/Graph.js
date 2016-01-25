@@ -7,20 +7,23 @@ var axios = require('axios');
 
 var Graph = React.createClass({
   getInitialState: function() {
-   var config = {
-      xAxis: {
-        categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
-      },
-      series: [{
-        data: [29.9, 71.5, 106.4, 129.2, 144.0, 176.0, 135.6, 148.5, 216.4, 194.1, 95.6, 54.4],
-        name: "Surprise"
-      }]
-    };
+   var config = {};
     return {config: config}
   },
 
   componentDidMount: function(){ 
-    
+    this.setState({
+      config: {
+        xAxis: {
+          categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+        },
+        series: [{
+          data: [25.9, 71.5, 106.4, 129.2, 144.0, 176.0, 135.6, 148.5, 12.4, 45.1, 95.6, 54.4],
+          name: "Surprise"
+        }]
+      }
+    })
+
   },
   render: function(){ 
     return(
