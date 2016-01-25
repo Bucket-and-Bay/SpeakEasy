@@ -9,7 +9,7 @@ var userSchema = new mongoose.Schema({
   videoAnalyses : [{
     videoID:{
       type: ObjectId,
-       ref: 'VideoAnalysis'
+       ref: 'Analysis'
      },
       thumbnailUrl : String,
       date         : {type: Date, default: Date.now},

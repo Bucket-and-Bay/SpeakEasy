@@ -1,7 +1,7 @@
 var mongoose = require('mongoose');
 var ObjectId = mongoose.Schema.Types.ObjectId;
 
-var videoAnalysisSchema = new mongoose.Schema({
+var AnalysisSchema = new mongoose.Schema({
   videoUrl : String,
   userID   : {type: ObjectId, ref: 'User'},
   date     : {type: Date, default: Date.now},
@@ -11,7 +11,9 @@ var videoAnalysisSchema = new mongoose.Schema({
     date     : {type: Date, default: Date.now},
     username : String
   }],
-  analysis : String
+  videoEmotionAnalysis     : String,
+  speechRecognitionAnalysis: String,
+  contentToneAnalysis      : String
 });
 
-module.exports = mongoose.model('VideoAnalysis', videoAnalysisSchema);
+module.exports = mongoose.model('Analysis', AnalysisSchema);
