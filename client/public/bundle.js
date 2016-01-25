@@ -25493,24 +25493,29 @@
 	var Highcharts = __webpack_require__(231);
 	global.Highcharts = __webpack_require__(231);
 	var ReactHighcharts = __webpack_require__(232);
-
-	var config = {
-	  xAxis: {
-	    categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
-	  },
-	  series: [{
-	    data: [29.9, 71.5, 106.4, 129.2, 144.0, 176.0, 135.6, 148.5, 216.4, 194.1, 95.6, 54.4]
-	  }]
-	};
+	var axios = __webpack_require__(212);
 
 	var Graph = React.createClass({
 	  displayName: 'Graph',
+
+	  getInitialState: function getInitialState() {
+	    var config = {
+	      xAxis: {
+	        categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+	      },
+	      series: [{
+	        data: [29.9, 71.5, 106.4, 129.2, 144.0, 176.0, 135.6, 148.5, 216.4, 194.1, 95.6, 54.4],
+	        name: "Surprise"
+	      }]
+	    };
+	    return { config: config };
+	  },
 
 	  componentDidMount: function componentDidMount() {},
 	  render: function render() {
 	    return React.createElement(
 	      ReactHighcharts,
-	      { config: config },
+	      { config: this.state.config },
 	      'Graph'
 	    );
 	  }
