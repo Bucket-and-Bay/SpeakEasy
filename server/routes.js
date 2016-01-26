@@ -7,8 +7,7 @@ var user = require('./controllers/user.controller.js');
 
 
 router.post('/api/analyze', function(req, res){
-  console.log('anon req.body: ', req.body);
-  analysis.getVideo(req.body.shortcode, res);
+  analysis.analyze(req.body.shortcode, res);
 });
 
 router.post('/user/login', function(req, res){
