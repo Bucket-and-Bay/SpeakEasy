@@ -1,36 +1,34 @@
 var User = require('../models/user.model.js')
 
-module.exports = {
-	createUser: function(req, res){
-		var user = {
-			username: req.body.username,
-			password: req.body.password
-		}
+var createUser = function(req, res){
+	var user = {
+		username: req.body.username,
+		password: req.body.password
+	}
+	User.findOne(user)
+		.then(function(user){
+			if(user){
+				res.sendStatus(409)
+			} else {
+				User(user).save()
+					.then(function(user){
+						//successful signup
+						console.log(user);
+						res.send(201)
+					})
+					.catch(function(err){
+						throw err;
+					})
+			}
+		})
+};
 
-		User.findOne(user)
-			.then(function(user){
-				if(user){
-					res.sendStatus(409)
-				} else {
-					User(user).save()
-						.then(function(user){
-							//successful signup
-							console.log(user)
-							res.send(201);
-						})
-						.catch(function(err){
-							throw err;
-						})
-				}
-			})
-	},
-	login: function(req, res){
-		var user = {
-			username: req.body.username,
-			password: req.body.password
-		}
-
-		User.findOne(user)
+var login = function(req, res){
+	var user = {
+		username: req.body.username,
+		password: req.body.password
+	}
+	User.findOne(user)
 			.then(function(user){
 				if(user){
 					// set cookies?
@@ -42,5 +40,9 @@ module.exports = {
 			.catch(function(err){
 				throw err;
 			})
-	}
+};
+
+module.exports = {
+	createUser: createUser,
+	login: login
 }
