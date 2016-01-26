@@ -13,6 +13,11 @@ var Signup = React.createClass({
           </div>
           <div className="row">
             <div className="input-field col s12">
+              <input placeholder="Username" id="username" type="text" className="validate" />
+            </div>
+          </div>
+          <div className="row">
+            <div className="input-field col s12">
               <input placeholder="Email" id="email" type="email" className="validate" />
             </div>
           </div>
@@ -24,7 +29,13 @@ var Signup = React.createClass({
               <input placeholder="Confirm Password" id="confirm_password" type="password" className="validate" />
             </div>
           </div>
+          <div className="row">
+            <p>Already have an account? <a href="#/signin">SignIn...</a></p>
+          </div>
         </form>
+        <button className="btn waves-effect waves-light" type="submit" name="action">Submit
+          <i className="material-icons right">send</i>
+        </button>
       </div>
     )
   }
