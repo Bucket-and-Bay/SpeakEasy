@@ -22,7 +22,7 @@ app.use(function(req, res, next) {
 
 ///api/analyze
 
-app.use(express.static(__dirname + './../client/public'));
+app.use(express.static(__dirname + '../../client/public'));
 app.listen(port, function () {
   console.log('Listening on port: ', port);
 });
