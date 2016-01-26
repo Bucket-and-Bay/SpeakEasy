@@ -1,5 +1,4 @@
 var axios = require('axios');
-
 var serverURI = 'http://localhost:3000';
 
 var submitVideo = function(video){
@@ -46,9 +45,20 @@ var signup = function(user){
     return err;
   })
 }
+
+var logout = function() {
+  return axios.get(serverURI + '/user/logout')
+    .then(function(response) {
+      return response;
+    })
+    .catch(function(err) {
+      return err;
+    })
+}
 module.exports = {
   submitVideo: submitVideo,
   sendCode: sendCode,
   login: login,
-  signup: signup
+  signup: signup,
+  logout: logout
 };

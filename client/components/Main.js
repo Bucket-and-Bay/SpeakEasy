@@ -1,7 +1,11 @@
 var React = require('react');
+var Helper = require('../config/helper.js')
 
 var Main = React.createClass({
-
+  logout: function(e){
+    console.log('log out');
+    Helper.logout();
+  },
   render: function() {
     return (
       <div className="main-container">
@@ -10,7 +14,7 @@ var Main = React.createClass({
             <a href="#" className="brand-logo">SpeakEasy</a>
             <ul id="nav-mobile" className="right hide-on-med-and-down">
               <li><a href="#">Your Videos</a></li>
-              <li><a href="">Logout</a></li>
+              <li><a href="#/signin" onClick={this.logout}>Logout</a></li>
             </ul>
           </div>
         </nav>
