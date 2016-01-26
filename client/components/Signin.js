@@ -1,27 +1,42 @@
 var React = require('react');
+var helpers = require('../config/helper.js');
 
 var Signin = React.createClass({
+  handleSubmit: function(e){
+    e.preventDefault();
+    var user = {
+      username: this.refs.username.value,
+      password: this.refs.password.value
+    }
+ 
+    helpers.login(user).then(function(response){
+
+      this.refs.username.value = '';
+      this.refs.password.value = '';
+    }.bind(this));
+
+  },
   render: function() {
     return (
       <div className="row">
-        <form className="col s12">
+        <form className="col s12" onSubmit={this.handleSubmit}>
           <div className="row">
             <div className="input-field col s8">
-              <input placeholder="Username" id="username" type="text" className="validate" />
+              <input placeholder="Username" ref='username' id="username" type="text" className="validate" />
             </div>
           </div>
           <div className="row">
             <div className="input-field col s8">
-              <input placeholder="Password" id="password" type="password" className="validate" />
+              <input placeholder="Password" ref='password' id="password" type="password" className="validate" />
             </div>
           </div>
           <div className="row">
               <p>Not registered? <a href="#/signup">SignUp...</a></p>
           </div>
-        </form>
         <button className="btn waves-effect waves-light" type="submit" name="action">Submit
           <i className="material-icons right">send</i>
         </button>
+       </form>
       </div>
     )
   }

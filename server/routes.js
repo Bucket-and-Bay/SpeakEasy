@@ -15,7 +15,7 @@ router.post('/user/login', function(req, res){
 })
 
 router.post('/user/signup', function(req, res){
-	user.signup(req, res);
+	user.createUser(req, res);
 })
 
 module.exports = router;

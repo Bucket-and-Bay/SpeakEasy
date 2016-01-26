@@ -26,7 +26,29 @@ var sendCode = function(data) {
     })
 }
 
+var login = function(user){
+  console.log(user, 'line 30')
+  return axios.post(serverURI + '/user/login', user)
+    .then(function(response){
+      return response;
+    })
+    .catch(function(err){
+      return err;
+    })
+}
+var signup = function(user){
+  console.log('line 40 signup')
+  return axios.post(serverURI + '/user/signup', user)
+  .then(function(response){
+    return response;
+  })
+  .catch(function(err){
+    return err;
+  })
+}
 module.exports = {
   submitVideo: submitVideo,
-  sendCode: sendCode
+  sendCode: sendCode,
+  login: login,
+  signup: signup
 };
