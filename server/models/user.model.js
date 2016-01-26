@@ -9,4 +9,4 @@ var userSchema = new mongoose.Schema({
   analyses : [{type: ObjectId,ref: 'Analysis'}]
 });
 
-module.exports = mongoose.model('User', UserSchema);
+module.exports = mongoose.model('User', userSchema);

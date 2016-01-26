@@ -2,7 +2,7 @@ var mongoose = require('mongoose');
 var Promise = require('bluebird');
 var request = require('request-promise');
 var Analysis = require('../models/analysis.model.js');
-var videoAnalyzer = Promise.promisifyall(require('./videoAnalyzer.js'));
+// var videoAnalyzer = Promise.promisifyall(require('./videoAnalyzer.js'));
 // var shortcode = 'vhhl';
 
 module.exports = function (shortcode, response, currentUser, title) {
