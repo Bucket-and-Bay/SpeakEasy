@@ -17,7 +17,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 ///api/analyze
 
-app.use(express.static(__dirname + './../client'));
+app.use(express.static(__dirname + '../../client/public'));
 app.listen(port, function () {
   console.log('Listening on port: ', port);
 });
