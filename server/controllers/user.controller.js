@@ -34,7 +34,7 @@ var login = function(req, res){
           // set cookies?
           res.sendStatus(200); // login successful
         } else {
-          res.sendStatus(401) // incorrect credentials
+          res.sendStatus(401) // incorrect credentialss
         }
       })
       .catch(function(err){
