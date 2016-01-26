@@ -7,17 +7,24 @@ var VideoInput = React.createClass({
     e.preventDefault();
   },
   handleFile: function() {
-
-  var video = this.refs.video.files[0]; 
-    helpers.submitVideo(video)
-      .then(function(data){
-      helpers.sendCode(data)
-        .then(function(response){
-        //successful post to local server
-        console.log('submitted video for analysis');
-        });
-      })   
-
+    var video = this.refs.video.files[0];
+    var validVideoFormats = {
+      'video/mp4': true,
+      'video/quicktime': true,
+      'video/avi': true
+    };
+    if (validVideoFormats[video.type]){
+      helpers.submitVideo(video)
+        .then(function(data){
+          helpers.sendCode(data)
+          .then(function(response){
+            //successful post to local server
+            console.log('submitted video for analysis');
+          });
+        })   
+    } else {
+      alert("This is an invalid video format. Please upload .mp4, .mov, or .avi only.");
+    }
   },
   render: function() {
     return (
