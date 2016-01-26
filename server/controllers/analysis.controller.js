@@ -3,6 +3,7 @@ var Promise = require('bluebird');
 var request = require('request-promise');
 var Analysis = require('../models/analysis.model.js');
 var videoAnalyzer = Promise.promisifyAll(require('./analysis/videoAnalyzer.js'));
+
 // var shortcode = 'vhhl';
 
 module.exports.analyze = function (shortcode, response, currentUser, title) {
