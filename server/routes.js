@@ -6,8 +6,7 @@ var router = express.Router();
 
 
 router.post('/api/analyze', function(req, res){
-  console.log('anon req.body: ', req.body);
-  analysis.getVideo(req.body.shortcode, res);
+  analysis.analyze(req.body.shortcode, res);
 });
 
 module.exports = router;
