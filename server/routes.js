@@ -1,5 +1,5 @@
 var express = require('express');
-var analysis = require('./controllers/analysis/analysis.js');
+var analysis = require('./controllers/analysis.controller.js');
 var router = express.Router();
 var user = require('./controllers/users/users.js');
 

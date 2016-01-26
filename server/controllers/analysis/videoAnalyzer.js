@@ -3,7 +3,6 @@ var apiKeys = require('../../config/config.js');
 
 
 module.exports.postVideoForAnalysis = function (url, response) {
-  console.log(url);
   var options={
     method    : 'POST',
     url       : 'https://api.kairos.com/media?source=http:'+url,
@@ -21,13 +20,13 @@ module.exports.postVideoForAnalysis = function (url, response) {
     }else{
       console.log('RESPONSE', res);
       var videoID = JSON.parse(res).id;
-      getVideoAnalysis(videoID, response);
+      return getVideoAnalysis(videoID, response);
     }
   });
 }
 
 // https://api.kairos.com/media/id => GET request with time interval until video processing returns object
-var count=0;
+
 function getVideoAnalysis (videoID, response) {
   var options={
     method    : 'GET',
@@ -47,17 +46,13 @@ function getVideoAnalysis (videoID, response) {
          res = JSON.parse(res);
          if (res.status === 'Complete') {
            console.log('The final response from Kairos: ', res);
-           response.end(JSON.stringify(res));
-
+           return response.end(JSON.stringify(res));
          } else if (res.status_message === 'Processing'){
            console.log('STILL PROCESSING VIDEO');
            //TODO: Set timeout interval based on what happens when analysis is complete.
-           if (count<6){
-            setTimeout(function () {
-              getVideoAnalysis(videoID, response);
-            }, 10000);
-            count++;
-           }
+           setTimeout(function () {
+             getVideoAnalysis(videoID, response);
+           }, 10000);
          }
        }
      });
