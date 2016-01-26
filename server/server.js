@@ -22,6 +22,7 @@ app.use(function(req, res, next) {
 
 ///api/analyze
 
+<<<<<<< 71e4e8799d86e39a96ce4cdd5c80d4d0e6f9f5fe
 app.use(express.static(__dirname + '../../client/public'));
 app.listen(port, function () {
   console.log('Listening on port: ', port);
