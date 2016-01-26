@@ -15,5 +15,4 @@ module.exports =  (
     <Route path='signin' component={Signin} />
     <IndexRoute component={Dashboard} />
   </Route>
-
 )
