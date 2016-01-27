@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "postinstall": "webpack --config ./webpack.config.js",
+    "start": "node server.js"
   },
   "repository": {
     "type": "git",
@@ -39,5 +40,6 @@
     "react-highcharts": "^6.0.0",
     "react-router": "^1.0.3",
     "webpack": "^1.12.11"
-  }
+  }, 
+  "postinstall": "webpack -p"
 }
