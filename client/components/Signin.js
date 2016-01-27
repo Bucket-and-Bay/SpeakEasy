@@ -10,9 +10,14 @@ var Signin = React.createClass({
     }
  
     helpers.login(user).then(function(response){
-
-      this.refs.username.value = '';
-      this.refs.password.value = '';
+      if(response.status === 200){
+        this.props.history.transitionTo({
+          pathname: '/dashboard',
+          search: '?a=query',
+        })
+      } else {
+        alert('incorrect credentials');
+      }     
     }.bind(this));
 
   },

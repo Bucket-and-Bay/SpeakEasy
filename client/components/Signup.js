@@ -2,18 +2,22 @@ var React = require('react');
 var helpers = require('../config/helper.js');
 var Signup = React.createClass({
   handleSubmit: function(e){
-     e.preventDefault();
-     console.log(this.refs.password.value);
-     console.log(this.refs.username.value);
+    e.preventDefault();
     var user = {
       username: this.refs.username.value,
       password: this.refs.password.value
     }
   
     helpers.signup(user).then(function(response){
-
-      this.refs.username.value = '';
-      this.refs.password.value = '';
+      if(response.status === 201){
+        //redirect to dashboard
+        this.props.history.transitionTo({
+          pathname: '/dashboard',
+          search: '?a=query',
+        })
+      } else {
+        alert('username taken');
+      } 
     }.bind(this));
   },
   render: function() {

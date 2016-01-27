@@ -31,6 +31,7 @@ var createUser = function(req, res){
 
 var login = function(req, res){
   
+  
   var user = {
     username: req.body.username,
     password: req.body.password,
@@ -41,7 +42,7 @@ var login = function(req, res){
       console.log('liine 36 200 success')
       req.session.regenerate(function() {
         req.session.user = user.username;
-        res.send(200, analysisData);
+        res.sendStatus(200);
       });
       // set cookies?
       // login successful
