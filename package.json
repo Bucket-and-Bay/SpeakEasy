@@ -17,6 +17,10 @@
   },
   "homepage": "https://github.com/Daigor/SpeakEasy#readme",
   "dependencies": {
+    "cors": "^2.7.1",
+    "express-session": "^1.13.0",
+    "morgan": "^1.6.1",
+    "request-promise": "^2.0.0",
     "bluebird": "^3.1.4",
     "body-parser": "^1.14.2",
     "express": "^4.13.4",
