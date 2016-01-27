@@ -40,6 +40,5 @@
     "react-highcharts": "^6.0.0",
     "react-router": "^1.0.3",
     "webpack": "^1.12.11"
-  }, 
-  "postinstall": "webpack -p"
+  }
 }
