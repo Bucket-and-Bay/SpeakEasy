@@ -9,10 +9,9 @@ var morgan = require('morgan');
 var cors = require('cors');
 // if (process.env.NODE_ENV !== 'production') {
   // mongoose.connect('mongodb://localhost/speakEasy');
-  mongoose.connect(
-'mongodb://c:c1d2@apollo.modulusmongo.net:27017/zIg4upod');
+  mongoose.connect('mongodb://localhost/speakEasy');
 // } else {
-
+// 'mongodb://c:c1d2@apollo.modulusmongo.net:27017/zIg4upod'
 // }
 app.use(cors());
 app.use(morgan('dev'));

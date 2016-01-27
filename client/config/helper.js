@@ -1,4 +1,5 @@
 var axios = require('axios');
+
 var serverURI = 'http://localhost:3000';
 
 var submitVideo = function(video){
@@ -55,10 +56,22 @@ var logout = function() {
       return err;
     })
 }
+
+var populateDashboard = function() {
+  return axios.get(serverURI + '/api/fetch/Analyses')
+    .then(function(response) {
+      return response;
+    })
+    .catch(function(err) {
+      return err;
+    })
+}
+
 module.exports = {
   submitVideo: submitVideo,
   sendCode: sendCode,
   login: login,
   signup: signup,
-  logout: logout
+  logout: logout,
+  populateDashboard: populateDashboard
 };

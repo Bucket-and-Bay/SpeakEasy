@@ -7,12 +7,14 @@ var IndexRoute = Router.IndexRoute;
 var Analysis = require('../components/Analysis.js');
 var Signup = require('../components/Signup.js');
 var Signin = require('../components/Signin.js');
+var IndexRedirect = Router.IndexRedirect;
 
 module.exports =  (
   <Route path ='/'component={Main}>
+    <Route path='dashboard' component={Dashboard} />
     <Route path='analysis' component={Analysis} /> 
     <Route path='signup' component={Signup} />
     <Route path='signin' component={Signin} />
-    <IndexRoute component={Dashboard} />
+    <IndexRedirect to='signin' component={Signin} />
   </Route>
 )

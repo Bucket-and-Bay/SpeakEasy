@@ -1,6 +1,7 @@
 var React = require('react');
 var Video = require('./Video.js');
 var VideoInput = require('./VideoInput.js');
+var helpers = require('../config/helper.js');
 
 //image property
 //video url property
@@ -45,6 +46,11 @@ var Dashboard = React.createClass({
       video: array
     }
   },
+
+  componentDidMount: function() {
+    helpers.populateDashboard();
+  },
+  
   render: function(){
     return (
     <div className="row">

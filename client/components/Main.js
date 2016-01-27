@@ -1,5 +1,5 @@
 var React = require('react');
-var Helper = require('../config/helper.js')
+var Helper = require('../config/helper.js');
 
 var Main = React.createClass({
   logout: function(e){
@@ -13,7 +13,7 @@ var Main = React.createClass({
           <div className="nav-wrapper">
             <a href="#" className="brand-logo">SpeakEasy</a>
             <ul id="nav-mobile" className="right hide-on-med-and-down">
-              <li><a href="#">Your Videos</a></li>
+              <li><a href="#/dashboard">Your Videos</a></li>
               <li><a href="#/signin" onClick={this.logout}>Logout</a></li>
             </ul>
           </div>

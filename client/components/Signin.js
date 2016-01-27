@@ -2,7 +2,8 @@ var React = require('react');
 var helpers = require('../config/helper.js');
 
 var Signin = React.createClass({
-  handleSubmit: function(e){
+
+  handleSubmit: function(e){ 
     e.preventDefault();
     var user = {
       username: this.refs.username.value,
@@ -10,9 +11,15 @@ var Signin = React.createClass({
     }
  
     helpers.login(user).then(function(response){
-
-      this.refs.username.value = '';
-      this.refs.password.value = '';
+      if(response.status === 200){
+        //redirect to dashboard
+        this.props.history.transitionTo({
+          pathname: '/dashboard',
+          search: '?a=query',
+        })
+      } else {
+        alert('incorrect credentials');
+      }     
     }.bind(this));
 
   },
