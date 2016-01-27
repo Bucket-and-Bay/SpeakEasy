@@ -8,4 +8,3 @@ dist/
 .floo
 .flooignore
 server/config
-client/public/bundle.js
