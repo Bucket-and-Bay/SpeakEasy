@@ -11,8 +11,8 @@ var helper = require('../config/helper.js');
 var Dashboard = React.createClass({
   getInitialState: function() {
     var obj = {
-      image: "http://cdn.streamable.com/image/t0qb.jpg",
-      video: "http://cdn.streamable.com/video/mp4/t0qb.mp4",
+      image: "https://cdn.streamable.com/image/t0qb.jpg",
+      video: "https://cdn.streamable.com/video/mp4/t0qb.mp4",
       analysis: [{
         "person": {
           "time": 0,

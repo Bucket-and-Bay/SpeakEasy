@@ -14,10 +14,9 @@ if (process.env.NODE_ENV !== 'production') {
 } else {
   mongoose.connect('mongodb://c:c1d2@apollo.modulusmongo.net:27017/zIg4upod');
 }
+
 app.use(cors());
 app.use(morgan('dev'));
-
-
 // app.use(bodyParser.json({type: 'application/*+json'}));
 app.use(bodyParser.json()); // support json encoded bodies
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -26,7 +25,6 @@ app.use(session({
   resave: false,
   saveUninitialized: true
 }));
-///api/analyze
 
 app.use(express.static(__dirname + '../../client/public'));
 app.listen(port, function () {
