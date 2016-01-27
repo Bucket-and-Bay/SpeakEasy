@@ -1,6 +1,7 @@
 var React = require('react');
 var Video = require('./Video.js');
 var VideoInput = require('./VideoInput.js');
+var Helper = require('../config/helper.js');
 
 //image property
 //video url property
@@ -10,6 +11,7 @@ var VideoInput = require('./VideoInput.js');
 
 var Dashboard = React.createClass({
   getInitialState: function() {
+    console.log('GET ANALYSES', Helper.getAnalyses());
     var obj = {
       image: "http://cdn.streamable.com/image/t0qb.jpg",
       video: "http://cdn.streamable.com/video/mp4/t0qb.mp4",

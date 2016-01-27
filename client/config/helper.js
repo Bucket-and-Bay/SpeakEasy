@@ -1,6 +1,8 @@
 var axios = require('axios');
 var serverURI = 'http://localhost:3000';
 
+
+
 var submitVideo = function(video){
   var formData = new FormData();
   formData.append('file', video);
@@ -13,7 +15,7 @@ var submitVideo = function(video){
     .catch(function(err){
       return err;
     })
-}
+};
 
 var sendCode = function(data) {
   return axios.post(serverURI + '/api/analyze', { shortcode: data })
@@ -29,15 +31,15 @@ var login = function(user){
   console.log(user, 'line 30')
   return axios.post(serverURI + '/user/login', user)
     .then(function(response){
-      console.log('RESPONSE', response);
-      return response;
+      console.log('RESPONSE', response.data);
+      setAnalyses(response.data);
     })
     .catch(function(err){
       return err;
     })
 }
 var signup = function(user){
-  console.log('line 40 signup')
+  console.log('line 40 signup');
   return axios.post(serverURI + '/user/signup', user)
   .then(function(response){
     return response;
@@ -61,5 +63,5 @@ module.exports = {
   sendCode: sendCode,
   login: login,
   signup: signup,
-  logout: logout
+  logout: logout,
 };

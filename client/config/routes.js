@@ -10,6 +10,7 @@ var Signin = require('../components/Signin.js');
 
 module.exports =  (
   <Route path ='/'component={Main}>
+    <Route path='dashboard' component={Dashboard} />
     <Route path='analysis' component={Analysis} /> 
     <Route path='signup' component={Signup} />
     <Route path='signin' component={Signin} />
