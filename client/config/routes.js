@@ -8,6 +8,7 @@ var IndexRedirect = Router.IndexRedirect;
 var Analysis = require('../components/Analysis.js');
 var Signup = require('../components/Signup.js');
 var Signin = require('../components/Signin.js');
+var IndexRedirect = Router.IndexRedirect;
 
 module.exports =  (
   <Route path ='/'component={Main}>
