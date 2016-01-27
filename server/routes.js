@@ -14,22 +14,16 @@ router.post('/api/analyze', function(req, res){
 });
 
 router.get('/api/getAnalysisById', function(req,res){
-  analysis.getAnalysisData(req.body.id, response);
+  analysis.getAnalysisData(req.body.id, res);
 });
 
 router.get('/api/fetchAnalyses', function(req,res){
-  analysis.fetchAnalyses(req.session.user, response);
+  analysis.fetchAnalyses(req.session.user, res);
 });
 
-router.post('/user/login', function(req, res){
-	user.login(req, res);
-})
 
-router.post('/user/signup', function(req, res){
-	user.createUser(req, res);
-})
+router.post('/user/login', user.login)
+router.post('/user/signup', user.createUser)
+router.get('/user/logout', user.logout);
 
-router.get('/user/logout', function(req, res){
-  user.logout(req, res);
-})
 module.exports = router;

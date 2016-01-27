@@ -56,10 +56,20 @@ var logout = function() {
       return err;
     })
 }
+var getUserVideos = function(){
+  return axios.get(serverURI + '/api/fetchAnalyses')
+    .then(function(response){
+      return response;
+    })
+    .catch(function(err){
+      return err;
+    })
+}
 module.exports = {
   submitVideo: submitVideo,
   sendCode: sendCode,
   login: login,
   signup: signup,
-  logout: logout
+  logout: logout,
+  getUserVideos: getUserVideos
 };
