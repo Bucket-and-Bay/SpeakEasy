@@ -12,7 +12,7 @@ var cors = require('cors');
   mongoose.connect(
 'mongodb://c:c1d2@apollo.modulusmongo.net:27017/zIg4upod');
 // } else {
-
+//   mongoose.connect('mongodb://c:c1d2@apollo.modulusmongo.net:27017/zIg4upod');
 // }
 app.use(cors());
 app.use(morgan('dev'));

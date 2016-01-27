@@ -2,11 +2,11 @@ var request = require('request-promise');
 var apiKeys = require('../../config/config.js');
 var eventEmitter = require('../events.controller.js');
 
-module.exports.postVideoForAnalysis = function (data) {
-  console.log('VIDEO URL', data.files.mp4.url);
+module.exports.postVideoForAnalysis = function (url) {
+  console.log('VIDEO URL', url);
   var options={
     method    : 'POST',
-    url       : 'https://api.kairos.com/media?source=http:'+data.files.mp4.url,
+    url       : 'https://api.kairos.com/media?source=http:'+url,
     headers:{
       app_id    : process.env.KAIROS_ID || apiKeys.kairosID,
       app_key   : process.env.KAIROS_KEY || apiKeys.kairosKey
