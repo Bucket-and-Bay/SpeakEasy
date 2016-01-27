@@ -1,6 +1,7 @@
 var axios = require('axios');
-var serverURI = 'http://localhost:3000';
-
+var serverURI = 'https://speakeasy123.herokuapp.com';
+//https://speakeasy123.herokuapp.com/
+//'http://localhost:3000'
 var submitVideo = function(video){
   var formData = new FormData();
   formData.append('file', video);
