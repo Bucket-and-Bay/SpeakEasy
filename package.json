@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "webpack-dev-server"
   },
   "repository": {
     "type": "git",
@@ -40,5 +40,5 @@
     "react-router": "^1.0.3",
     "webpack": "^1.12.11"
   }, 
-  "postinstall": "webpack"
+  "postinstall": "webpack -p"
 }
