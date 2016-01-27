@@ -30,18 +30,12 @@ var createUser = function(req, res){
 };
 
 var login = function(req, res){
-  console.log(req.session.user);
+  
   var user = {
     username: req.body.username,
     password: req.body.password,
   }
-  var analysisData;
-  Analysis.find({username: user.username}, 
-    'videoUrl date title thumbnail_url')
-  .then(function (data) {
-    analysisData = JSON.stringify(data);
-    return User.findOne(user)
-  })
+  User.findOne(user)
   .then(function(exists){
     if(exists){
       console.log('liine 36 200 success')

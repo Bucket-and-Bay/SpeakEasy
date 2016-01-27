@@ -64,14 +64,24 @@ function getVideo(shortcode) {
       }
     }
   });
-};
+}
 
 module.exports.getAnalysisData = function(analysisId, response){
   Analysis.findById(analysisId, function(err, analysis){
     if (err){
       console.log(err);
     }else{
-      res.send(200, JSON.stringify(analysis));
+      response.send(200, JSON.stringify(analysis));
     }
   })
+};
+
+module.exports.fetchAnalyses = function(currentUser, response){
+  Analysis.find({username: currentUser},
+    '_id videoUrl date title thumbnail_url')
+  .then(function (data) {
+    var analysisData = JSON.stringify(data);
+    console.log(analysisData);
+    response.send(200, analysisData);
+  });
 };
