@@ -71,7 +71,7 @@ module.exports.getAnalysisData = function(analysisId, response){
     if (err){
       console.log(err);
     }else{
-      res.send(200, JSON.stringify(analysis));
+      response.send(200, JSON.stringify(analysis));
     }
   })
 };
