@@ -1,24 +1,6 @@
 var axios = require('axios');
 var serverURI = 'http://localhost:3000';
 
-var analyses = [];
-var setAnalyses = function(data){
-  analyses = data;
-};
-var getAnalyses = function(){
-  return analyses;
-};
-
-var getAnalysisById = function(id){
-  return axios.get(serverURI+'/api/getAnalysis',{
-    params:{
-      id:id
-    }
-  })
-  .then(function(response){
-    return response;
-  });
-}
 
 
 var submitVideo = function(video){
@@ -57,7 +39,7 @@ var login = function(user){
     })
 }
 var signup = function(user){
-  console.log('line 40 signup')
+  console.log('line 40 signup');
   return axios.post(serverURI + '/user/signup', user)
   .then(function(response){
     return response;
@@ -82,7 +64,4 @@ module.exports = {
   login: login,
   signup: signup,
   logout: logout,
-  setAnalyses: setAnalyses,
-  getAnalyses: getAnalyses,
-  getAnalysisById:getAnalysisById,
 };

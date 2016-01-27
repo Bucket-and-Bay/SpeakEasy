@@ -14,13 +14,11 @@ router.post('/api/analyze', function(req, res){
 });
 
 router.get('/api/getAnalysisById', function(req,res){
-  console.log(req.params.id);
-  analysis.getAnalysisData(req.param.id, response);
+  analysis.getAnalysisData(req.body.id, response);
 });
 
 router.get('/api/fetchAnalyses', function(req,res){
-  console.log(req.session.user);
-  analysis.fetchAnalyses(req.param.id, response);
+  analysis.fetchAnalyses(req.session.user, response);
 });
 
 router.post('/user/login', function(req, res){

@@ -76,9 +76,12 @@ module.exports.getAnalysisData = function(analysisId, response){
   })
 };
 
-module.exports.
-  Analysis.find({username: user.username},
+module.exports.fetchAnalyses = function(currentUser, response){
+  Analysis.find({username: currentUser},
     'videoUrl date title thumbnail_url')
   .then(function (data) {
-    analysisData = JSON.stringify(data);
-    return
+    var analysisData = JSON.stringify(data);
+    console.log(analysisData);
+    response.send(200, analysisData);
+  });
+};

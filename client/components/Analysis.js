@@ -4,15 +4,6 @@ var Helper = require('../config/helper.js');
 
 // will contain VideoFrame, VideoInfo, Graphs components
 var Analysis = React.createClass({
-  componentDidMount(){
-    var id = this.props.params.id;
-
-    Helper.getAnalysisById(id)
-    .then(function(response){
-      this.setState({analysis:response});
-    })
-
-  },
   render: function() {
     return (
       <div >
