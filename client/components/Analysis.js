@@ -9,7 +9,7 @@ var Analysis = React.createClass({
         <div className="row">
             <div className="video-frame">
               <video width="700" height="400" controls>
-               <source src="http://cdn.streamable.com/video/mp4/t0qb.mp4" type="video/mp4"/>
+               <source src="https://cdn.streamable.com/video/mp4/t0qb.mp4" type="video/mp4"/>
                 Your browser does not support the eo tag.
                </video>
              </div>

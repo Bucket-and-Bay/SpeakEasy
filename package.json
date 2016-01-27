@@ -23,7 +23,6 @@
     "request-promise": "^2.0.0",
     "bluebird": "^3.1.4",
     "body-parser": "^1.14.2",
-    "cors": "^2.7.1",
     "events": "^1.1.0",
     "express": "^4.13.4",
     "kerberos": "0.0.18",

@@ -1,7 +1,7 @@
 var React = require('react');
 var Video = require('./Video.js');
 var VideoInput = require('./VideoInput.js');
-
+var helper = require('../config/helper.js');
 //image property
 //video url property
 //analysis of the video
@@ -11,8 +11,8 @@ var VideoInput = require('./VideoInput.js');
 var Dashboard = React.createClass({
   getInitialState: function() {
     var obj = {
-      image: "http://cdn.streamable.com/image/t0qb.jpg",
-      video: "http://cdn.streamable.com/video/mp4/t0qb.mp4",
+      image: "https://cdn.streamable.com/image/t0qb.jpg",
+      video: "https://cdn.streamable.com/video/mp4/t0qb.mp4",
       analysis: [{
         "person": {
           "time": 0,
@@ -44,6 +44,13 @@ var Dashboard = React.createClass({
     return {
       video: array
     }
+  },
+  componentDidMount: function(){
+    console.log('line 49 componenDidMount')
+    //get users info here
+    helper.getUserVideos().then(function(response){
+      console.log(response, 'line 52');
+    })
   },
   render: function(){
     return (

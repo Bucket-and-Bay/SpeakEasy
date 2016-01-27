@@ -77,6 +77,7 @@ module.exports.getAnalysisData = function(analysisId, response){
 };
 
 module.exports.fetchAnalyses = function(currentUser, response){
+  console.log(currentUser);
   Analysis.find({username: currentUser},
     '_id videoUrl date title thumbnail_url')
   .then(function (data) {

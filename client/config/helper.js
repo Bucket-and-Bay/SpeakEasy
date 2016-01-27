@@ -1,6 +1,7 @@
 var axios = require('axios');
-var serverURI = 'http://localhost:3000';
-
+var serverURI = 'https://speakeasy123.herokuapp.com';
+//https://speakeasy123.herokuapp.com/
+//'http://localhost:3000'
 var submitVideo = function(video){
   var formData = new FormData();
   formData.append('file', video);
@@ -56,10 +57,20 @@ var logout = function() {
       return err;
     })
 }
+var getUserVideos = function(){
+  return axios.get(serverURI + '/api/fetchAnalyses')
+    .then(function(response){
+      return response;
+    })
+    .catch(function(err){
+      return err;
+    })
+}
 module.exports = {
   submitVideo: submitVideo,
   sendCode: sendCode,
   login: login,
   signup: signup,
-  logout: logout
+  logout: logout,
+  getUserVideos: getUserVideos
 };
