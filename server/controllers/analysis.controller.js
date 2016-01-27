@@ -64,7 +64,7 @@ function getVideo(shortcode) {
       }
     }
   });
-};
+}
 
 module.exports.getAnalysisData = function(analysisId, response){
   Analysis.findById(analysisId, function(err, analysis){
@@ -75,3 +75,10 @@ module.exports.getAnalysisData = function(analysisId, response){
     }
   })
 };
+
+module.exports.
+  Analysis.find({username: user.username},
+    'videoUrl date title thumbnail_url')
+  .then(function (data) {
+    analysisData = JSON.stringify(data);
+    return

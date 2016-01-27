@@ -1,6 +1,26 @@
 var axios = require('axios');
 var serverURI = 'http://localhost:3000';
 
+var analyses = [];
+var setAnalyses = function(data){
+  analyses = data;
+};
+var getAnalyses = function(){
+  return analyses;
+};
+
+var getAnalysisById = function(id){
+  return axios.get(serverURI+'/api/getAnalysis',{
+    params:{
+      id:id
+    }
+  })
+  .then(function(response){
+    return response;
+  });
+}
+
+
 var submitVideo = function(video){
   var formData = new FormData();
   formData.append('file', video);
@@ -13,7 +33,7 @@ var submitVideo = function(video){
     .catch(function(err){
       return err;
     })
-}
+};
 
 var sendCode = function(data) {
   return axios.post(serverURI + '/api/analyze', { shortcode: data })
@@ -29,8 +49,8 @@ var login = function(user){
   console.log(user, 'line 30')
   return axios.post(serverURI + '/user/login', user)
     .then(function(response){
-      console.log('RESPONSE', response);
-      return response;
+      console.log('RESPONSE', response.data);
+      setAnalyses(response.data);
     })
     .catch(function(err){
       return err;
@@ -61,5 +81,8 @@ module.exports = {
   sendCode: sendCode,
   login: login,
   signup: signup,
-  logout: logout
+  logout: logout,
+  setAnalyses: setAnalyses,
+  getAnalyses: getAnalyses,
+  getAnalysisById:getAnalysisById,
 };
