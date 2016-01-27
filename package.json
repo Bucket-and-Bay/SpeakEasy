@@ -39,5 +39,7 @@
     "react-highcharts": "^6.0.0",
     "react-router": "^1.0.3",
     "webpack": "^1.12.11"
-  }
+  }, 
+  "dist": "webpak -p",
+  "postinstall": "npm run dist"
 }
