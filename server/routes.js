@@ -7,7 +7,10 @@ var user = require('./controllers/user.controller.js');
 
 
 router.post('/api/analyze', function(req, res){
-  analysis.analyze(req.body.shortcode, res);
+  console.log(req.session.user);
+  analysis.analyze(req.body.shortcode, req.session.user);
+  res.status(201);
+  res.send("Your video has been successfully uploaded. You will be notified when your analysis is ready.");
 });
 
 router.post('/user/login', function(req, res){

@@ -1,48 +1,68 @@
 var mongoose = require('mongoose');
-var Promise = require('bluebird');
 var request = require('request-promise');
 var Analysis = require('../models/analysis.model.js');
-var videoAnalyzer = Promise.promisifyAll(require('./analysis/videoAnalyzer.js'));
+var videoAnalyzer = require('./analysis/videoAnalyzer.js');
+var eventEmitter = require('./events.controller.js')
 
 // var shortcode = 'vhhl';
 
-module.exports.analyze = function (shortcode, response, currentUser, title) {
+module.exports.analyze = function (shortcode, currentUser) {
   var thumbnail, url;
 
-  videoAnalyzer.getVideo(shortcode, response)
-    .catch(function(error){
-      console.log("getVideo failed", error);
-    })
-    .then(function(data){
-       console.log(data);
-       thumbnail = data.thumbnail_url;
-       url = data.files.mp4.url;
-       return videoAnalyzer.postVideoForAnalysis(url);
-    })
-    .catch(function(error){
-      console.log('videoAnalyzer failed', error);
-    })
-    // .then(function(videoId){
-    //   console.log(videoId);
-    //   return videoAnalyzer.getVideoAnalysis(videoId)
-    // })
-    .then(function(videoData){
-      console.log('VIDEODATA', videoData);
-       var analysis = new Analysis ({
-         videoUrl : url,
-         // userID   : currentUser._id,
-         date     : {type: Date, default: Date.now},
-         title    : title || '',
-         videoEmotionAnalysis : videoData
-       });
-       analysis.save(function(err){
-         if(err){
-           return err;
-         }else{
-           console.log("Analysis successfully saved.");
-         }
-       });
+  getVideo(shortcode);
+
+  eventEmitter.on('streamable', function(data){
+    thumbnail = data.thumbnail_url;
+    url = data.files.mp4.url;
+    videoAnalyzer.postVideoForAnalysis(url)
   });
+
+  eventEmitter.on('kairos', function(response){
+
+     var analysis = new Analysis ({
+        videoUrl : url,
+        username   : currentUser,
+        thumbnail_url : thumbnail,
+        videoEmotionAnalysis : JSON.stringify(response)
+      });
+     console.log('ANALYSIS', analysis);
+     analysis.save(function(err){
+       console.log('in save method');
+        if(err){
+          console.log(err);
+        }else{
+          console.log("Analysis successfully saved.");
+        }
+     });
+     Analysis.find(function(err, docs){
+      if(!err){
+        console.log('RETURNED ANALYSIS', docs);
+      }else{
+        console.log(err);
+      }
+    });
+  });
+
+
 };
 
+
+function getVideo(shortcode) {
+  request('https://api.streamable.com/videos/'+shortcode)
+    .then( function (res, err) {
+    if (err) {
+      console.log('ERROR', err);
+    } else {
+      var data = JSON.parse(res);
+      //Check if valid video url, because streamable stores other formts
+      if(data.thumbnail_url===null){
+        console.log('Checking with streamable.');
+        setTimeout(function(){getVideo(shortcode)}, 5000);
+      }else{
+        eventEmitter.emit('streamable',data);
+        //return data;
+      }
+    }
+  });
+};
 

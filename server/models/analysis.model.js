@@ -3,9 +3,10 @@ var ObjectId = mongoose.Schema.Types.ObjectId;
 
 var AnalysisSchema = new mongoose.Schema({
   videoUrl : String,
-  userID   : {type: ObjectId, ref: 'User'},
+  username : String,
   date     : {type: Date, default: Date.now},
   title    : String,
+  thumbnail_url : String,
   comments : [{ //TODO: we may need a comments model
     text     : String,
     date     : {type: Date, default: Date.now},
