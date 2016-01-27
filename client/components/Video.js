@@ -1,4 +1,5 @@
 var React = require('react');
+var Link = require('react-router').Link
 
 var Video = React.createClass({
   propTypes: {
@@ -6,7 +7,7 @@ var Video = React.createClass({
   },
   render: function() {
     var pictures = this.props.data.map(function(item, idx) {
-      return <div key={idx}><a id="photo" href="#/analysis"><image src={item.image} /></a></div>
+      return <div key={idx}><Link id="photo" to={"analysis"}><image src={item.thumbnail_url} /></Link></div>
     });
     return (
       <div>{pictures}</div>

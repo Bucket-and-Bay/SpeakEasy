@@ -1,5 +1,6 @@
 var React = require('react');
 var Graph = require('./Graph.js');
+var Helper = require('../config/helper.js');
 
 // will contain VideoFrame, VideoInfo, Graphs components
 var Analysis = React.createClass({

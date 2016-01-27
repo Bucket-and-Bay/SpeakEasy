@@ -6,11 +6,10 @@ var Signin = React.createClass({
     e.preventDefault();
     var user = {
       username: this.refs.username.value,
-      password: this.refs.password.value
+      password: this.refs.password.value,
     }
  
     helpers.login(user).then(function(response){
-
       this.refs.username.value = '';
       this.refs.password.value = '';
     }.bind(this));
