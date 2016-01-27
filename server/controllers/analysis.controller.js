@@ -66,3 +66,12 @@ function getVideo(shortcode) {
   });
 };
 
+module.exports.getAnalysisData = function(analysisId, response){
+  Analysis.findById(analysisId, function(err, analysis){
+    if (err){
+      console.log(err);
+    }else{
+      res.send(200, JSON.stringify(analysis));
+    }
+  })
+};

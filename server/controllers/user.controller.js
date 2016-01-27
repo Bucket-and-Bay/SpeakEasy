@@ -36,7 +36,8 @@ var login = function(req, res){
     password: req.body.password,
   }
   var analysisData;
-  Analysis.find({username: user.username}, 'videoUrl date title thumbnail_url')
+  Analysis.find({username: user.username}, 
+    'videoUrl date title thumbnail_url')
   .then(function (data) {
     analysisData = JSON.stringify(data);
     return User.findOne(user)

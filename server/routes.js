@@ -13,6 +13,10 @@ router.post('/api/analyze', function(req, res){
   res.send("Your video has been successfully uploaded. You will be notified when your analysis is ready.");
 });
 
+router.get('/api/getAnalysis', function(req,res){
+  analysis.getAnalysisData(req.body._id, response);
+});
+
 router.post('/user/login', function(req, res){
 	user.login(req, res);
 })
