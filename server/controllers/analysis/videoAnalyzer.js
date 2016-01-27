@@ -1,5 +1,5 @@
 var request = require('request-promise');
-var apiKeys = require('../../config/config.js');
+// var apiKeys = require('../../config/config.js');
 
 module.exports.getVideo = function (shortcode, response) {
   return request('https://api.streamable.com/videos/'+shortcode)
