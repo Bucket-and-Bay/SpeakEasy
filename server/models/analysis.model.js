@@ -3,17 +3,18 @@ var ObjectId = mongoose.Schema.Types.ObjectId;
 
 var AnalysisSchema = new mongoose.Schema({
   videoUrl : String,
-  // userID   : {type: ObjectId, ref: 'User'},
+  username : String,
   date     : {type: Date, default: Date.now},
   title    : String,
-  // comments : [{ //TODO: we may need a comments model
-  //   text     : String,
-  //   date     : {type: Date, default: Date.now},
-  //   username : String
-  // }],
+  thumbnail_url : String,
+  comments : [{ //TODO: we may need a comments model
+    text     : String,
+    date     : {type: Date, default: Date.now},
+    username : String
+  }],
   videoEmotionAnalysis     : String,
-  // speechRecognitionAnalysis: String,
-  // contentToneAnalysis      : String
+  speechRecognitionAnalysis: String,
+  contentToneAnalysis      : String
 });
 
 module.exports = mongoose.model('Analysis', AnalysisSchema);

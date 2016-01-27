@@ -49,7 +49,8 @@ var getVideoAnalysis = function (videoID) {
        if (res.status === 'Complete') {
          console.log('Res.status is Complete');
          eventEmitter.emit('kairos', res);
-       } else if (res.status_message === 'Processing'){
+       // } else if (res.status_message === 'Processing'){
+       }else{
          console.log('STILL PROCESSING VIDEO', res);
          //TODO: Set timeout interval based on what happens when analysis is complete.
          setTimeout(function () {

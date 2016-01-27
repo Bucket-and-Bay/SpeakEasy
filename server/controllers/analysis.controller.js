@@ -6,10 +6,10 @@ var eventEmitter = require('./events.controller.js')
 
 // var shortcode = 'vhhl';
 
-module.exports.analyze = function (shortcode, response, currentUser, title) {
+module.exports.analyze = function (shortcode, currentUser) {
   var thumbnail, url;
 
-  getVideo(shortcode, response);
+  getVideo(shortcode);
 
   eventEmitter.on('streamable', function(data){
     thumbnail = data.thumbnail_url;
@@ -21,9 +21,8 @@ module.exports.analyze = function (shortcode, response, currentUser, title) {
 
      var analysis = new Analysis ({
         videoUrl : url,
-        // userID   : currentUser._id,
-        // date     : {type: Date, default: Date.now},
-        title    : title || '',
+        username   : currentUser,
+        thumbnail_url : thumbnail,
         videoEmotionAnalysis : JSON.stringify(response)
       });
      console.log('ANALYSIS', analysis);
@@ -48,7 +47,7 @@ module.exports.analyze = function (shortcode, response, currentUser, title) {
 };
 
 
-function getVideo(shortcode, response) {
+function getVideo(shortcode) {
   request('https://api.streamable.com/videos/'+shortcode)
     .then( function (res, err) {
     if (err) {
@@ -58,10 +57,8 @@ function getVideo(shortcode, response) {
       //Check if valid video url, because streamable stores other formts
       if(data.thumbnail_url===null){
         console.log('Checking with streamable.');
-        setTimeout(function(){getVideo(shortcode, response)}, 5000);
+        setTimeout(function(){getVideo(shortcode)}, 5000);
       }else{
-        response.status(201);
-        response.send("Your video has been successfully uploaded. You will be notified when your analysis is ready.");
         eventEmitter.emit('streamable',data);
         //return data;
       }

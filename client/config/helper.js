@@ -29,6 +29,7 @@ var login = function(user){
   console.log(user, 'line 30')
   return axios.post(serverURI + '/user/login', user)
     .then(function(response){
+      console.log('RESPONSE', response);
       return response;
     })
     .catch(function(err){
