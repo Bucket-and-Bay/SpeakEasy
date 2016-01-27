@@ -7,11 +7,10 @@ var port = process.env.PORT || 3000;
 var session = require('express-session');
 var morgan = require('morgan');
 var cors = require('cors');
-// if (process.env.NODE_ENV !== 'production') {
-  mongoose.connect('mongodb://c:c1d2@apollo.modulusmongo.net:27017/zIg4upod');
-// } else {
 
-// }
+mongoose.connect('mongodb://c:c1d2@apollo.modulusmongo.net:27017/zIg4upod');
+//'mongodb://localhost/speakEasy'
+
 app.use(cors());
 app.use(morgan('dev'));
 
@@ -24,7 +23,6 @@ app.use(session({
   resave: false,
   saveUninitialized: true
 }));
-///api/analyze
 
 app.use(express.static(__dirname + '../../client/public'));
 app.listen(port, function () {

@@ -26,8 +26,8 @@ module.exports.postVideoForAnalysis = function (url, response) {
     method    : 'POST',
     url       : 'https://api.kairos.com/media?source=http:'+url,
     headers:{
-      app_id    : apiKeys.kairosID,
-      app_key   : apiKeys.kairosKey
+      app_id    : process.env.KAIROS_ID || apiKeys.kairosID,
+      app_key   : process.env.KAIROS_KEY || apiKeys.kairosKey
       }
   };
   // make post request to emotional analyzer (kairos)
@@ -52,8 +52,8 @@ var getVideoAnalysis = function (videoID) {
     method    : 'GET',
     url       : 'https://api.kairos.com/media/'+videoID,
     headers:{
-      app_id    : apiKeys.kairosID,
-      app_key   : apiKeys.kairosKey
+      app_id    : process.env.KAIROS_ID || apiKeys.kairosID,
+      app_key   : process.env.KAIROS_KEY || apiKeys.kairosKey
     }
   };
 
