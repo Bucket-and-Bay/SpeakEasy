@@ -23,6 +23,11 @@
     "request-promise": "^2.0.0",
     "bluebird": "^3.1.4",
     "body-parser": "^1.14.2",
+<<<<<<< df88f2a3666407c6895e73737a9f5e333fd2d913
+=======
+    "cors": "^2.7.1",
+    "events": "^1.1.0",
+>>>>>>> Swapped promise based analysis controller for node event system.
     "express": "^4.13.4",
     "kerberos": "0.0.18",
     "mongoose": "^4.3.7",

@@ -1,30 +1,12 @@
 var request = require('request-promise');
-// var apiKeys = require('../../config/config.js');
+var apiKeys = require('../../config/config.js');
+var eventEmitter = require('../events.controller.js');
 
-module.exports.getVideo = function (shortcode, response) {
-  return request('https://api.streamable.com/videos/'+shortcode)
-    .then( function (res, err) {
-    if (err) {
-      console.log('ERROR', err);
-    } else {
-      var data = JSON.parse(res);
-      //Check if valid video url, because streamable stores other formats
-      if(data.thumbnail_url===null){
-        response.status(400);
-        response.send('The video you uploaded is not the correct format. Please upload another video.');
-      }else{
-        response.status(201);
-        response.send("Your video has been successfully uploaded. You will be notified when your analysis is ready.");
-        return data;
-      }
-    }
-  });
-};
-
-module.exports.postVideoForAnalysis = function (url, response) {
+module.exports.postVideoForAnalysis = function (data) {
+  console.log('VIDEO URL', data.files.mp4.url);
   var options={
     method    : 'POST',
-    url       : 'https://api.kairos.com/media?source=http:'+url,
+    url       : 'https://api.kairos.com/media?source=http:'+data.files.mp4.url,
     headers:{
       app_id    : process.env.KAIROS_ID || apiKeys.kairosID,
       app_key   : process.env.KAIROS_KEY || apiKeys.kairosKey
@@ -32,7 +14,7 @@ module.exports.postVideoForAnalysis = function (url, response) {
   };
   // make post request to emotional analyzer (kairos)
   // we will receive a response back (id for the video)
-  return request(options)
+  request(options)
   .then(function(res,err){
     if (err){
       console.log('ERROR',err);
@@ -58,21 +40,22 @@ var getVideoAnalysis = function (videoID) {
   };
 
    //make post request to emotional analyzer (kairos)
-    return request(options)
-     .then(function(res,err){
-       if (err){
-         console.log('ERROR',err);
-       }else{
-         res = JSON.parse(res);
-         if (res.status === 'Complete') {
-           return res;
-         } else if (res.status_message === 'Processing'){
-           console.log('STILL PROCESSING VIDEO');
-           //TODO: Set timeout interval based on what happens when analysis is complete.
-           setTimeout(function () {
-             getVideoAnalysis(videoID);
-           }, 10000);
-         }
+  request(options)
+   .then(function(res,err){
+     if (err){
+       console.log('ERROR',err);
+     }else{
+       res = JSON.parse(res);
+       if (res.status === 'Complete') {
+         console.log('Res.status is Complete');
+         eventEmitter.emit('kairos', res);
+       } else if (res.status_message === 'Processing'){
+         console.log('STILL PROCESSING VIDEO', res);
+         //TODO: Set timeout interval based on what happens when analysis is complete.
+         setTimeout(function () {
+           getVideoAnalysis(videoID);
+         }, 10000);
        }
-     });
-}
+     }
+   });
+};
