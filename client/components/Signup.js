@@ -2,6 +2,7 @@ var React = require('react');
 var helpers = require('../config/helper.js');
 var Signup = React.createClass({
   handleSubmit: function(e){
+    e.preventDefault();
     var user = {
       username: this.refs.username.value,
       password: this.refs.password.value
