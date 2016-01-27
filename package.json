@@ -40,6 +40,5 @@
     "react-router": "^1.0.3",
     "webpack": "^1.12.11"
   }, 
-  "dist": "webpack -p",
-  "postinstall": "npm run dist"
+  "postinstall": "webpack"
 }
