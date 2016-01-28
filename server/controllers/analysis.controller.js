@@ -10,7 +10,7 @@ var notify = require('./notification.controller.js');
 module.exports.analyze = function (shortcode, currentUser) {
   var thumbnail, url;
 
-  setTimeout(function(shortcode){getVideo(shortcode);}, 20000);
+  getVideo(shortcode);
 
   eventEmitter.on('streamable', function(data){
     thumbnail = data.thumbnail_url;
@@ -47,8 +47,10 @@ function getVideo(shortcode) {
       console.log('ERROR', err);
     } else {
       var data = JSON.parse(res);
+
       //Check if valid video url, because streamable stores other formts
       if(data.thumbnail_url===null){
+        console.log('SHORTCODE',shortcode);
         setTimeout(function(){getVideo(shortcode)}, 30000);
       }else{
         eventEmitter.emit('streamable',data);

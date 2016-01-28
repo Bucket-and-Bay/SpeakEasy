@@ -44,7 +44,7 @@ var Signup = React.createClass({
           </div>
           <div className="row">
             <div className="input-field col s12">
-              <input placeholder="Phone number" ref="phoneNumber" id="phoneNumber" type="phone" className="validate" />
+              <input placeholder="Phone number" ref="phoneNumber" id="phoneNumber"  className="validate" />
             </div>
           </div>
           <div className="row">
