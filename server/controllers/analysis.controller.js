@@ -5,14 +5,17 @@ var videoAnalyzer = require('./analysis/videoAnalyzer.js');
 var eventEmitter = require('./events.controller.js');
 var notify = require('./notification.controller.js');
 
-// var shortcode = 'vhhl';
+var streamable=false;
 
 module.exports.analyze = function (shortcode, currentUser) {
-  var thumbnail, url;
+  var thumbnail, url, counter=0;
 
+  streamable = false; 
+  
   getVideo(shortcode);
 
   eventEmitter.on('streamable', function(data){
+    console.log('Received streamable event');
     thumbnail = data.thumbnail_url;
     url = data.files.mp4.url;
     videoAnalyzer.postVideoForAnalysis(url)
@@ -31,6 +34,8 @@ module.exports.analyze = function (shortcode, currentUser) {
         if(err){
           console.log(err);
         }else{
+          counter++;
+          console.log('You analysis has been saved:',counter);
           notify.byText(analysis.username);
         }
      });
@@ -50,10 +55,14 @@ function getVideo(shortcode) {
 
       //Check if valid video url, because streamable stores other formts
       if(data.thumbnail_url===null){
-        console.log('SHORTCODE',shortcode);
+        console.log("Polling streamable for video");
         setTimeout(function(){getVideo(shortcode)}, 30000);
       }else{
+        if (!streamable){
+        streamable=true;
+        console.log('streamable is now true. event emitted'); 
         eventEmitter.emit('streamable',data);
+        }
         //return data;
       }
     }
