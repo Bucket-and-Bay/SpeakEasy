@@ -11,6 +11,7 @@ var Signup = React.createClass({
     helpers.signup(user).then(function(response){
       if(response.status === 201){
         //redirect to dashboard
+        localStorage.token = user.username;
         this.props.history.transitionTo({
           pathname: '/dashboard',
           search: '?a=query',
