@@ -1,7 +1,9 @@
 var axios = require('axios');
-var serverURI = 'https://speakeasy123.herokuapp.com';
+
+var serverURI = 'http://localhost:3000';
 //https://speakeasy123.herokuapp.com/
 //'http://localhost:3000'
+
 var submitVideo = function(video){
   var formData = new FormData();
   formData.append('file', video);
@@ -57,6 +59,7 @@ var logout = function() {
       return err;
     })
 }
+
 var getUserVideos = function(){
   return axios.get(serverURI + '/api/fetchAnalyses')
     .then(function(response){
@@ -66,11 +69,40 @@ var getUserVideos = function(){
       return err;
     })
 }
+
+var getVideoAnalysis = function(id) {
+  return axios.get(serverURI + '/api/getAnalysisById/' + id)
+    .then(function(response){
+      return response;
+    })
+    .catch(function(err){
+      return err;
+    })
+}
+
+var getEmotionData = function(videoEmotionAnalysis) {
+  var emotions = {
+    attentionData: [],
+    negativeData: [],
+    surpriseData: [],
+    smileData: []
+  }
+  videoEmotionAnalysis.forEach(function(item) {
+    emotions.attentionData.push([item.person.time, item.person.emotions.attention]);
+    emotions.negativeData.push([item.person.time, item.person.emotions.negative]);
+    emotions.surpriseData.push([item.person.time, item.person.emotions.surprise]);
+    emotions.smileData.push([item.person.time, item.person.emotions.smile]);
+  });
+  return emotions;
+}
+
 module.exports = {
   submitVideo: submitVideo,
   sendCode: sendCode,
   login: login,
   signup: signup,
   logout: logout,
-  getUserVideos: getUserVideos
+  getUserVideos: getUserVideos,
+  getVideoAnalysis: getVideoAnalysis,
+  getEmotionData: getEmotionData
 };

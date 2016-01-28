@@ -2,7 +2,8 @@ var React = require('react');
 var helpers = require('../config/helper.js');
 
 var Signin = React.createClass({
-  handleSubmit: function(e){
+
+  handleSubmit: function(e){ 
     e.preventDefault();
     var user = {
       username: this.refs.username.value,
