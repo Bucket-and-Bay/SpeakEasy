@@ -9,7 +9,7 @@ module.exports.byText = function(user){
 
             to:'+1'+user.phoneNumber, // Any number Twilio can deliver to
             from: '+14234020972', // A number you bought from Twilio and can use for outbound communication
-            body: 'Test text from Twilio.' // body of the SMS message
+            body: 'Hi! Its your friends at SpeakEasy. Your video analysis is now ready.' // body of the SMS message
 
         }, function(err, responseData) { //this function is executed when a response is received from Twilio
 
