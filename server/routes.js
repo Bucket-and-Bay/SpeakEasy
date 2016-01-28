@@ -13,8 +13,8 @@ router.post('/api/analyze', function(req, res){
   res.send("Your video has been successfully uploaded. You will be notified when your analysis is ready.");
 });
 
-router.get('/api/getAnalysisById', function(req,res){
-  analysis.getAnalysisData(req.body.id, res);
+router.get('/api/getAnalysisById/:analysisID', function(req,res){
+  analysis.getAnalysisData(req.params.analysisID, res);
 });
 
 router.get('/api/fetchAnalyses', function(req,res){

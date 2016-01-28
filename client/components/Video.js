@@ -6,7 +6,8 @@ var Video = React.createClass({
   },
   render: function() {
     var pictures = this.props.data.map(function(item, idx) {
-      return <div key={idx}><a id="photo" href="#/analysis"><image src={item.image} /></a></div>
+      var location = "#/analysis/" + item._id
+      return <div key={idx}><a id="photo" href={location}><image src={item.thumbnail_url} /></a></div>
     });
     return (
       <div>{pictures}</div>

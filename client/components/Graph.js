@@ -6,28 +6,13 @@ var axios = require('axios');
 
 
 var Graph = React.createClass({
-  getInitialState: function() {
-   var config = {};
-    return {config: config}
+  propTypes: {
+    data: React.PropTypes.object.isRequired
   },
-
-  componentDidMount: function(){ 
-    this.setState({
-      config: {
-        xAxis: {
-          categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
-        },
-        series: [{
-          data: [25.9, 71.5, 106.4, 129.2, 144.0, 176.0, 135.6, 148.5, 12.4, 45.1, 95.6, 54.4],
-          name: "Surprise"
-        }]
-      }
-    })
-
-  },
+  
   render: function(){ 
     return(
-      <ReactHighcharts config={this.state.config}>Graph</ReactHighcharts>
+      <ReactHighcharts config={this.props.data}>Graph</ReactHighcharts>
     )
   }
 });
