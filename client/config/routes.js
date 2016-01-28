@@ -9,13 +9,13 @@ var Analysis = require('../components/Analysis.js');
 var Signup = require('../components/Signup.js');
 var Signin = require('../components/Signin.js');
 var IndexRedirect = Router.IndexRedirect;
-
+var auth = require('./Auth.js');
 module.exports =  (
   <Route path ='/'component={Main}>
-    <Route path='dashboard' component={Dashboard} />
-    <Route path='analysis/:videoID' component={Analysis} /> 
-    <Route path='signup' component={Signup} />
-    <Route path='signin' component={Signin} />
+    <Route path='dashboard' component={Dashboard} onEnter={auth.requireAuth}/>
+    <Route path='analysis/:videoID' component={Analysis} onEnter={auth.requireAuth}/> 
+    <Route path='signup' component={Signup} onEnter={auth.loggedIn}/>
+    <Route path='signin' component={Signin} onEnter={auth.loggedIn} />
     <IndexRedirect to='signin' component={Signin} />
   </Route>
 )

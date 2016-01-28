@@ -3,7 +3,7 @@ var helper = require('../config/helper.js')
 
 var Main = React.createClass({
   logout: function(e){
-    console.log('log out');
+    delete localStorage.token;
     helper.logout();
   },
   render: function() {

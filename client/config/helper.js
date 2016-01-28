@@ -1,7 +1,7 @@
 var axios = require('axios');
 
 // var serverURI = 'http://localhost:3000';
-var serverURI = 'https://bab-speakeasy.herokuapp.com';
+var serverURI = 'http://localhost:3000';
 
 
 var submitVideo = function(video){
@@ -9,7 +9,6 @@ var submitVideo = function(video){
   formData.append('file', video);
   return axios.post('https://api.streamable.com/upload', formData)
     .then(function(response){
-      //shortcode to send to server
       console.log(response.data.shortcode, 'line 10 in helper')
       return response.data.shortcode;
     })
@@ -32,7 +31,6 @@ var login = function(user){
   console.log(user, 'line 30')
   return axios.post(serverURI + '/user/login', user)
     .then(function(response){
-      console.log('RESPONSE', response);
       return response;
     })
     .catch(function(err){
