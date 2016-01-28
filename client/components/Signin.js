@@ -12,6 +12,7 @@ var Signin = React.createClass({
  
     helpers.login(user).then(function(response){
       if(response.status === 200){
+        localStorage.token = user.username;
         this.props.history.transitionTo({
           pathname: '/dashboard',
           search: '?a=query',

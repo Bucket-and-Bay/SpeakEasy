@@ -2,7 +2,6 @@ var React = require('react');
 var Graph = require('./Graph.js');
 var helpers = require('../config/helper.js');
 var VideoPlayer = require("./VideoPlayer.js")
-// will contain VideoFrame, VideoInfo, Graphs components
 var Analysis = React.createClass({
 
   getInitialState: function(){
