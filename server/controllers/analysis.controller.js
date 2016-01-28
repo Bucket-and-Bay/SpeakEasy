@@ -50,7 +50,7 @@ function getVideo(shortcode) {
       //Check if valid video url, because streamable stores other formts
       if(data.thumbnail_url===null){
         console.log('Checking with streamable.');
-        setTimeout(function(){getVideo(shortcode)}, 20000);
+        setTimeout(function(){getVideo(shortcode)}, 60000);
       }else{
         eventEmitter.emit('streamable',data);
         //return data;
