@@ -1,7 +1,12 @@
 var axios = require('axios');
 
+<<<<<<< 195eaf4f0be5ed9db5a6557e6c55c3941f379613
 // var serverURI = 'http://localhost:3000';
 var serverURI = 'http://localhost:3000';
+=======
+var serverURI = 'http://localhost:3000';
+// var serverURI = 'https://bab-speakeasy.herokuapp.com';
+>>>>>>> Integrated twilio notifications.
 
 
 var submitVideo = function(video){
