@@ -8,12 +8,12 @@ var session = require('express-session');
 var morgan = require('morgan');
 var cors = require('cors');
 
-if (process.env.NODE_ENV !== 'production') {
-  mongoose.connect('mongodb://localhost/speakEasy');
-  // mongoose.connect('mongodb://c:c1d2@apollo.modulusmongo.net:27017/zIg4upod');
-} else {
-  mongoose.connect('mongodb://c:c1d2@apollo.modulusmongo.net:27017/zIg4upod');
-}
+//if (process.env.NODE_ENV !== 'production') {
+//  mongoose.connect('mongodb://localhost/speakEasy');
+//  // mongoose.connect('mongodb://c:c1d2@apollo.modulusmongo.net:27017/zIg4upod');
+//} else {
+  mongoose.connect('mongodb://heroku_4pq6fzpl:f2u91dl1erm5vs1piobop6v754@ds051655.mongolab.com:51655/heroku_4pq6fzpl');
+//}
 
 app.use(cors());
 app.use(morgan('dev'));
