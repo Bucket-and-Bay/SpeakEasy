@@ -12,6 +12,7 @@ var Dashboard = React.createClass({
   },
 
   componentDidMount: function(){
+    
     helper.getUserVideos().then(function(response){
       this.setState({
         video: response.data
