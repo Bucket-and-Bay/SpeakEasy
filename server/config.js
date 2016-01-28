@@ -2,7 +2,7 @@ var config;
 
 if(process.env.NODE_ENV!=='production'){
   var localConfig = require('./config/localConfig.js')
-  config ={
+  var config = {
     mode: 'local',
     port: 3000,
     mongoUri:localConfig.mongoURI,
