@@ -18,7 +18,6 @@ var VideoInput = React.createClass({
         .then(function(data){
           helpers.sendCode(data)
           .then(function(response){
-            //successful post to local server
             console.log('submitted video for analysis');
           });
         })   
