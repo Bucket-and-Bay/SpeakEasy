@@ -18,7 +18,7 @@ var Signin = React.createClass({
         })
       } else {
         alert('incorrect credentials');
-      }     
+      }
     }.bind(this));
 
   },

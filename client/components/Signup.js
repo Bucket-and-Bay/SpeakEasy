@@ -17,7 +17,7 @@ var Signup = React.createClass({
         })
       } else {
         alert('username taken');
-      } 
+      }
     }.bind(this));
   },
   render: function() {

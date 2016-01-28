@@ -4,8 +4,8 @@ bower_components/
 client/node_modules/
 build/
 dist/
+server/config
 .idea/
 .floo
 .flooignore
-server/config
 client/public/bundle.js

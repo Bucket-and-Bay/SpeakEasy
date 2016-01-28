@@ -1,5 +1,5 @@
 var request = require('request-promise');
-var apiKeys = require('../../config/config.js');
+var apiKeys = require('../../config.js');
 var eventEmitter = require('../events.controller.js');
 
 module.exports.postVideoForAnalysis = function (url) {
@@ -55,7 +55,7 @@ var getVideoAnalysis = function (videoID) {
          //TODO: Set timeout interval based on what happens when analysis is complete.
          setTimeout(function () {
            getVideoAnalysis(videoID);
-         }, 25000);
+         },60000);
        }
      }
    });
