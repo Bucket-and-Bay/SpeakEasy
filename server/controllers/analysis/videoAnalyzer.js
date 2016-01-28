@@ -55,7 +55,7 @@ var getVideoAnalysis = function (videoID) {
          //TODO: Set timeout interval based on what happens when analysis is complete.
          setTimeout(function () {
            getVideoAnalysis(videoID);
-         }, 25000);
+         },25000);
        }
      }
    });

@@ -1,10 +1,8 @@
 var config;
 
 if(process.env.NODE_ENV!=='production'){
-  var localConfig = require('./config/localConfig.js')
-
-var config = {
-  local: {
+  var localConfig = require('./config/localConfig.js',
+  config ={
     mode: 'local',
     port: 3000,
     mongoUri:localConfig.mongoURI,
@@ -20,5 +18,6 @@ var config = {
     kairosKey: process.env.kairosKey
   };
 }
+
 
 module.exports = config;
