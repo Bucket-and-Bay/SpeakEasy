@@ -7,7 +7,8 @@ var Analysis = require('../models/analysis.model.js');
 var createUser = function(req, res){
   var user = {
     username: req.body.username,
-    password: req.body.password
+    password: req.body.password,
+    phoneNumber: req.body.phoneNumber
   }
   User.findOne({username: user.username})
     .then(function(exists){

@@ -5,7 +5,8 @@ var Signup = React.createClass({
     e.preventDefault();
     var user = {
       username: this.refs.username.value,
-      password: this.refs.password.value
+      password: this.refs.password.value,
+      phoneNumber: this.refs.phoneNumber.value
     }
   
     helpers.signup(user).then(function(response){
@@ -39,6 +40,11 @@ var Signup = React.createClass({
           <div className="row">
             <div className="input-field col s12">
               <input placeholder="Email" id="email" type="email" className="validate" />
+            </div>
+          </div>
+          <div className="row">
+            <div className="input-field col s12">
+              <input placeholder="Phone number" ref="phoneNumber" id="phoneNumber"  className="validate" />
             </div>
           </div>
           <div className="row">
