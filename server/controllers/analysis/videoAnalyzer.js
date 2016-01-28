@@ -1,5 +1,5 @@
 var request = require('request-promise');
-var apiKeys = require('../../config/config.js');
+var apiKeys = require('../../config.js');
 var eventEmitter = require('../events.controller.js');
 
 module.exports.postVideoForAnalysis = function (url) {
