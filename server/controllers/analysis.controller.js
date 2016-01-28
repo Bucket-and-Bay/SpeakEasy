@@ -2,7 +2,8 @@ var mongoose = require('mongoose');
 var request = require('request-promise');
 var Analysis = require('../models/analysis.model.js');
 var videoAnalyzer = require('./analysis/videoAnalyzer.js');
-var eventEmitter = require('./events.controller.js')
+var eventEmitter = require('./events.controller.js');
+var notify = require('./notification.controller.js');
 
 // var shortcode = 'vhhl';
 
@@ -27,11 +28,10 @@ module.exports.analyze = function (shortcode, currentUser) {
       });
 
      analysis.save(function(err){
-       console.log('in save method');
         if(err){
           console.log(err);
         }else{
-          console.log("Analysis successfully saved.");
+          notify.byText(analysis.username);
         }
      });
   });
@@ -47,10 +47,11 @@ function getVideo(shortcode) {
       console.log('ERROR', err);
     } else {
       var data = JSON.parse(res);
+
       //Check if valid video url, because streamable stores other formts
       if(data.thumbnail_url===null){
-        console.log('Checking with streamable.');
-        setTimeout(function(){getVideo(shortcode)}, 60000);
+        console.log('SHORTCODE',shortcode);
+        setTimeout(function(){getVideo(shortcode)}, 30000);
       }else{
         eventEmitter.emit('streamable',data);
         //return data;
