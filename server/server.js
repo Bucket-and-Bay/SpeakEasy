@@ -8,7 +8,7 @@ var session = require('express-session');
 var morgan = require('morgan');
 var cors = require('cors');
 var config = require('./config.js');
-
+console.log(config.mode);
 mongoose.connect(config.mongoUri);
 
 
