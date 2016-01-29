@@ -8,8 +8,7 @@ var notify = require('./notification.controller.js');
 var apiKeys = require('../config.js');
 
 
-var streamableDoneProcessing = function(data){return data.percent === 100;};
-var kairosDoneProcessing = function(data){return data.status === "Complete";};
+
 module.exports.analyze = function (shortcode, currentUser) {
   var thumbnail, url;
 
@@ -55,6 +54,9 @@ module.exports.analyze = function (shortcode, currentUser) {
   });
 };
 
+
+function streamableDoneProcessing (data){return data.percent === 100;};
+function kairosDoneProcessing (data){return data.status === "Complete";};
 
 function getVideo(shortcode) {
   return request('https://api.streamable.com/videos/'+shortcode)
