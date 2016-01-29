@@ -41,5 +41,9 @@
     "request-promise": "^2.0.0",
     "twilio": "^2.8.0",
     "webpack": "^1.12.11"
+  },
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "mocha": "^2.4.5"
   }
 }
