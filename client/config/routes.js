@@ -13,6 +13,7 @@ var auth = require('./Auth.js');
 var Record = require('../components/Record.js');
 var Home = require('../components/Home.js');
 
+
 module.exports =  (
   <Route path ='/'component={Main}>
     <Route path='dashboard' component={Dashboard} onEnter={auth.requireAuth}/>
