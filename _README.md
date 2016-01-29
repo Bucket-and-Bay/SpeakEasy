@@ -1,12 +1,12 @@
-# Project Name
+# SpeakEasy
 
-> Pithy project description
+> Web app that helps improve your public speaking skills using emotion-recognition software and tone analyzer/sentiment analysis.
 
 ## Team
 
-  - __Product Owner__: teamMember
-  - __Scrum Master__: teamMember
-  - __Development Team Members__: teamMember, teamMember
+  - __Product Owner__: Jason Jensen
+  - __Scrum Master__: Zan Rosenthal
+  - __Development Team Members__: Tiffany L Huang, Allan Trinh
 
 ## Table of Contents
 
@@ -20,15 +20,20 @@
 
 ## Usage
 
-> Some usage instructions
+> Clone the repo.
+
+> Install all the dependencies.
+
+> Run webpack -w
+  
+> Make sure that you have a mongo database running. Try command mongod.
+  
+> Start the back end server. From root directory: nodemon server/server.js.
 
 ## Requirements
 
-- Node 0.10.x
-- Redis 2.6.x
-- Postgresql 9.1.x
-- etc
-- etc
+- Node 4.2.x
+- Mongo
 
 ## Development
 
@@ -37,14 +42,13 @@
 From within the root directory:
 
 ```sh
-sudo npm install -g bower
+npm install webpack -g
 npm install
-bower install
 ```
 
 ### Roadmap
 
-View the project roadmap [here](LINK_TO_PROJECT_ISSUES)
+View the project roadmap [here](https://waffle.io/Bucket-and-Bay/SpeakEasy)
 
 
 ## Contributing
