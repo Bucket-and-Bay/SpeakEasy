@@ -25,15 +25,15 @@ var Signin = React.createClass({
   },
   render: function() {
     return (
-      <div className="row container">
+      <div id="signin">
         <form className="col s12" onSubmit={this.handleSubmit}>
           <div className="row">
-            <div className="input-field col s8">
+            <div className="input-field col s12">
               <input placeholder="Username" ref='username' id="username" type="text" className="validate" />
             </div>
           </div>
           <div className="row">
-            <div className="input-field col s8">
+            <div className="input-field col s12">
               <input placeholder="Password" ref='password' id="password" type="password" className="validate" />
             </div>
           </div>

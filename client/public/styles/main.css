@@ -91,3 +91,8 @@ footer.page-footer {
 .parallax img {
   display:block;
 }
+
+#signin {
+  width: 40%;
+  margin: 70px auto;
+}
