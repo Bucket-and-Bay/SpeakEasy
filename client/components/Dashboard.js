@@ -22,7 +22,7 @@ var Dashboard = React.createClass({
 
   render: function(){
     return (
-    <div className="row">
+    <div className="row container">
       <VideoInput />
        <Video data={this.state.video}/>
     </div>

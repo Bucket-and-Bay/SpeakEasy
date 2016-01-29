@@ -44,7 +44,7 @@ var Analysis = React.createClass({
   },
   render: function() {
     return (
-      <div >
+      <div className="container">
         <div className="row">
          <VideoPlayer data={this.state.videoSource} />     
          <div className="video-info">

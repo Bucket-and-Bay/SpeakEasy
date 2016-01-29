@@ -25,7 +25,7 @@ var Signin = React.createClass({
   },
   render: function() {
     return (
-      <div className="row">
+      <div className="row container">
         <form className="col s12" onSubmit={this.handleSubmit}>
           <div className="row">
             <div className="input-field col s8">

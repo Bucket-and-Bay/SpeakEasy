@@ -11,6 +11,7 @@ var Signin = require('../components/Signin.js');
 var IndexRedirect = Router.IndexRedirect;
 var auth = require('./Auth.js');
 var Record = require('../components/Record.js');
+var Home = require('../components/Home.js');
 
 module.exports =  (
   <Route path ='/'component={Main}>
@@ -19,6 +20,6 @@ module.exports =  (
     <Route path='signup' component={Signup} onEnter={auth.loggedIn}/>
     <Route path='signin' component={Signin} onEnter={auth.loggedIn} />
     <Route path ='record' component={Record} onEnter={auth.requireAuth}/>
-    <IndexRedirect to='signin' component={Signin} />
+    <IndexRoute component={Home} />
   </Route>
 )
