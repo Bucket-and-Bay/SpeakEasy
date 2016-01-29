@@ -24,7 +24,7 @@ var Signup = React.createClass({
   },
   render: function() {
     return (
-      <div className="row">
+      <div id='signin'className="row container">
         <form className="col s12" onSubmit={this.handleSubmit}>
           <div className="input-field col s6">
             <input placeholder="First Name" id="first_name" type="text" className="validate" />
