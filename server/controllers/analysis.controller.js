@@ -3,23 +3,39 @@ var request = require('request-promise');
 var Analysis = require('../models/analysis.model.js');
 var videoAnalyzer = require('./analysis/videoAnalyzer.js');
 var eventEmitter = require('./events.controller.js');
+var util = require('./utils.js')
 var notify = require('./notification.controller.js');
+var apiKeys = require('../config.js');
 
-// var shortcode = 'vhhl';
+
 
 module.exports.analyze = function (shortcode, currentUser) {
   var thumbnail, url;
 
-  getVideo(shortcode);
+  //Polling Function Sytanx: util.poll(cb, interval,condition, eventName, args)
+
+  util.poll(getVideo, 10000, streamableDoneProcessing, 'streamable', shortcode);
 
   eventEmitter.on('streamable', function(data){
     thumbnail = data.thumbnail_url;
     url = data.files.mp4.url;
-    videoAnalyzer.postVideoForAnalysis(url)
+    videoAnalyzer.postVideoForAnalysis(url);
   });
 
-  eventEmitter.on('kairos', function(response){
+  eventEmitter.on('kairosProcessing', function(videoID){
+    var options={
+      method    : 'GET',
+      url       : 'https://api.kairos.com/media/'+videoID,
+      headers:{
+        app_id    : apiKeys.kairosID,
+        app_key   : apiKeys.kairosKey
+      }
+    };
+    util.poll(videoAnalyzer.getVideoAnalysis, 60000, kairosDoneProcessing, 'kairosComplete', options);
+  });
 
+  eventEmitter.on('kairosComplete', function(response){
+     console.log('kairosComplete received', response);
      var analysis = new Analysis ({
         videoUrl : url,
         username   : currentUser,
@@ -31,31 +47,25 @@ module.exports.analyze = function (shortcode, currentUser) {
         if(err){
           console.log(err);
         }else{
+          console.log('You analysis has been saved:');
           notify.byText(analysis.username);
         }
      });
   });
-
-
 };
 
 
+function streamableDoneProcessing (data){return data.percent === 100;};
+function kairosDoneProcessing (data){return data.status === "Complete";};
+
 function getVideo(shortcode) {
-  request('https://api.streamable.com/videos/'+shortcode)
+  return request('https://api.streamable.com/videos/'+shortcode)
     .then( function (res, err) {
     if (err) {
       console.log('ERROR', err);
     } else {
       var data = JSON.parse(res);
-
-      //Check if valid video url, because streamable stores other formts
-      if(data.thumbnail_url===null){
-        console.log('SHORTCODE',shortcode);
-        setTimeout(function(){getVideo(shortcode)}, 30000);
-      }else{
-        eventEmitter.emit('streamable',data);
-        //return data;
-      }
+      return data;
     }
   });
 }
