@@ -38,6 +38,7 @@
     "react-highcharts": "^6.0.0",
     "react-loader": "^2.0.0",
     "react-router": "^1.0.3",
+    "recordrtc": "^5.2.7",
     "request-promise": "^2.0.0",
     "twilio": "^2.8.0",
     "webpack": "^1.12.11"
