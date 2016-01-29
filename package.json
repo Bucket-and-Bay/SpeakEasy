@@ -36,6 +36,7 @@
     "react": "^0.14.6",
     "react-dom": "^0.14.6",
     "react-highcharts": "^6.0.0",
+    "react-loader": "^2.0.0",
     "react-router": "^1.0.3",
     "request-promise": "^2.0.0",
     "twilio": "^2.8.0",
