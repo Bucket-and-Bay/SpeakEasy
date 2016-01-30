@@ -1,4 +1,4 @@
-var Promise = require('bluebird');
+0var Promise = require('bluebird');
 var fs = require('fs');
 var watson = require('watson-developer-cloud');
 var apiKeys = require('../../config/localConfig.js');
@@ -49,7 +49,6 @@ module.exports.watsonSpeechToText = function(audioFile) {
 
     recognizeStream.on('connection-close', function() {
       var watsonResults = results;
-
       var transcript = getText(watsonResults);
       //TODO: save watsonResults to db
       resolve(transcript);
