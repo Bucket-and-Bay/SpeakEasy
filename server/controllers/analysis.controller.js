@@ -10,21 +10,19 @@ var apiKeys = require('../config.js');
 
 
 module.exports.analyze = function (shortcode, currentUser) {
-  var processing = true;
-  var thumbnail, url;
+  var jobID = shortcode;
+  var analysis = new Analysis ({username : currentUser});
 
   //Polling Function Sytanx: util.poll(cb, interval,condition, eventName, args)
-  util.poll(getVideo, 10000, streamableDoneProcessing, 'streamable', shortcode);
+  util.poll(getVideo, 10000, streamableDoneProcessing, 'streamable'+jobID, shortcode);
 
-  eventEmitter.once('streamable', function(data){
-    // eventEmitter.removeListener('streamable', console.log('Streamable received. Listener removed.'));
-    thumbnail = data.thumbnail_url;
-    url = data.files.mp4.url;
-    videoAnalyzer.postVideoForAnalysis(url);   
+  eventEmitter.once('streamable'+jobID, function(data){
+    analysis.thumbnail_url = data.thumbnail_url;
+    analysis.videoUrl = data.files.mp4.url;
+    videoAnalyzer.postVideoForAnalysis(data.files.mp4.url, jobID);   
   });
 
-  eventEmitter.once('kairosProcessing', function(videoID){
-    // eventEmitter.removeListener('kairosProcessing', console.log('kairosProcessing received. Listener removed.'));
+  eventEmitter.once('kairosProcessing'+jobID, function(videoID){
     var options={
       method    : 'GET',
       url       : 'https://api.kairos.com/media/'+videoID,
@@ -33,18 +31,13 @@ module.exports.analyze = function (shortcode, currentUser) {
         app_key   : apiKeys.kairosKey
       }
     };
-    util.poll(videoAnalyzer.getVideoAnalysis, 60000, kairosDoneProcessing, 'kairosComplete', options);
+    util.poll(videoAnalyzer.getVideoAnalysis, 60000, kairosDoneProcessing, 'kairosComplete'+jobID, options);
   });
 
-  eventEmitter.once('kairosComplete', function(response){
-     // eventEmitter.removeListener('streamable', console.log('kairosComplete received. Listener removed.'));
+  eventEmitter.once('kairosComplete'+jobID, function(response){
      console.log('kairosComplete received', response);
-     var analysis = new Analysis ({
-        videoUrl : url,
-        username   : currentUser,
-        thumbnail_url : thumbnail,
-        videoEmotionAnalysis : JSON.stringify(response)
-      });
+
+     analysis.videoEmotionAnalysis = JSON.stringify(response);
 
      analysis.save(function(err){
         if(err){
