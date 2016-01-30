@@ -47,7 +47,8 @@ module.exports.watsonSpeechToText = function(audioFile) {
     });
 
     recognizeStream.on('connection-close', function() {
-      var watsonResults = JSON.stringify(results);
+      var watsonResults = results;
+
       var transcript = getText(watsonResults);
       //TODO: save watsonResults to db
       resolve(transcript);
