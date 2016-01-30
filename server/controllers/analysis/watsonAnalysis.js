@@ -22,6 +22,7 @@ module.exports.watsonSpeechToText = function(audioFile) {
       timestamps: true,
       continuous: true
     };
+    console.log('running watsonAnalysis');
     
     //create stream
     var recognizeStream = speechToText.createRecognizeStream(params);

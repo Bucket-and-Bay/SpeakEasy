@@ -4,14 +4,7 @@ var path = require('path');
 var watsonAnalysis = require('../config/localConfig.js');
 
 
-extractAudio(videoURL)
-  .then(function(wavFile){
-    beyondVerbal(wavFile);              //save beyondVerbalResults to db
-    watsonAnalysis.watsonSpeechToText(wavFile)         //save watsonResults to db
-      .then(function(watsonResults){
-        alchemyAnalysis(watsonResults); //save alchemyResults to db
-      })
-  });
+
 
   
 
@@ -29,6 +22,19 @@ module.exports.extractAudio = function(videoURL) {
       })
       .run();
   })
+};
+
+module.exports.audioAnalysis = function(videoURL){
+  extractAudio(videoURL)
+  .then(function(wavFile){
+    // beyondVerbal(wavFile);              //save beyondVerbalResults to db
+    console.log('line 10 extractAudio promise');
+    watsonAnalysis.watsonSpeechToText(wavFile)         //save watsonResults to db
+      .then(function(watsonResults){
+        console.log('would run alchemyAnalysis now');
+        // alchemyAnalysis(watsonResults); //save alchemyResults to db
+      })
+  });
 };
 
 
