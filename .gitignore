@@ -9,3 +9,4 @@ server/config
 .floo
 .flooignore
 client/public/bundle.js
+server/api_key.txt

@@ -2,6 +2,7 @@ var express = require('express');
 var analysis = require('./controllers/analysis.controller.js');
 var router = express.Router();
 var user = require('./controllers/user.controller.js');
+var audio = require('./controllers/audio.controller.js');
 
 // eventually use Auth
 
@@ -19,6 +20,11 @@ router.get('/api/getAnalysisById/:analysisID', function(req,res){
 
 router.get('/api/fetchAnalyses', function(req,res){
   analysis.fetchAnalyses(req.session.user, res);
+});
+
+router.get('/api/speechToText/:videoURL', function(req, res){
+  console.log('get req received');
+  audio.audioAnalysis(req.params.videoURL, res);
 });
 
 
