@@ -51,7 +51,7 @@ var VideoInput = React.createClass({
               <Loader loaded={this.state.loaded}>
                 <form onSubmit={this.handleSubmit}className="col s12">
                   <h5>Video Submission</h5>
-                  <h6>We will send you a text when it's done!</h6>
+                  <h6>We will send you a text when its done!</h6>
                   <br/>
                   <div className="file-field input-field">  
                     <div className="btn">
