@@ -10,19 +10,21 @@ var apiKeys = require('../config.js');
 
 
 module.exports.analyze = function (shortcode, currentUser) {
+  var processing = true;
   var thumbnail, url;
 
   //Polling Function Sytanx: util.poll(cb, interval,condition, eventName, args)
-
   util.poll(getVideo, 10000, streamableDoneProcessing, 'streamable', shortcode);
 
-  eventEmitter.on('streamable', function(data){
+  eventEmitter.once('streamable', function(data){
+    // eventEmitter.removeListener('streamable', console.log('Streamable received. Listener removed.'));
     thumbnail = data.thumbnail_url;
     url = data.files.mp4.url;
-    videoAnalyzer.postVideoForAnalysis(url);
+    videoAnalyzer.postVideoForAnalysis(url);   
   });
 
-  eventEmitter.on('kairosProcessing', function(videoID){
+  eventEmitter.once('kairosProcessing', function(videoID){
+    // eventEmitter.removeListener('kairosProcessing', console.log('kairosProcessing received. Listener removed.'));
     var options={
       method    : 'GET',
       url       : 'https://api.kairos.com/media/'+videoID,
@@ -34,7 +36,8 @@ module.exports.analyze = function (shortcode, currentUser) {
     util.poll(videoAnalyzer.getVideoAnalysis, 60000, kairosDoneProcessing, 'kairosComplete', options);
   });
 
-  eventEmitter.on('kairosComplete', function(response){
+  eventEmitter.once('kairosComplete', function(response){
+     // eventEmitter.removeListener('streamable', console.log('kairosComplete received. Listener removed.'));
      console.log('kairosComplete received', response);
      var analysis = new Analysis ({
         videoUrl : url,
@@ -56,6 +59,7 @@ module.exports.analyze = function (shortcode, currentUser) {
 
 
 function streamableDoneProcessing (data){return data.percent === 100;};
+
 function kairosDoneProcessing (data){return data.status === "Complete";};
 
 function getVideo(shortcode) {
