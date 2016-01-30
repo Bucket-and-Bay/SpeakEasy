@@ -53,8 +53,6 @@ var Record = React.createClass({
       this.setState({
         videoFile: videoFile
       })
-   
-     
     }.bind(this));
 
   },
@@ -90,12 +88,18 @@ var Record = React.createClass({
   render:function(){
     return(
       <div className="container">
-        <video autoPlay="true" ref='stream'width="700" height="400" muted />
-        <video autoPlay='true'ref='video2' width="400" height="400" controls />
-        <audio ref='audio' autoPlay='true' controls />
-        <button onClick={this.record}>Start</button>
-        <button onClick={this.stop}>Stop</button>
-        <button onClick={this.submit}>Submit Video for Analysis</button>
+        <div className="row">
+          <div className="col s6">
+            <video autoPlay="true" ref='stream'width="400" height="400" muted /> 
+          </div>
+          <div className="col s6">
+            <video autoPlay='true'ref='video2' width="400" height="400" controls />
+            <audio ref='audio' autoPlay='true' controls />
+            <button onClick={this.record}>Start</button>
+            <button onClick={this.stop}>Stop</button>
+            <button onClick={this.submit}>Submit</button>
+          </div>
+        </div>
       </div>
     )
   }
