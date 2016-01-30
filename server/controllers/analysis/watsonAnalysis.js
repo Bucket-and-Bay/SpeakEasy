@@ -1,9 +1,15 @@
 var Promise = require('bluebird');
 var fs = require('fs');
 var watson = require('watson-developer-cloud');
-var apiKeys = '../../config/localConfig.js';
+var apiKeys = require('../../config/localConfig.js');
 
-var speechToText = watson.speech_to_text(apiKeys.watsonCredentials);
+// var speechToText = watson.speech_to_text(apiKeys.watsonCredentials);
+var speechToText = watson.speech_to_text({
+  username: apiKeys.watsonUsername,
+  password: apiKeys.watsonPassword,
+  version: 'v1', 
+  url: "https://stream.watsonplatform.net/speech-to-text/api"
+})
 
 var getText = function(data) {
   var results = [];
@@ -37,7 +43,7 @@ module.exports.watsonSpeechToText = function(audioFile) {
     });
 
     recognizeStream.on('error', function(err) {
-      console.log('Error writing to transcript.json: ' + err));
+      console.log('Error writing to transcript.json: ' + err);
     });
 
     recognizeStream.on('connection-close', function() {
