@@ -95,6 +95,19 @@ var getEmotionData = function(videoEmotionAnalysis) {
   return emotions;
 }
 
+var test = function(){
+  var options = {
+    videoURL: 'https://cdn.streamable.com/video/mp4/5dzi.mp4'
+  }
+  axios.post(serverURI + '/api/speechToText', options)
+    .then(function(response){
+      return response;
+    })
+    .catch(function(err){
+      return err;
+    })
+}
+
 module.exports = {
   submitVideo: submitVideo,
   sendCode: sendCode,
@@ -103,5 +116,6 @@ module.exports = {
   logout: logout,
   getUserVideos: getUserVideos,
   getVideoAnalysis: getVideoAnalysis,
-  getEmotionData: getEmotionData
+  getEmotionData: getEmotionData,
+  test: test
 };

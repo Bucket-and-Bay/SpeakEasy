@@ -66,6 +66,9 @@ var Record = React.createClass({
       alert('error audio and video file')
     }
   },
+  test: function(){
+    helpers.test();
+  },
   componentDidMount: function(){
     var video = this.refs.stream;
     var that = this;
@@ -98,6 +101,7 @@ var Record = React.createClass({
             <button onClick={this.record}>Start</button>
             <button onClick={this.stop}>Stop</button>
             <button onClick={this.submit}>Submit</button>
+            <button onClick={this.test}>Test</button>
           </div>
         </div>
       </div>

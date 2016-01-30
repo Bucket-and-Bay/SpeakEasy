@@ -13,6 +13,7 @@
 .video-info  {
   float: left;
   padding-left: 10px;
+  display: block;
 }
 
 .video-frame {
@@ -30,7 +31,7 @@ footer.page-footer {
 
 .graph {
   height: 400px;
-  width: 700px;
+  width: 680px;
 }
 
 .graph > img {
@@ -96,3 +97,4 @@ footer.page-footer {
   width: 40%;
   margin: 70px auto;
 }
+
