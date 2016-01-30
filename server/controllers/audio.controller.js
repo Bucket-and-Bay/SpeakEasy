@@ -1,7 +1,8 @@
 var Promise = require('bluebird');
 var ffmpeg = require('fluent-ffmpeg');
 var path = require('path');
-var watsonAnalysis = require('../config/localConfig.js');
+var watsonAnalysis = require('./analysis/watsonAnalysis.js');
+var alchemy = require('./analysis/auido.controller.js');
 
 
 
@@ -32,7 +33,7 @@ module.exports.audioAnalysis = function(videoURL){
     watsonAnalysis.watsonSpeechToText(wavFile)         //save watsonResults to db
       .then(function(watsonResults){
         console.log('would run alchemyAnalysis now');
-        // alchemyAnalysis(watsonResults); //save alchemyResults to db
+        // alchemy.alchemyAnalysis(watsonResults); //save alchemyResults to db
       })
   });
 };
