@@ -6,6 +6,7 @@ var helpers = require('../config/helper.js');
 function videoError(){
   console.log('error')
 };
+
 var Record = React.createClass({
   getInitialState: function(){
     return {
@@ -36,8 +37,13 @@ var Record = React.createClass({
   },
   stop: function(){
     this.state.audio.stopRecording(function(data){
+
       this.refs.audio.src= data;
       this.refs.audio.play();
+      var audioFile = this.state.audio.getBlob();
+      this.setState({
+        audioFile: audioFile
+      })
     }.bind(this));
 
     this.state.recorder.stopRecording(function(data){
@@ -53,13 +59,13 @@ var Record = React.createClass({
 
   },
   submit: function(){
-    if(!!this.state.videoFile){
+    if(!!this.state.videoFile && !!this.state.audioFile){
       helpers.submitVideo(this.state.videoFile).then(function(res){
         //send shortcode to local server and then set state back to null for video
         console.log(res,'response line 58 videoblob')
       }.bind(this))
     } else {
-      alert('no file')
+      alert('error audio and video file')
     }
   },
   componentDidMount: function(){
