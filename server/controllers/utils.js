@@ -9,7 +9,7 @@ module.exports.poll = function(cb, interval,condition, eventName, args){
         console.log('Done polling', data);
         eventEmitter.emit(eventName, data);
       }else{
-        console.log("Polling");
+        console.log("Polling", data);
         Promise.delay(interval).then(setTimeout(function(){module.exports.poll(cb, interval,condition,eventName, args);}, interval)
         );
       }
