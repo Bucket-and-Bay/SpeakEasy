@@ -46,15 +46,20 @@ var Analysis = React.createClass({
     return (
       <div className="container">
         <div className="row">
-         <VideoPlayer data={this.state.videoSource} />     
-         <div className="video-info">
-            <h4>Project Title</h4>
-            <p>Date updated: January 22, 2016</p>
-         </div>
+          <div className="col s8">
+              <VideoPlayer data={this.state.videoSource} /> 
+              <div className="graph">
+                <Graph data={this.state.analysis}/>
+              </div>
+          </div>
+          <div className="col s4"> 
+            <div className="video-info">
+              <h4>Project Title</h4>
+              <p>Date updated: January 22, 2016</p>
+            </div>
+          </div>
         </div>
-        <div className="graph">
-          <Graph data={this.state.analysis}/>
-        </div>
+  
       </div>
     )
   }

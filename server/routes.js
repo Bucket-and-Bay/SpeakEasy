@@ -22,9 +22,10 @@ router.get('/api/fetchAnalyses', function(req,res){
   analysis.fetchAnalyses(req.session.user, res);
 });
 
-router.get('/api/speechToText/:videoURL', function(req, res){
+router.post('/api/speechToText', function(req, res){
   console.log('get req received');
-  audio.audioAnalysis(req.params.videoURL, res);
+  console.log(req.body);
+  audio.audioAnalysis(req.body.videoURL, res);
 });
 
 

@@ -9,8 +9,8 @@ var VideoPlayer = React.createClass({
   }, 
   render: function(){
     return (
-      <div className="video-frame">
-        <video ref="video" width="700" height="400" controls>
+      <div>
+        <video className="responsive-video" ref="video" width="680" height="400" controls>
         <source src={this.props.data} type="video/mp4"/>
         Your browser does not support the eo tag.
         </video>
