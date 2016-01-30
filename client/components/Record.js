@@ -57,15 +57,17 @@ var Record = React.createClass({
 
   },
   submit: function(){
+    if(!!this.state.videoFile && !!this.state.audioFile){
+      helpers.submitVideo(this.state.videoFile).then(function(res){
+        //send shortcode to local server and then set state back to null for video
+        console.log(res,'response line 58 videoblob')
+      }.bind(this))
+    } else {
+      alert('error audio and video file')
+    }
+  },
+  test: function(){
     helpers.test();
-    // if(!!this.state.videoFile && !!this.state.audioFile){
-    //   helpers.submitVideo(this.state.videoFile).then(function(res){
-    //     //send shortcode to local server and then set state back to null for video
-    //     console.log(res,'response line 58 videoblob')
-    //   }.bind(this))
-    // } else {
-    //   alert('error audio and video file')
-    // }
   },
   componentDidMount: function(){
     var video = this.refs.stream;
@@ -99,6 +101,7 @@ var Record = React.createClass({
             <button onClick={this.record}>Start</button>
             <button onClick={this.stop}>Stop</button>
             <button onClick={this.submit}>Submit</button>
+            <button onClick={this.test}>Test</button>
           </div>
         </div>
       </div>

@@ -99,7 +99,6 @@ var test = function(){
   var options = {
     videoURL: 'https://cdn.streamable.com/video/mp4/5dzi.mp4'
   }
-
   axios.post(serverURI + '/api/speechToText', options)
     .then(function(response){
       return response;

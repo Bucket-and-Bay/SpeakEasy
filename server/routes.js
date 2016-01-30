@@ -23,8 +23,6 @@ router.get('/api/fetchAnalyses', function(req,res){
 });
 
 router.post('/api/speechToText', function(req, res){
-  console.log('get req received');
-  console.log(req.body);
   audio.audioAnalysis(req.body.videoURL, res);
 });
 
