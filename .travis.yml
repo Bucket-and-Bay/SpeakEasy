@@ -1,0 +1,11 @@
+language: node_js
+node_js:
+- '4.1'
+- '4.0'
+
+
+deploy:
+  provider: heroku
+  app: bab-speakeasy
+  api_key:
+    secure: B+ZgvQMJyokC1+oDglsr5jQnTHkcWdGUaU6/KASY+RsoIxJY9sMhv32XmjywmA6fcRyPboJoAGsSj6eYJqtO1DzcCnNq98pvcf7ZaBfk9YKUEq2IbHZzNzG65QafywJwuT6rCEw4Iwt1UZLONMBE+opVVacaxyK6py5UxvhPc2yMfuSB8fxLwydrHKeFbqzv+JJPACmQYNAGuXRUx2fw4roqGgaqUUDPvjgeHb5UMmaA+RjO5syCa/5/AHveMlHa5LkHesdSwpukfSLODdh09eTqeyjQoRP9R8SThOtZMA9Nx+18SPimEO1opdL20Am7kN6Db74THBP5Rak40syXNcYG1LB4eW+H+UweKkSWb850fbpQ8VvNEhm7JkwUCZSeD0cY32eUjKQ40i0f233sME5GJj3F7fwNQcrel5zsJtx+CeKPt0wgHJerLgqLK5PZLCy68oohErBOXOFe8gcW8kq4bwcn779g2amysDRyleLPyykFWEknHVTElffXdQAUvOMPK5EZM+8o3XssvxOZrliLGAn+7AdXeYDdKNHXOm9ou1EekTJKWyQPQAWejhJ0IIl1pQpxpRzpP4I+8WM8Cu5rmyKtCERKlWBJh2vNcL7jy0dNI4JEl/Z7TVDDRxjLAsvJByFA1OgYCU84UU8EobMoBgG3uYE82P0hoyOVm7k=
