@@ -4,8 +4,6 @@ var router = express.Router();
 var user = require('./controllers/user.controller.js');
 var audio = require('./controllers/audio.controller.js');
 
-// eventually use Auth
-
 
 router.post('/api/analyze', function(req, res){
   console.log(req.session.user);
