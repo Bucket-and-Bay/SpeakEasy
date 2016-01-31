@@ -61,6 +61,9 @@ var Record = React.createClass({
       helpers.submitVideo(this.state.videoFile).then(function(res){
         //send shortcode to local server and then set state back to null for video
         console.log(res,'response line 58 videoblob')
+        helpers.sendCode(res).then(function(){
+          console.log('successfully sent code')
+        })
       }.bind(this))
     } else {
       alert('error audio and video file')

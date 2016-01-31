@@ -9,12 +9,12 @@ var apiKeys = require('../config.js');
 
 
 
-module.exports.analyze = function (shortcode, currentUser) {
-  var jobID = shortcode;
-  var analysis = new Analysis ({username : currentUser});
+module.exports.analyze = function (userData, currentUser) {
+  var jobID = userData.shortcode;
+  var analysis = new Analysis ({username : currentUser, title: userData.title, description: userData.description});
 
   //Polling Function Sytanx: util.poll(cb, interval,condition, eventName, args)
-  util.poll(getVideo, 10000, streamableDoneProcessing, 'streamable'+jobID, shortcode);
+  util.poll(getVideo, 10000, streamableDoneProcessing, 'streamable'+jobID, userData.shortcode);
 
   eventEmitter.once('streamable'+jobID, function(data){
     analysis.thumbnail_url = data.thumbnail_url;
@@ -79,7 +79,7 @@ module.exports.getAnalysisData = function(analysisId, response){
 
 module.exports.fetchAnalyses = function(currentUser, response){
   Analysis.find({username: currentUser},
-    '_id videoUrl date title thumbnail_url')
+    '_id videoUrl date title thumbnail_url description')
   .then(function (data) {
     var analysisData = JSON.stringify(data);
     response.send(200, analysisData);

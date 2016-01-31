@@ -13,19 +13,30 @@ var VideoInput = React.createClass({
     });
     if(this.refs.video.files.length > 0){
       var video = this.refs.video.files[0];
+      var title = this.refs.title.value;
+      var description = this.refs.description.value;
       var validVideoFormats = {
         'video/mp4': true,
         'video/quicktime': true,
         'video/avi': true
       };
       if (validVideoFormats[video.type]){
+
         helpers.submitVideo(video)
-          .then(function(data){
+          .then(function(shortcode){
+
+            var data = {
+              shortcode: shortcode,
+              description: description,
+              title: title
+            }
             helpers.sendCode(data)
             .then(function(response){
               this.onSuccess();
               this.refs.line.value = '';
               this.refs.video.value = '';
+              this.refs.title.value = '';
+              this.refs.description.value = '';
               console.log('submitted video for analysis');
             }.bind(this));
           }.bind(this))   
@@ -64,11 +75,11 @@ var VideoInput = React.createClass({
                   </div>
                   <div className="input-field">
                     <i className="material-icons prefix">view_headline</i>
-                    <input type="text" className="validate" placeholder="Video Title"/>
+                    <input ref="title"type="text" className="validate" placeholder="Video Title"/>
                   </div>
                   <div className="input-field">
                     <i className="material-icons prefix">description</i>
-                    <input type="text" className="validate" placeholder="Description"/>
+                    <input ref="description"type="text" className="validate" placeholder="Description"/>
                   </div>
                   <div className="text-center"> 
                     <button type="button" type="submit" className="btn btn-info waves-effect waves-light">Submit</button>
