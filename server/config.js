@@ -1,5 +1,5 @@
 var config;
-console.log('------------------------- env: ',process.env.NODE_ENV);
+
 if(process.env.NODE_ENV!=='production'){
   var localConfig = require('./config/localConfig.js');
   config ={
@@ -17,9 +17,6 @@ if(process.env.NODE_ENV!=='production'){
     kairosID: process.env.kairosID,
     kairosKey: process.env.kairosKey
   };
-  console.log('------------------------- Id: ',process.env.kairosID);
-  console.log('------------------------- Key: ',process.env.kairosKey);
-  console.log('------------------------- mongo: ',process.env.MONGOLAB_URI);
 }
 
 
