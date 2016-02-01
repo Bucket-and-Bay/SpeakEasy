@@ -1,5 +1,5 @@
 var config;
-
+console.log('------------------------- ',process.env.NODE_ENV);
 if(process.env.NODE_ENV!=='production'){
   var localConfig = require('./config/localConfig.js');
   config ={
