@@ -19,6 +19,7 @@ module.exports.analyze = function (shortcode, currentUser) {
   util.poll(getVideo, 10000, streamableDoneProcessing, 'streamable'+jobID, userData.shortcode);
 
   eventEmitter.once('streamable'+jobID, function(data){
+    console.log('streamable received');
     analysis.thumbnail_url = data.thumbnail_url;
     var url = 'https:'+data.files.mp4.url;
     analysis.videoUrl = url;
