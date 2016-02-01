@@ -3,7 +3,18 @@ var axios = require('axios');
 var serverURI = 'http://localhost:3000';
 // var serverURI = 'https://bab-speakeasy.herokuapp.com';
 
-
+var submitRecorded = function(video, audio){
+  var data = new FormData();
+  data.append('video', video);
+  data.append('audio', audio);
+  return axios.post(serverURI + '/api/record', data)
+    .then(function(response){
+      return response;
+    })
+    .catch(function(err){
+      throw err;
+    })
+}
 
 var submitVideo = function(video){
   var formData = new FormData();
@@ -14,7 +25,7 @@ var submitVideo = function(video){
       return response.data.shortcode;
     })
     .catch(function(err){
-      return err;
+      throw err;
     })
 }
 
@@ -24,7 +35,7 @@ var sendCode = function(data) {
       return response
     })
     .catch(function(err) {
-      return err;
+      throw err;
     })
 }
 
@@ -35,7 +46,7 @@ var login = function(user){
       return response;
     })
     .catch(function(err){
-      return err;
+      throw err;
     })
 }
 var signup = function(user){
@@ -45,7 +56,7 @@ var signup = function(user){
     return response;
   })
   .catch(function(err){
-    return err;
+    throw err;
   })
 }
 
@@ -55,7 +66,7 @@ var logout = function() {
       return response;
     })
     .catch(function(err) {
-      return err;
+      throw err;
     })
 }
 
@@ -65,7 +76,7 @@ var getUserVideos = function(){
       return response;
     })
     .catch(function(err){
-      return err;
+      throw err;
     })
 }
 
@@ -75,7 +86,7 @@ var getVideoAnalysis = function(id) {
       return response;
     })
     .catch(function(err){
-      return err;
+      throw err;
     })
 }
 
@@ -117,5 +128,6 @@ module.exports = {
   getUserVideos: getUserVideos,
   getVideoAnalysis: getVideoAnalysis,
   getEmotionData: getEmotionData,
-  test: test
+  test: test,
+  submitRecorded: submitRecorded 
 };
