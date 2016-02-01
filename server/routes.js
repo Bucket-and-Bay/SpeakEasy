@@ -4,12 +4,11 @@ var router = express.Router();
 var user = require('./controllers/user.controller.js');
 var audio = require('./controllers/audio.controller.js');
 
-// eventually use Auth
-
 
 router.post('/api/analyze', function(req, res){
   console.log(req.session.user);
-  analysis.analyze(req.body.shortcode, req.session.user);
+  console.log(req.body)
+  analysis.analyze(req.body, req.session.user);
   res.status(201);
   res.send("Your video has been successfully uploaded. You will be notified when your analysis is ready.");
 });

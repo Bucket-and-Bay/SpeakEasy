@@ -6,20 +6,22 @@ var Video = React.createClass({
   },
   render: function() {
     var pictures = this.props.data.map(function(item, idx) {
+
+      var date = new Date(item.date).toString();
       var location = "#/analysis/" + item._id
       return    <div className="col s4" key={idx}>
                   <div className="card hoverable">
                     <a href={location}>
                       <div className="card-image">
                         <image src={item.thumbnail_url}/>
-                        <span className="card-title">Video Title</span>
+                        <span className="card-title">{item.title}</span>
                       </div>
                     </a>
                     <div className="card-content">
-                      <p>Description goes here</p>
+                      <p>{item.description}</p>
                     </div>
                     <div className="card-action">
-                      January 22, 2016
+                      {date}
                     </div>
                   </div>
                 </div>
