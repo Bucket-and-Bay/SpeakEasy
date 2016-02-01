@@ -6,22 +6,26 @@ var eventEmitter = require('./events.controller.js');
 var util = require('./utils.js')
 var notify = require('./notification.controller.js');
 var apiKeys = require('../config.js');
+var audio = require('./audio.controller.js');
+var _ = require ('underscore');
 
+module.exports.analyze = function (shortcode, currentUser) {
+  var jobID = shortcode;
+  var processCount = 0;
+  var analysis = new Analysis ({username : currentUser});
 
-
-module.exports.analyze = function (userData, currentUser) {
-  var jobID = userData.shortcode;
-  var analysis = new Analysis ({username : currentUser, title: userData.title, description: userData.description});
 
   //Polling Function Sytanx: util.poll(cb, interval,condition, eventName, args)
   util.poll(getVideo, 10000, streamableDoneProcessing, 'streamable'+jobID, userData.shortcode);
 
   eventEmitter.once('streamable'+jobID, function(data){
     analysis.thumbnail_url = data.thumbnail_url;
-    analysis.videoUrl = data.files.mp4.url;
-    videoAnalyzer.postVideoForAnalysis(data.files.mp4.url, jobID);   
+    var url = 'https:'+data.files.mp4.url;
+    analysis.videoUrl = url;
+    audio.audioAnalysis(url, jobID);
+    videoAnalyzer.postVideoForAnalysis(url, jobID);   
   });
-
+  
   eventEmitter.once('kairosProcessing'+jobID, function(videoID){
     var options={
       method    : 'GET',
@@ -33,12 +37,25 @@ module.exports.analyze = function (userData, currentUser) {
     };
     util.poll(videoAnalyzer.getVideoAnalysis, 60000, kairosDoneProcessing, 'kairosComplete'+jobID, options);
   });
+  
+  eventEmitter.once('kairosComplete'+jobID, function(results){
+    analysis.videoEmotionAnalysis = JSON.stringify(results);
+    console.log('kairosComplete');
+    eventEmitter.emit(jobID);
+  })
+  
+  eventEmitter.once('alchemyComplete'+jobID, function(results){
+    analysis.contentToneAnalysis = JSON.stringify(results);
+    console.log('alchemyComplete');
+    eventEmitter.emit(jobID);
+  });
 
-  eventEmitter.once('kairosComplete'+jobID, function(response){
-     console.log('kairosComplete received', response);
 
-     analysis.videoEmotionAnalysis = JSON.stringify(response);
-
+  eventEmitter.on(jobID, function(response){
+    processCount++;
+    console.log('processCount', processCount);
+    if(processCount===2){
+     console.log('All analysis complete');
      analysis.save(function(err){
         if(err){
           console.log(err);
@@ -47,7 +64,9 @@ module.exports.analyze = function (userData, currentUser) {
           notify.byText(analysis.username);
         }
      });
+    }
   });
+
 };
 
 

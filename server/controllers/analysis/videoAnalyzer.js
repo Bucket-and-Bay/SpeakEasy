@@ -5,7 +5,7 @@ var eventEmitter = require('../events.controller.js');
 module.exports.postVideoForAnalysis = function (url, jobID) {
   var options={
     method    : 'POST',
-    url       : 'https://api.kairos.com/media?source=http:'+url,
+    url       : 'https://api.kairos.com/media?source='+url,
     headers:{
       app_id    : process.env.KAIROS_ID || apiKeys.kairosID,
       app_key   : process.env.KAIROS_KEY || apiKeys.kairosKey
@@ -37,17 +37,3 @@ module.exports.getVideoAnalysis = function (options) {
     }
   });
 };
-
-// res = JSON.parse(res);
-//        if (res.status === 'Complete') {
-//          console.log('Res.status is Complete');
-//          eventEmitter.emit('kairos', res);
-//        // } else if (res.status_message === 'Processing'){
-//        }else{
-//          console.log('STILL PROCESSING VIDEO', res);
-//          //TODO: Set timeout interval based on what happens when analysis is complete.
-//          setTimeout(function () {
-//            getVideoAnalysis(videoID);
-//          },60000);
-//        }
-//      }
