@@ -37,8 +37,6 @@ module.exports.transcript = function(req){
     });
     form.on('field', function(fieldName, fieldValue){
       //video shortcode here
-      console.log(fieldValue, 'should be shortcode');
-      console.log(fieldName, 'should be video')
       shortcode = fieldValue;
     })  
     form.on('part',function(part){

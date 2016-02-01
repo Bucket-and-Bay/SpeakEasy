@@ -9,7 +9,6 @@ module.exports.recordAnalysis = function(req, res){
   watsonAnalysis.transcript(req)
     .then(function(data){
       console.log(data.transcript, 'transcript');
-      console.log(data.shortcode, 'shortcode');
       var videoAnalysis = {
         shortcode: data.shortcode,
         title: 'test',
