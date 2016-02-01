@@ -6,6 +6,8 @@ var eventEmitter = require('./events.controller.js');
 var util = require('./utils.js')
 var notify = require('./notification.controller.js');
 var apiKeys = require('../config.js');
+var audio = require('./audio.controller.js');
+var _ = require ('underscore');
 
 
 
@@ -18,10 +20,12 @@ module.exports.analyze = function (userData, currentUser) {
 
   eventEmitter.once('streamable'+jobID, function(data){
     analysis.thumbnail_url = data.thumbnail_url;
-    analysis.videoUrl = data.files.mp4.url;
-    videoAnalyzer.postVideoForAnalysis(data.files.mp4.url, jobID);   
+    var url = 'https:'+data.files.mp4.url;
+    analysis.videoUrl = url;
+    audio.audioAnalysis(url, jobID);
+    videoAnalyzer.postVideoForAnalysis(url, jobID);   
   });
-
+  
   eventEmitter.once('kairosProcessing'+jobID, function(videoID){
     var options={
       method    : 'GET',
@@ -34,22 +38,33 @@ module.exports.analyze = function (userData, currentUser) {
     util.poll(videoAnalyzer.getVideoAnalysis, 60000, kairosDoneProcessing, 'kairosComplete'+jobID, options);
   });
 
-  eventEmitter.once('kairosComplete'+jobID, function(response){
-     console.log('kairosComplete received', response);
-
-     analysis.videoEmotionAnalysis = JSON.stringify(response);
-
-     analysis.save(function(err){
-        if(err){
-          console.log(err);
-        }else{
-          console.log('You analysis has been saved:');
-          notify.byText(analysis.username);
-        }
-     });
+  eventEmitter.on('analysisComplete'+jobID, function(API){
+    
   });
+  
+  // eventEmitter.once('alchemyComplete'+jobID, function(results){
+  //   console.log('alchemyAnalysis successful', results);
+  // });
+  // eventEmitter.once('kairosComplete'+jobID, function(response){
+  //    console.log('kairosComplete received', response);
+
+  //    analysis.videoEmotionAnalysis = JSON.stringify(response);
+
+  //    analysis.save(function(err){
+  //       if(err){
+  //         console.log(err);
+  //       }else{
+  //         console.log('You analysis has been saved:');
+  //         notify.byText(analysis.username);
+  //       }
+  //    });
+  // });
 };
 
+function analysisComplete (event) {
+
+
+}
 
 function streamableDoneProcessing (data){return data.percent === 100;};
 

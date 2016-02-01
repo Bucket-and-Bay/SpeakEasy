@@ -33,6 +33,8 @@ var submitVideo = function(video){
     })
 }
 
+
+
 var sendCode = function(data) {
   return axios.post(serverURI + '/api/analyze', data)
     .then(function(response) {

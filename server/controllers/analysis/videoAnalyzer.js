@@ -5,7 +5,7 @@ var eventEmitter = require('../events.controller.js');
 module.exports.postVideoForAnalysis = function (url, jobID) {
   var options={
     method    : 'POST',
-    url       : 'https://api.kairos.com/media?source=http:'+url,
+    url       : 'https://api.kairos.com/media?source='+url,
     headers:{
       app_id    : process.env.KAIROS_ID || apiKeys.kairosID,
       app_key   : process.env.KAIROS_KEY || apiKeys.kairosKey
