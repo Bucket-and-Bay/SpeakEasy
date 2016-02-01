@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "postinstall": "webpack -p",
-    "test": "NODE_ENV=production mocha test/ServerSpec.js"
+    "test": "mocha test/ServerSpec.js"
   },
   "repository": {
     "type": "git",
