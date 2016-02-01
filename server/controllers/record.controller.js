@@ -17,8 +17,11 @@ module.exports.recordAnalysis = function(req, res){
       //need beyond verbal analysis
       //do all three of these analysis, then save to mongodb database
       //along with the audio file
-      analysis.analyze(videoAnalysis, req.session.user)
-      alchemy.alchemyAnalysis(data.transcript)
+      analysis.analyze(videoAnalysis, req.session.user);
+      
+      alchemy.alchemyAnalysis(data.transcript).then(function(alchemyResults){
+        console.log(alchemyResults, 'recorded alchemyresults')
+      })
     })
 };
 

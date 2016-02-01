@@ -28,7 +28,10 @@ module.exports.audioAnalysis = function(videoURL){
     watsonAnalysis.watsonSpeechToText(wavFile)         //save watsonResults to db
       .then(function(watsonResults){
         console.log('would run alchemyAnalysis now');
-        alchemy.alchemyAnalysis(watsonResults); //save alchemyResults to db
+        alchemy.alchemyAnalysis(watsonResults)
+          .then(function(alchemyResults){
+            console.log(alchemyResults);
+          }); //save alchemyResults to db
       })
   });
 };
