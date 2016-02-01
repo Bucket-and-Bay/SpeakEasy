@@ -9,11 +9,11 @@ var apiKeys = require('../config.js');
 var audio = require('./audio.controller.js');
 var _ = require ('underscore');
 
+module.exports.analyze = function (shortcode, currentUser) {
+  var jobID = shortcode;
+  var processCount = 0;
+  var analysis = new Analysis ({username : currentUser});
 
-
-module.exports.analyze = function (userData, currentUser) {
-  var jobID = userData.shortcode;
-  var analysis = new Analysis ({username : currentUser, title: userData.title, description: userData.description});
 
   //Polling Function Sytanx: util.poll(cb, interval,condition, eventName, args)
   util.poll(getVideo, 10000, streamableDoneProcessing, 'streamable'+jobID, userData.shortcode);
@@ -37,34 +37,38 @@ module.exports.analyze = function (userData, currentUser) {
     };
     util.poll(videoAnalyzer.getVideoAnalysis, 60000, kairosDoneProcessing, 'kairosComplete'+jobID, options);
   });
-
-  eventEmitter.on('analysisComplete'+jobID, function(API){
-    
-  });
   
-  // eventEmitter.once('alchemyComplete'+jobID, function(results){
-  //   console.log('alchemyAnalysis successful', results);
-  // });
-  // eventEmitter.once('kairosComplete'+jobID, function(response){
-  //    console.log('kairosComplete received', response);
+  eventEmitter.once('kairosComplete'+jobID, function(results){
+    analysis.videoEmotionAnalysis = JSON.stringify(results);
+    console.log('kairosComplete');
+    eventEmitter.emit(jobID);
+  })
+  
+  eventEmitter.once('alchemyComplete'+jobID, function(results){
+    analysis.contentToneAnalysis = JSON.stringify(results);
+    console.log('alchemyComplete');
+    eventEmitter.emit(jobID);
+  });
 
-  //    analysis.videoEmotionAnalysis = JSON.stringify(response);
 
-  //    analysis.save(function(err){
-  //       if(err){
-  //         console.log(err);
-  //       }else{
-  //         console.log('You analysis has been saved:');
-  //         notify.byText(analysis.username);
-  //       }
-  //    });
-  // });
+  eventEmitter.on(jobID, function(response){
+    processCount++;
+    console.log('processCount', processCount);
+    if(processCount===2){
+     console.log('All analysis complete');
+     analysis.save(function(err){
+        if(err){
+          console.log(err);
+        }else{
+          console.log('You analysis has been saved:');
+          notify.byText(analysis.username);
+        }
+     });
+    }
+  });
+
 };
 
-function analysisComplete (event) {
-
-
-}
 
 function streamableDoneProcessing (data){return data.percent === 100;};
 

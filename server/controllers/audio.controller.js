@@ -1,4 +1,3 @@
-
 var Promise = require('bluebird');
 var ffmpeg = require('fluent-ffmpeg');
 var path = require('path');
@@ -48,9 +47,3 @@ module.exports.audioAnalysis = function(videoURL){
       })
   });
 };
-
-
-
-
-
-
