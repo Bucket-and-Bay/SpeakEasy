@@ -7,16 +7,14 @@ var util = require('./utils.js')
 var notify = require('./notification.controller.js');
 var apiKeys = require('../config.js');
 var audio = require('./audio.controller.js');
-var _ = require ('underscore');
 
-module.exports.analyze = function (shortcode, currentUser) {
-  var jobID = shortcode;
+module.exports.analyze = function (userData, currentUser) {
+  var jobID = userData.shortcode;
   var processCount = 0;
-  var analysis = new Analysis ({username : currentUser});
-
+  var analysis = new Analysis ({username : currentUser, title: userData.title, description: userData.description});
 
   //Polling Function Sytanx: util.poll(cb, interval,condition, eventName, args)
-  util.poll(getVideo, 10000, streamableDoneProcessing, 'streamable'+jobID, userData.shortcode);
+  util.poll('https://api.streamable.com/videos/'+jobID, 10000, streamableDoneProcessing, 'streamable'+jobID);
 
   eventEmitter.once('streamable'+jobID, function(data){
     console.log('streamable received');
@@ -36,7 +34,7 @@ module.exports.analyze = function (shortcode, currentUser) {
         app_key   : apiKeys.kairosKey
       }
     };
-    util.poll(videoAnalyzer.getVideoAnalysis, 60000, kairosDoneProcessing, 'kairosComplete'+jobID, options);
+    util.poll(options, 60000, kairosDoneProcessing, 'kairosComplete'+jobID);
   });
   
   eventEmitter.once('kairosComplete'+jobID, function(results){
@@ -74,18 +72,6 @@ module.exports.analyze = function (shortcode, currentUser) {
 function streamableDoneProcessing (data){return data.percent === 100;};
 
 function kairosDoneProcessing (data){return data.status === "Complete";};
-
-function getVideo(shortcode) {
-  return request('https://api.streamable.com/videos/'+shortcode)
-    .then( function (res, err) {
-    if (err) {
-      console.log('ERROR', err);
-    } else {
-      var data = JSON.parse(res);
-      return data;
-    }
-  });
-}
 
 module.exports.getAnalysisData = function(analysisId, response){
   Analysis.findById(analysisId, function(err, analysis){

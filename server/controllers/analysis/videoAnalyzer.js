@@ -23,17 +23,3 @@ module.exports.postVideoForAnalysis = function (url, jobID) {
     }
   });
 }
-
-// https://api.kairos.com/media/id => GET request with time interval until video processing returns object
-module.exports.getVideoAnalysis = function (options) {
-   //make post request to emotional analyzer (kairos)
-  return request(options)
-   .then(function(res,err){
-    if (err) {
-      console.log('ERROR', err);
-    } else {
-      var data = JSON.parse(res);
-      return data;
-    }
-  });
-};
