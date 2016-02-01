@@ -8,10 +8,11 @@ var beyondVerbal = require('./analysis/beyondVerbalAnalysis.js');
 /*
   Extract audio from video URL to .wav File.
     wav File is sent for analysis to Beyond Verbal & Watson Speech to Text
-    results of both are saved to database
+      results of both are saved to database
     text from watson speech to text is sent to alchemy api
-    to get keyword, sentiment and concept analysis
-    results are saved to db
+      to get keyword, sentiment and concept analysis
+      results are saved to db
+    ??personality insights from text??
     ??erase wav and text file??
 */
 

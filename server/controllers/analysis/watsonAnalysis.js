@@ -1,4 +1,4 @@
-0var Promise = require('bluebird');
+var Promise = require('bluebird');
 var fs = require('fs');
 var watson = require('watson-developer-cloud');
 var apiKeys = require('../../config/localConfig.js');

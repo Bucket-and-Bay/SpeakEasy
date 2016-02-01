@@ -2,7 +2,7 @@ var request = require('request-promise');
 var apiKeys = require('../../config.js');
 var eventEmitter = require('../events.controller.js');
 
-module.exports.postVideoForAnalysis = function (url, jobID) {
+module.exports.postVideoForAnalysis = function (url) {
   var options={
     method    : 'POST',
     url       : 'https://api.kairos.com/media?source=http:'+url,
@@ -19,7 +19,7 @@ module.exports.postVideoForAnalysis = function (url, jobID) {
       console.log('ERROR',err);
     }else{
       var videoID = JSON.parse(res).id;
-      eventEmitter.emit('kairosProcessing'+jobID, videoID);
+      eventEmitter.emit('kairosProcessing', videoID);
     }
   });
 }
