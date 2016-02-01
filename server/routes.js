@@ -3,11 +3,14 @@ var analysis = require('./controllers/analysis.controller.js');
 var router = express.Router();
 var user = require('./controllers/user.controller.js');
 var audio = require('./controllers/audio.controller.js');
+var record = require('./controllers/record.controller.js');
 
+router.post('/api/record', function(req,res){
+  record.recordAnalysis(req, res)
+  res.sendStatus(200);
+})
 
 router.post('/api/analyze', function(req, res){
-  console.log(req.session.user);
-  console.log(req.body)
   analysis.analyze(req.body, req.session.user);
   res.status(201);
   res.send("Your video has been successfully uploaded. You will be notified when your analysis is ready.");

@@ -33,6 +33,7 @@ module.exports.watsonSpeechToText = function(audioFile) {
     //create stream
     var recognizeStream = speechToText.createRecognizeStream(params);
     //pipe in audio
+
     fs.createReadStream(audioFile).pipe(recognizeStream);
     // to get strings instead of Buffers from `data` events
     recognizeStream.setEncoding('utf8');

@@ -37,10 +37,10 @@ var Record = React.createClass({
   },
   stop: function(){
     this.state.audio.stopRecording(function(data){
-
+      var audioFile = this.state.audio.getBlob();
       this.refs.audio.src= data;
       this.refs.audio.play();
-      var audioFile = this.state.audio.getBlob();
+      console.log(this.state.audio)
       this.setState({
         audioFile: audioFile
       })
@@ -61,8 +61,9 @@ var Record = React.createClass({
       helpers.submitVideo(this.state.videoFile).then(function(res){
         //send shortcode to local server and then set state back to null for video
         console.log(res,'response line 58 videoblob')
-        helpers.sendCode(res).then(function(){
+        helpers.submitRecorded(res, this.state.audioFile).then(function(){
           console.log('successfully sent code')
+          console.log(res);
         })
       }.bind(this))
     } else {
