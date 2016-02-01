@@ -6,7 +6,7 @@ var alchemy = require('./analysis/alchemyAnalysis.js');
 
 var extractAudio = function(videoURL) {
   return new Promise(function(resolve, reject){
-    var wavFile = path.join(__dirname + '/wavFiles/' + 'file.wav');
+    var wavFile = path.join(__dirname + '/wavFiles/' + jobID'.wav');
     ffmpeg(videoURL)
       .output(wavFile)
       .on('end', function(){
@@ -20,15 +20,15 @@ var extractAudio = function(videoURL) {
   })
 };
 
-module.exports.audioAnalysis = function(videoURL){
-  extractAudio(videoURL)
+module.exports.audioAnalysis = function(videoURL, jobID){
+  extractAudio(videoURL, jobID)
   .then(function(wavFile){
     // beyondVerbal(wavFile);              //save beyondVerbalResults to db
     console.log('line 10 extractAudio promise');
     watsonAnalysis.watsonSpeechToText(wavFile)         //save watsonResults to db
       .then(function(watsonResults){
-        console.log('would run alchemyAnalysis now');
-        alchemy.alchemyAnalysis(watsonResults); //save alchemyResults to db
+        console.log('Watson Results', watsonResults);
+        alchemy.alchemyAnalysis(watsonResults,jobID); //save alchemyResults to db
       })
   });
 };

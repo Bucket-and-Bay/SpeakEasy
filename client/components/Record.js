@@ -57,6 +57,9 @@ var Record = React.createClass({
 
   },
   submit: function(){
+    console.log('line 60 fired');
+    console.log('this.state.videoFile', this.state.videoFile);
+    console.log('this.state.audioFile', this.state.audioFile);
     if(!!this.state.videoFile && !!this.state.audioFile){
       helpers.submitVideo(this.state.videoFile).then(function(res){
         //send shortcode to local server and then set state back to null for video
