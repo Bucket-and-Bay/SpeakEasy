@@ -2,6 +2,7 @@ var React = require('react');
 var helpers = require('../config/helper.js');
 var RecordRTC = require('recordrtc');
 var helpers = require('../config/helper.js');
+var Loader = require('react-loader');
 
 function videoError(){
   console.log('error')
@@ -10,11 +11,13 @@ function videoError(){
 var Record = React.createClass({
   getInitialState: function(){
     return {
+      loaded: true,
       stream: {},
       recorder: {},
       audio: {},
       videoFile: null,
       audioFile: null,
+      audio64: null,
     }
   },
   record: function(){
@@ -40,10 +43,16 @@ var Record = React.createClass({
       var audioFile = this.state.audio.getBlob();
       this.refs.audio.src= data;
       this.refs.audio.play();
-      console.log(this.state.audio)
-      this.setState({
-        audioFile: audioFile
-      })
+      var reader = new window.FileReader();
+      reader.readAsDataURL(audioFile);
+      reader.onloadend = function() {
+        var base64data = reader.result;                
+        this.setState({
+          audioFile: audioFile,
+          audio64: base64data
+        })
+      }.bind(this); 
+     
     }.bind(this));
 
     this.state.recorder.stopRecording(function(data){
@@ -56,22 +65,38 @@ var Record = React.createClass({
     }.bind(this));
 
   },
-  submit: function(){
+  submit: function(e){
+    e.preventDefault();
+    var title = this.refs.title;
+    var description = this.refs.description;
+    this.setState({
+      loaded: false
+    })
+    console.log(this.refs , 'outermost')
     if(!!this.state.videoFile && !!this.state.audioFile){
       helpers.submitVideo(this.state.videoFile).then(function(res){
         //send shortcode to local server and then set state back to null for video
-        console.log(res,'response line 58 videoblob')
-        helpers.submitRecorded(res, this.state.audioFile).then(function(){
-          console.log('successfully sent code')
-          console.log(res);
-        })
+        var data = {
+          shortcode: res,
+          audioFile: this.state.audioFile,
+          audio64: this.state.audio64,
+          title: title.value,
+          description: description.value
+        }
+        helpers.submitRecorded(data).then(function(){
+          title.value = '';
+          description.value = '';
+          this.setState({
+            videoFile: null,
+            audioFile: null,
+            audio64: null,
+            loaded: true
+          });
+        }.bind(this))
       }.bind(this))
     } else {
       alert('error audio and video file')
     }
-  },
-  test: function(){
-    helpers.test();
   },
   componentDidMount: function(){
     var video = this.refs.stream;
@@ -96,16 +121,39 @@ var Record = React.createClass({
     return(
       <div className="container">
         <div className="row">
-          <div className="col s6">
-            <video autoPlay="true" ref='stream'width="400" height="400" muted /> 
+          <div id="videorecorder" className="center-align">
+            <video autoPlay="true" ref='stream'width="400" height="300" muted /> 
           </div>
-          <div className="col s6">
-            <video autoPlay='true'ref='video2' width="400" height="400" controls />
-            <audio ref='audio' autoPlay='true' controls />
-            <button onClick={this.record}>Start</button>
-            <button onClick={this.stop}>Stop</button>
-            <button onClick={this.submit}>Submit</button>
-            <button onClick={this.test}>Test</button>
+        </div>
+        <div className="row center-align">
+          <button onClick={this.record} className="btn btn-info waves-effect waves-light ">Start</button>
+          <button onClick={this.stop} className="btn btn-info waves-effect waves-light">Stop</button>
+        </div>
+        <div className="card-panel">
+          <div className="row">
+            <Loader loaded={this.state.loaded}>
+              <form onSubmit={this.submit}className="col s6">
+                <h5>Video Submission</h5>
+                <h6>We will send you a text when its done!</h6>
+                <br/>
+            
+                <div className="input-field">
+                  <i className="material-icons prefix">view_headline</i>
+                  <input ref="title"type="text" className="validate" placeholder="Video Title"/>
+                </div>
+                <div className="input-field">
+                  <i className="material-icons prefix">description</i>
+                  <input ref="description"type="text" className="validate" placeholder="Description"/>
+                </div>
+                <div className="text-center"> 
+                  <button type="button" type="submit" className="btn btn-info waves-effect waves-light">Submit</button>
+                </div>
+              </form>
+              <div className="col s6">
+                <video autoPlay='true'ref='video2' width="400" height="400" />
+                <audio ref='audio' autoPlay='true' />
+              </div>
+            </Loader>
           </div>
         </div>
       </div>

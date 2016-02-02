@@ -20,8 +20,11 @@ var getText = function(data) {
 
 module.exports.transcript = function(req){
   return new Promise(function(resolve, reject){
+    var title = '';
+    var description = '';
+    var audio64 = '';
     var shortcode = '';
-    var text = [];
+    var text = '';
     var results = [];
     var params = {
       content_type: 'audio/wav',
@@ -37,7 +40,18 @@ module.exports.transcript = function(req){
     });
     form.on('field', function(fieldName, fieldValue){
       //video shortcode here
-      shortcode = fieldValue;
+      if(fieldName === 'video'){
+        shortcode = fieldValue;
+      };
+      if(fieldName === 'audio64'){
+        audio64 = fieldValue;
+      };
+      if(fieldName === 'title'){
+        title = fieldValue;
+      };
+      if(fieldName === 'description'){
+        description = fieldValue;
+      };
     })  
     form.on('part',function(part){
       if (!part.filename) {
@@ -63,7 +77,7 @@ module.exports.transcript = function(req){
       
     })
     form.on('close', function(){
-      console.log('close')
+     
       recognizeStream.setEncoding('utf8');
       recognizeStream.on('results', function(e){
         if(e.results[0].final) {
@@ -72,7 +86,13 @@ module.exports.transcript = function(req){
       });
       recognizeStream.on('connection-close', function() {
         var transcript = getText(results);
-        resolve({transcript: transcript, shortcode:shortcode})
+        resolve({
+          transcript: transcript, 
+          shortcode:shortcode, 
+          audio64: audio64,
+          title: title,
+          description: description
+        })
       });
 
     })

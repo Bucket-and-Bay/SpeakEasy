@@ -3,10 +3,14 @@ var axios = require('axios');
 var serverURI = 'http://localhost:3000';
 // var serverURI = 'https://bab-speakeasy.herokuapp.com';
 
-var submitRecorded = function(video, audio){
+var submitRecorded = function(videoData){
+  console.log(videoData);
   var data = new FormData();
-  data.append('video', video);
-  data.append('audio', audio);
+  data.append('video', videoData.shortcode);
+  data.append('audio', videoData.audioFile);
+  data.append('audio64', videoData.audio64);
+  data.append('title', videoData.title);
+  data.append('description', videoData.description);
   return axios.post(serverURI + '/api/record', data)
     .then(function(response){
       return response;
@@ -106,18 +110,6 @@ var getEmotionData = function(videoEmotionAnalysis) {
   return emotions;
 }
 
-var test = function(){
-  var options = {
-    videoURL: 'https://cdn.streamable.com/video/mp4/5dzi.mp4'
-  }
-  axios.post(serverURI + '/api/speechToText', options)
-    .then(function(response){
-      return response;
-    })
-    .catch(function(err){
-      return err;
-    })
-}
 
 module.exports = {
   submitVideo: submitVideo,
@@ -128,6 +120,5 @@ module.exports = {
   getUserVideos: getUserVideos,
   getVideoAnalysis: getVideoAnalysis,
   getEmotionData: getEmotionData,
-  test: test,
   submitRecorded: submitRecorded 
 };
