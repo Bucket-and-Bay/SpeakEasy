@@ -17,7 +17,7 @@ var fs = require('fs');
     Composite Mood w/ phraseID & composite mood group
 */
 
-// var audioFile = path.join(__dirname + '/wavFiles/' + 'file.wav');
+var audioFile = path.join(__dirname + '/wavFiles/' + 'file.wav');
 var options = {
   url: {
     tokenUrl: 'https://token.beyondverbal.com/token',
@@ -149,7 +149,6 @@ module.exports.beyondVerbalAnalysis = function(audioFile) {
   // getAnalysis('d8e6a4a5-a59f-43ad-98c1-fd963e1f8f80');
 }
 
-module.exports.beyondVerbalAnalysis(audioFile);
 
 
 

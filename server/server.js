@@ -30,3 +30,4 @@ app.listen(port, function () {
 
 app.use('/', router);
 
+module.exports = app;

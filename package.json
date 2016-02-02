@@ -4,8 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "postinstall": "webpack -p",
-    "test": "mocha test/ServerSpec.js"
+    "postinstall": "webpack -p"
   },
   "repository": {
     "type": "git",
@@ -50,6 +49,7 @@
   },
   "devDependencies": {
     "chai": "^3.5.0",
-    "mocha": "^2.4.5"
+    "mocha": "^2.4.5",
+    "supertest": "^1.1.0"
   }
 }
