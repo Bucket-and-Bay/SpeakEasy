@@ -13,6 +13,7 @@ var Video = React.createClass({
                   <div className="card hoverable">
                     <a href={location}>
                       <div className="card-image">
+                        
                         <image src={item.thumbnail_url}/>
                         <span className="card-title">{item.title}</span>
                       </div>
