@@ -3,6 +3,18 @@ var ffmpeg = require('fluent-ffmpeg');
 var path = require('path');
 var watsonAnalysis = require('./analysis/watsonAnalysis.js');
 var alchemy = require('./analysis/alchemyAnalysis.js');
+var beyondVerbal = require('./analysis/beyondVerbalAnalysis.js');
+
+/*
+  Extract audio from video URL to .wav File.
+    wav File is sent for analysis to Beyond Verbal & Watson Speech to Text
+      results of both are saved to database
+    text from watson speech to text is sent to alchemy api
+      to get keyword, sentiment and concept analysis
+      results are saved to db
+    ??personality insights from text??
+    ??erase wav and text file??
+*/
 
 var extractAudio = function(videoURL) {
   return new Promise(function(resolve, reject){
@@ -23,9 +35,9 @@ var extractAudio = function(videoURL) {
 module.exports.audioAnalysis = function(videoURL){
   extractAudio(videoURL)
   .then(function(wavFile){
-    // beyondVerbal(wavFile);              //save beyondVerbalResults to db
+    beyondVerbal.beyondVerbalAnalysis(wavFile);      //save beyondVerbalResults to db
     console.log('line 10 extractAudio promise');
-    watsonAnalysis.watsonSpeechToText(wavFile)         //save watsonResults to db
+    watsonAnalysis.watsonSpeechToText(wavFile)       //save watsonResults to db
       .then(function(watsonResults){
         console.log('would run alchemyAnalysis now');
         alchemy.alchemyAnalysis(watsonResults)
