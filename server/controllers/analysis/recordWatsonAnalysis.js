@@ -80,12 +80,16 @@ module.exports.transcript = function(req){
      
       recognizeStream.setEncoding('utf8');
       recognizeStream.on('results', function(e){
-        if(e.results[0].final) {
-          results.push(e);
+        if(e.results[0]){ 
+          if(e.results[0].final) {
+            results.push(e);
+          } 
         }
       });
       recognizeStream.on('connection-close', function() {
+
         var transcript = getText(results);
+        console.log(transcript);
         resolve({
           transcript: transcript, 
           shortcode:shortcode, 
