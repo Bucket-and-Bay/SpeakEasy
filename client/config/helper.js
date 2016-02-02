@@ -3,10 +3,11 @@ var axios = require('axios');
 var serverURI = 'http://localhost:3000';
 // var serverURI = 'https://bab-speakeasy.herokuapp.com';
 
-var submitRecorded = function(video, audio){
+var submitRecorded = function(video, audio, audio64){
   var data = new FormData();
   data.append('video', video);
   data.append('audio', audio);
+  data.append('audio64', audio64)
   return axios.post(serverURI + '/api/record', data)
     .then(function(response){
       return response;

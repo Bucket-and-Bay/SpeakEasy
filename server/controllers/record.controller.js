@@ -4,8 +4,9 @@ var alchemy = require('./analysis/alchemyAnalysis.js');
 var apiKeys = require('../config/localConfig.js');
 var watsonAnalysis = require('./analysis/recordWatsonAnalysis.js');
 var analysis = require('./analysis.controller.js');
+var multiparty = require('multiparty');
 
-module.exports.recordAnalysis = function(req, res){
+module.exports.recordAnalysis = function(req, res){ 
   watsonAnalysis.transcript(req)
     .then(function(data){
       console.log(data.transcript, 'transcript');

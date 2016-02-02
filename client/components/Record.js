@@ -15,6 +15,7 @@ var Record = React.createClass({
       audio: {},
       videoFile: null,
       audioFile: null,
+      audio64: null,
     }
   },
   record: function(){
@@ -40,10 +41,16 @@ var Record = React.createClass({
       var audioFile = this.state.audio.getBlob();
       this.refs.audio.src= data;
       this.refs.audio.play();
-      console.log(this.state.audio)
-      this.setState({
-        audioFile: audioFile
-      })
+      var reader = new window.FileReader();
+      reader.readAsDataURL(audioFile);
+      reader.onloadend = function() {
+        var base64data = reader.result;                
+        this.setState({
+          audioFile: audioFile,
+          audio64: base64data
+        })
+      }.bind(this); 
+     
     }.bind(this));
 
     this.state.recorder.stopRecording(function(data){
@@ -60,11 +67,15 @@ var Record = React.createClass({
     if(!!this.state.videoFile && !!this.state.audioFile){
       helpers.submitVideo(this.state.videoFile).then(function(res){
         //send shortcode to local server and then set state back to null for video
-        console.log(res,'response line 58 videoblob')
-        helpers.submitRecorded(res, this.state.audioFile).then(function(){
+        helpers.submitRecorded(res, this.state.audioFile, this.state.audio64).then(function(){
           console.log('successfully sent code')
+          this.setState({
+            videoFile: null,
+            audioFile: null,
+            audio64: null,
+          })
           console.log(res);
-        })
+        }.bind(this))
       }.bind(this))
     } else {
       alert('error audio and video file')
