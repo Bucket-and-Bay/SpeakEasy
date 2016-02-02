@@ -3,7 +3,9 @@ var request = require('request-promise')
 var eventEmitter = require('./events.controller.js');
 var videoAnalyzer = require('./analysis/videoAnalyzer.js');
 
-module.exports.poll = function(options, interval,condition, eventName){
+module.exports.poll = function(options, interval,condition){
+ return new Promise (function(resolve, reject){
+  function sub (){
   request(options)
     .then(function(res, err){
       var data = JSON.parse(res);
@@ -11,12 +13,17 @@ module.exports.poll = function(options, interval,condition, eventName){
         console.log(err);
       }else{
         if(condition && condition(data)){
-          eventEmitter.emit(eventName, data);
+          resolve(data);
         }else{
-          console.log('Polling', res.percent);
-          setTimeout(function(){module.exports.poll(options, interval, condition, eventName);}, interval);
+          console.log('Polling');
+          setTimeout(function(){sub(options, interval, condition);}, interval);
         }
       }
     });
-};
+  };
+  sub();
+  });
+
+ }
+
 
