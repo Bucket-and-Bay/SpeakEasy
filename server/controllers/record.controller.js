@@ -8,8 +8,14 @@ var multiparty = require('multiparty');
 
 module.exports.recordAnalysis = function(req, res){ 
   recordWatsonAnalysis.transcript(req)
-    .then(function(data){
-      console.log(data.transcript, 'transcript');
+    .then(function(data, rejected){
+      if(data.transcript.length > 0){
+        alchemy.alchemyAnalysis(data.transcript).then(function(alchemyResults){
+          console.log(alchemyResults, 'recorded alchemyresults')
+        })
+      } else {
+        console.log('watsonToSpeech audio to Text fail');
+      }
       var videoAnalysis = {
         shortcode: data.shortcode,
         title: data.title,
@@ -19,11 +25,8 @@ module.exports.recordAnalysis = function(req, res){
       //need beyond verbal analysis
       //do all three of these analysis, then save to mongodb database
       //along with the audio file
-      analysis.analyze(videoAnalysis, req.session.user);
+       analysis.analyze(videoAnalysis, req.session.user); 
       
-      alchemy.alchemyAnalysis(data.transcript).then(function(alchemyResults){
-        console.log(alchemyResults, 'recorded alchemyresults')
-      })
     })
 };
 
