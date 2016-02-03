@@ -22,14 +22,23 @@ module.exports.analyze = function (userData, currentUser) {
       return kairos.videoAnalysis('https:'+res.files.mp4.url);
     }).then(function(kairosResults){
       console.log('KAIROS SUCCESSFUL');
-      analysis.videoEmotionAnalysis = JSON.stringify(kairosResults);
+      analysis.kairosAnalysis = kairosResults;
       return audio.audioAnalysis(analysis.videoUrl);
-    }).then(function(alchemyResults){
-      console.log('ALCHEMY RESULTS', alchemyResults);
+    }).then(function(audioResults){
+      console.log('ALCHEMY RESULTS', audioResults);
+      analysis.beyondVerbalAnalysis = [audioResults[0], audioResults[1]];
+      analysis.watsonAnalysis = audioResults[3];
+      analysis.alchemyAnalysis = audioResults[2];
+      analysis.save(function(err){
+        if(err){
+         consol.elog(err) 
+       }else{
+        console.log('Analysis saved')
+       }
+      });
     });
  
 };
-
 
 function streamableDoneProcessing (data){return data.percent === 100;};
 
@@ -50,6 +59,6 @@ module.exports.fetchAnalyses = function(currentUser, response){
     '_id videoUrl date title thumbnail_url description')
   .then(function (data) {
     var analysisData = JSON.stringify(data);
-    response.send(200, analysisData);
+    response.status(200).send(analysisData);
   });
 };
