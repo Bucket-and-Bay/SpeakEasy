@@ -41,6 +41,7 @@
     "react-highcharts": "^6.0.0",
     "react-loader": "^2.0.0",
     "react-router": "^1.0.3",
+    "react-utils-helper": "^0.1.4",
     "recordrtc": "^5.2.7",
     "request": "^2.69.0",
     "request-promise": "^2.0.0",

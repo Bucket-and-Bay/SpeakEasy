@@ -30,7 +30,10 @@ var Dashboard = React.createClass({
       this.setState({ video: this.state.userVideos })
     } else {
       this.state.userVideos.forEach(function(item) {
-        if(item.title === query || item.description === query) {
+        var title = item.title.toLowerCase();
+        var description = item.description.toLowerCase();
+        query = query.toLowerCase();
+        if(title.indexOf(query) !== -1 || description.indexOf(query) !== -1) {
           results.push(item);
         }
       });
