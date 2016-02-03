@@ -17,17 +17,19 @@ module.exports.analyze = function (userData, currentUser) {
   util.poll('https://api.streamable.com/videos/'+jobID, 10000, streamableDoneProcessing, 'streamable'+jobID)
     .then(function(res){
       console.log(res)
+      var videoURL = 'https:'+res.files.mp4.url;
       analysis.thumbnail_url = 'https:'+res.thumbnail_url;
       analysis.videoUrl = 'https:'+res.files.mp4.url;
-      return kairos.videoAnalysis('https:'+res.files.mp4.url);
-    }).then(function(kairosResults){
-      console.log('KAIROS SUCCESSFUL');
-      analysis.videoEmotionAnalysis = JSON.stringify(kairosResults);
-      return audio.audioAnalysis(analysis.videoUrl);
-    }).then(function(alchemyResults){
-      console.log('ALCHEMY RESULTS', alchemyResults);
-    });
- 
+      Promise.all([kairos.videoAnalysis(videoURL), audio.audioAnalysis(videoURL)])
+        .then(function(data){
+          
+          console.log(data[1][0], "!!!!!BEYOND VERBAL GETANALYSIS DATA!!");
+          console.log(data[1][1], "!!!!BEYOND VERBAL UPSTREAM DATA!!!")
+          console.log(data[1][2], '!!!!ALCHEMY RESULTS !!!!!');
+          console.log(data[1][3], '!!!!WATSON RESULTS!!!!!!!!')
+          console.log(data[0], 'kairos data');
+        })
+    })
 };
 
 

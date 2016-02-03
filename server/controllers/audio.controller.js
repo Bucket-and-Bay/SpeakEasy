@@ -42,7 +42,7 @@ module.exports.audioAnalysis = function(videoURL){
           console.log(data[0][1], "BEYOND VERBAL UPSTREAM DATA!!!")
           console.log(data[1][0], 'ALCHEMY RESULTS !!!!!');
           console.log(data[1][1], 'WATSON RESULTS!!!!!!!!')
-          resolve(data[0][0], data[0][1], data[1][0], data[1][1]);
+          resolve([data[0][0], data[0][1], data[1][0], data[1][1]]);
         })
     });
   })
