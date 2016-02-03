@@ -16,26 +16,23 @@ module.exports.analyze = function (userData, currentUser) {
   //Polling Function Sytanx: util.poll(options, interval, condition)
   util.poll('https://api.streamable.com/videos/'+jobID, 10000, streamableDoneProcessing, 'streamable'+jobID)
     .then(function(res){
-      console.log(res)
+      var videoURL = 'https:'+res.files.mp4.url;
       analysis.thumbnail_url = 'https:'+res.thumbnail_url;
       analysis.videoUrl = 'https:'+res.files.mp4.url;
-      return kairos.videoAnalysis('https:'+res.files.mp4.url);
-    }).then(function(kairosResults){
-      console.log('KAIROS SUCCESSFUL');
-      analysis.kairosAnalysis = kairosResults;
-      return audio.audioAnalysis(analysis.videoUrl);
-    }).then(function(audioResults){
-      console.log('ALCHEMY RESULTS', audioResults);
-      analysis.beyondVerbalAnalysis = [audioResults[0], audioResults[1]];
-      analysis.watsonAnalysis = audioResults[3];
-      analysis.alchemyAnalysis = audioResults[2];
-      analysis.save(function(err){
-        if(err){
-         consol.elog(err) 
-       }else{
-        console.log('Analysis saved')
-       }
-      });
+      Promise.all([kairos.videoAnalysis(videoURL), audio.audioAnalysis(videoURL)])
+        .then(function(data){
+          analysis.beyondVerbalAnalysis = [data[1][0], data[1][1]];
+          analysis.watsonAnalysis = data[1][3];
+          analysis.alchemyAnalysis = data[1][2];
+          analysis.kairosAnalysis = data[0];
+          analysis.save(function(err){
+            if(err){
+              console.log(err)
+            } else {
+              console.log('Analysis saved')
+            }
+          })
+        })
     });
  
 };
