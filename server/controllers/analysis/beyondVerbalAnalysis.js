@@ -51,9 +51,9 @@ function authenticate(audioFile) {
 };
 //2. Start POST request w/ auth token to initialize analysis session
 function analyzeFile(apiKey, content, token) {
-  console.log('analyzeFile line 49 called');
   var startUrl = options.url.serverUrl + "start";
-  console.log('url: ' + startUrl + ' token: ' + options.token);
+  options.token=token.access_token;
+  console.log('url: ' + startUrl + ' token: ' + token);
 
   var optionsAF = {
     method: 'POST',
@@ -71,7 +71,7 @@ function analyzeFile(apiKey, content, token) {
     .then(function(data, err) {
       if (err) { console.log('Error: ', err) }
       var recID = data.recordingId ? data.recordingId : JSON.parse(data).recordingId;
-      upstreamRequest(recID, content, options.token);
+      upstreamRequest(recID, content, token);
     });
 }
 //3. if response.status is 'success' then Upstream POST request w/ 

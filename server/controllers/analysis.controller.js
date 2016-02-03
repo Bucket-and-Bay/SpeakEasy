@@ -16,10 +16,16 @@ module.exports.analyze = function (userData, currentUser) {
   //Polling Function Sytanx: util.poll(options, interval, condition)
   util.poll('https://api.streamable.com/videos/'+jobID, 10000, streamableDoneProcessing, 'streamable'+jobID)
     .then(function(res){
-      console.log('streamable', res);
+      console.log(res)
+      analysis.thumbnail_url = 'https:'+res.thumbnail_url;
+      analysis.videoUrl = 'https:'+res.files.mp4.url;
       return kairos.videoAnalysis('https:'+res.files.mp4.url);
-    }).then(function(results){
-      console.log('Analysis Controller', results);
+    }).then(function(kairosResults){
+      console.log('KAIROS SUCCESSFUL');
+      analysis.videoEmotionAnalysis = JSON.stringify(kairosResults);
+      return audio.audioAnalysis(analysis.videoUrl);
+    }).then(function(alchemyResults){
+      console.log('ALCHEMY RESULTS', alchemyResults);
     });
  
 };
