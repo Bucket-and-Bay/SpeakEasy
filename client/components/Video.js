@@ -16,6 +16,7 @@ var Video = React.createClass({
                         
                         <image src={item.thumbnail_url}/>
                         <span className="card-title">{item.title}</span>
+
                       </div>
                     </a>
                     <div className="card-content">
@@ -23,7 +24,11 @@ var Video = React.createClass({
                     </div>
                     <div id='time'>
                       Timestamp: {date}
+                      <button id="deletebutton">
+                        <i id="trash"className="material-icons md-18 ">delete</i>
+                      </button>
                     </div>
+
                   </div>
                 </div>
     });
