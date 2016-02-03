@@ -18,7 +18,7 @@ var Navbar = React.createClass({
     if(this.state.loggedIn){
       return [<li key='1'><a href="#/record">Record a Video</a></li>,  <li key='2'><a href="#/dashboard">Your Videos</a></li>, <li key='3'><a href="#/signin" onClick={this.logout}>Logout</a></li>]
     } else {
-      return [<li key='4'><a href="#/signin">Signin</a></li>]
+      return null;
     }
   },
   render: function(){
