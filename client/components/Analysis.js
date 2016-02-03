@@ -17,8 +17,9 @@ var Analysis = React.createClass({
     var that = this;
     helpers.getVideoAnalysis(this.props.params.videoID)
       .then(function(response){
-        var analysis = JSON.parse(response.data.videoEmotionAnalysis).frames;
-        var videosource = "https:" + response.data.videoUrl;
+        console.log(response);
+        var analysis = response.data.kairosAnalysis.frames;
+        var videosource = response.data.videoUrl;
         var analysisData = helpers.getEmotionData(analysis);
         //analysisData.attentionData
         this.setState({
