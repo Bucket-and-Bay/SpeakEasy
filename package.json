@@ -26,6 +26,7 @@
     "body-parser": "^1.14.2",
     "cors": "^2.7.1",
     "events": "^1.1.0",
+    "ewait": "^0.2.1",
     "express": "^4.13.4",
     "express-session": "^1.13.0",
     "fluent-ffmpeg": "^2.0.1",
