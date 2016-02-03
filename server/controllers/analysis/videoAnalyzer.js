@@ -25,15 +25,28 @@ module.exports.videoAnalysis = function(url){
       }
     })
     .then(function(data){
+      var videoID = 'https://api.kairos.com/media/'+JSON.parse(data).id;
         util.poll({
           method    : 'GET',
-          url       : 'https://api.kairos.com/media/'+JSON.parse(data).id,
+          url       : videoID,
           headers:{
             app_id    : apiKeys.kairosID,
             app_key   : apiKeys.kairosKey
           }
         }, 10000,conditions.get)
         .then(function(data){
+          request({
+            method    : 'DELETE',
+            url       : videoID,
+            headers:{
+              app_id    : apiKeys.kairosID,
+              app_key   : apiKeys.kairosKey
+            }
+          }).then(function(res, err){
+            console.log("Kairos Media ID deleted", res);
+          }).catch(function(err){
+            console.log("error deleting Kairos media ID", err);
+          });
           resolve(data)
         });
       });
