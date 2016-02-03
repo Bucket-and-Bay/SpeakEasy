@@ -3,7 +3,7 @@ var Video = require('./Video.js');
 var VideoInput = require('./VideoInput.js');
 var helper = require('../config/helper.js');
 var Searchbar = require('./Searchbar.js');
-
+var Navbar = require('./Navbar.js')
 
 var Dashboard = React.createClass({
   getInitialState: function() {
@@ -42,11 +42,14 @@ var Dashboard = React.createClass({
 
   render: function(){
     return (
-    <div className="container">
-      <Searchbar onSearch={ this.onSearch } />
-      <VideoInput />
-      <div className="row">
-      <Video data={this.state.video}/>
+    <div>
+     <Navbar />
+      <div className="container">
+        <Searchbar onSearch={ this.onSearch } />
+        <VideoInput />
+        <div className="row">
+        <Video data={this.state.video}/>
+        </div>
       </div>
     </div>
     )

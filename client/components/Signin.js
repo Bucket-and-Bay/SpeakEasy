@@ -1,5 +1,6 @@
 var React = require('react');
 var helpers = require('../config/helper.js');
+var Navbar = require('./Navbar.js');
 
 var Signin = React.createClass({
 
@@ -25,25 +26,28 @@ var Signin = React.createClass({
   },
   render: function() {
     return (
-      <div id="signin">
-        <form className="col s12" onSubmit={this.handleSubmit}>
-          <div className="row">
-            <div className="input-field col s12">
-              <input placeholder="Username" ref='username' id="username" type="text" className="validate" />
+      <div>
+        <Navbar />
+        <div id="signin">
+          <form className="col s12" onSubmit={this.handleSubmit}>
+            <div className="row">
+              <div className="input-field col s12">
+                <input placeholder="Username" ref='username' id="username" type="text" className="validate" />
+              </div>
             </div>
-          </div>
-          <div className="row">
-            <div className="input-field col s12">
-              <input placeholder="Password" ref='password' id="password" type="password" className="validate" />
+            <div className="row">
+              <div className="input-field col s12">
+                <input placeholder="Password" ref='password' id="password" type="password" className="validate" />
+              </div>
             </div>
-          </div>
-          <div className="row">
-              <p>Not registered? <a href="#/signup">SignUp...</a></p>
-          </div>
-        <button className="btn waves-effect waves-light" type="submit" name="action">Submit
-          <i className="material-icons right">send</i>
-        </button>
-       </form>
+            <div className="row">
+                <p>Not registered? <a href="#/signup">SignUp...</a></p>
+            </div>
+          <button className="btn waves-effect waves-light" type="submit" name="action">Submit
+            <i className="material-icons right">send</i>
+          </button>
+         </form>
+        </div>
       </div>
     )
   }

@@ -1,7 +1,13 @@
 var React = require('react');
 var helper = require('../config/helper.js');
+var Auth = require('../config/Auth.js');
 
 var Navbar = React.createClass({
+  getInitialState: function(){
+    return {
+      loggedIn: Auth.isLoggedIn()
+    }
+  },
   logout: function(e){
     console.log(this.props.userLoggedIn)
     delete localStorage.token;
@@ -9,7 +15,7 @@ var Navbar = React.createClass({
     helper.logout();
   },
   buttons: function(){
-    if(this.props.userLoggedIn){
+    if(this.state.loggedIn){
       return [<li key='1'><a href="#/record">Record a Video</a></li>,  <li key='2'><a href="#/dashboard">Your Videos</a></li>, <li key='3'><a href="#/signin" onClick={this.logout}>Logout</a></li>]
     } else {
       return [<li key='4'><a href="#/signin">Signin</a></li>]

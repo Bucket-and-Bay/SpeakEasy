@@ -4,21 +4,10 @@ var Navbar = require('./Navbar.js');
 var Auth = require('../config/Auth.js');
 
 var Main = React.createClass({
-  getInitialState: function(){
-    return {
-      loggedIn: Auth.isLoggedIn()
-    }
-  },
-  logout: function(){
-    this.setState({
-      loggedIn: Auth.isLoggedIn()
-    })
-  },
+
   render: function() {
     return (
       <div className="main-container">
-        <Navbar userLoggedIn= {this.state.loggedIn} logout={this.logout} />
-
         <div>{this.props.children}</div>
 
         <footer className="page-footer">
