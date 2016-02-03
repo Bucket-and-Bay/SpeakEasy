@@ -13,9 +13,10 @@ var AnalysisSchema = new mongoose.Schema({
     date     : {type: Date, default: Date.now},
     username : String
   }],
-  videoEmotionAnalysis     : String,
-  speechRecognitionAnalysis: String,
-  contentToneAnalysis      : String
+  kairosAnalysis      : mongoose.Schema.Types.Mixed,
+  beyondVerbalAnalysis: mongoose.Schema.Types.Mixed,
+  watsonAnalysis      : mongoose.Schema.Types.Mixed,
+  alchemyAnalysis     : mongoose.Schema.Types.Mixed
 });
 
 module.exports = mongoose.model('Analysis', AnalysisSchema);

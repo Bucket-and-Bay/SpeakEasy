@@ -22,16 +22,21 @@ module.exports.analyze = function (userData, currentUser) {
       analysis.videoUrl = 'https:'+res.files.mp4.url;
       Promise.all([kairos.videoAnalysis(videoURL), audio.audioAnalysis(videoURL)])
         .then(function(data){
-          
-          console.log(data[1][0], "!!!!!BEYOND VERBAL GETANALYSIS DATA!!");
-          console.log(data[1][1], "!!!!BEYOND VERBAL UPSTREAM DATA!!!")
-          console.log(data[1][2], '!!!!ALCHEMY RESULTS !!!!!');
-          console.log(data[1][3], '!!!!WATSON RESULTS!!!!!!!!')
-          console.log(data[0], 'kairos data');
+          analysis.beyondVerbalAnalysis = [data[1][0], data[1][1]];
+          analysis.watsonAnalysis = data[1][3];
+          analysis.alchemyAnalysis = data[1][2];
+          analysis.kairosAnalysis = data[0];
+          analysis.save(function(err){
+            if(err){
+              console.log(err)
+            } else {
+              console.log('Analysis saved')
+            }
+          })
         })
-    })
+    });
+ 
 };
-
 
 function streamableDoneProcessing (data){return data.percent === 100;};
 
@@ -52,6 +57,6 @@ module.exports.fetchAnalyses = function(currentUser, response){
     '_id videoUrl date title thumbnail_url description')
   .then(function (data) {
     var analysisData = JSON.stringify(data);
-    response.send(200, analysisData);
+    response.status(200).send(analysisData);
   });
 };
