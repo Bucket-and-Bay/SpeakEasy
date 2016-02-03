@@ -48,7 +48,6 @@ var Dashboard = React.createClass({
      <Navbar />
       <div className="container">
         <Searchbar onSearch={ this.onSearch } />
-        <VideoInput />
         <div className="row">
         <Video data={this.state.video}/>
         </div>
