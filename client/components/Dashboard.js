@@ -8,7 +8,8 @@ var Searchbar = require('./Searchbar.js');
 var Dashboard = React.createClass({
   getInitialState: function() {
     return {
-      video: []
+      video: [],
+      userVideos: []
     }
   },
 
@@ -16,13 +17,25 @@ var Dashboard = React.createClass({
     
     helper.getUserVideos().then(function(response){
       this.setState({
-        video: response.data
+        video: response.data,
+        userVideos: response.data
       })
     }.bind(this))
   },
 
   onSearch: function(query) {
     console.log(query, 'query results');
+    var results = [];
+    if(query === '') {
+      this.setState({ video: this.state.userVideos })
+    } else {
+      this.state.userVideos.forEach(function(item) {
+        if(item.title === query || item.description === query) {
+          results.push(item);
+        }
+      });
+      this.setState({ video: results });
+    }
   },
 
   render: function(){
@@ -40,8 +53,3 @@ var Dashboard = React.createClass({
 
 module.exports = Dashboard;
 
-// this.props.data.forEach(function(video) {
-//       if(video.title === queryText || video.description === queryText) {
-//         results.push(video);
-//       }
-//     });
