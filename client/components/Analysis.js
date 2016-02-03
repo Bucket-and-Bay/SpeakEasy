@@ -129,7 +129,12 @@ var Analysis = React.createClass({
           <h4>{this.state.videoTitle}</h4>
         <p>{this.state.videoDate}</p>
         </div>
+          <div className="switch slide">
+        <input type="checkbox" value="true" id="slide" name="check" defaultChecked  onChange={function(){console.log('clicked')}} />
+        <label htmlFor="slide"></label>
+       </div>
         </div>
+
 
         </div>
         <div className="col 12">
@@ -178,6 +183,7 @@ var Analysis = React.createClass({
         </div>
       </div>
     </div>
+
     )
   }
 });
