@@ -24,7 +24,6 @@ var Dashboard = React.createClass({
   },
 
   onSearch: function(query) {
-    console.log(query, 'query results');
     var results = [];
     if(query === '') {
       this.setState({ video: this.state.userVideos })
