@@ -11,7 +11,7 @@ var audio = require('./audio.controller.js');
 module.exports.analyze = function (userData, currentUser) {
   var jobID = userData.shortcode;
   var processCount = 0;
-  var analysis = new Analysis ({username : currentUser, title: userData.title, description: userData.description});
+  var analysis = new Analysis ({username : currentUser, title: userData.title, description: userData.description, isPrivate: true});
 
   //Polling Function Sytanx: util.poll(options, interval, condition)
   util.poll('https://api.streamable.com/videos/'+jobID, 10000, streamableDoneProcessing, 'streamable'+jobID)

@@ -8,6 +8,7 @@ var AnalysisSchema = new mongoose.Schema({
   title    : String,
   description: String,
   thumbnail_url : String,
+  isPrivate: Boolean,
   comments : [{ //TODO: we may need a comments model
     text     : String,
     date     : {type: Date, default: Date.now},
