@@ -1,7 +1,9 @@
 var React = require('react');
 var Graph = require('./Graph.js');
 var helpers = require('../config/helper.js');
-var VideoPlayer = require("./VideoPlayer.js")
+var VideoPlayer = require("./VideoPlayer.js");
+var Navbar = require('./Navbar.js');
+
 var Analysis = React.createClass({
 
   getInitialState: function(){
@@ -44,22 +46,25 @@ var Analysis = React.createClass({
   },
   render: function() {
     return (
-      <div className="container">
-        <div className="row">
-          <div className="col s8">
-              <VideoPlayer data={this.state.videoSource} /> 
-              <div className="graph">
-                <Graph data={this.state.analysis}/>
+      <div>
+      <Navbar />
+        <div className="container">
+          <div className="row">
+            <div className="col s8">
+                <VideoPlayer data={this.state.videoSource} /> 
+                <div className="graph">
+                  <Graph data={this.state.analysis}/>
+                </div>
+            </div>
+            <div className="col s4"> 
+              <div className="video-info">
+                <h4>Project Title</h4>
+                <p>Date updated: January 22, 2016</p>
               </div>
-          </div>
-          <div className="col s4"> 
-            <div className="video-info">
-              <h4>Project Title</h4>
-              <p>Date updated: January 22, 2016</p>
             </div>
           </div>
+    
         </div>
-  
       </div>
     )
   }

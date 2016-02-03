@@ -1,9 +1,11 @@
 var React = require('react');
+var Navbar = require('./Navbar.js')
 
 var Home = React.createClass({
   render: function(){
     return (
     <div>
+      <Navbar />
       <div id="index-banner" className="parallax-container">
         <div className="section no-pad-bot">
           <div className="container">

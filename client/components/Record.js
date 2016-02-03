@@ -3,6 +3,7 @@ var helpers = require('../config/helper.js');
 var RecordRTC = require('recordrtc');
 var helpers = require('../config/helper.js');
 var Loader = require('react-loader');
+var Navbar = require('./Navbar.js');
 
 function videoError(){
   console.log('error')
@@ -119,41 +120,44 @@ var Record = React.createClass({
   },
   render:function(){
     return(
-      <div className="container">
-        <div className="row">
-          <div id="videorecorder" className="center-align">
-            <video autoPlay="true" ref='stream'width="400" height="300" muted /> 
-          </div>
-        </div>
-        <div className="row center-align">
-          <button onClick={this.record} className="btn btn-info waves-effect waves-light ">Start</button>
-          <button onClick={this.stop} className="btn btn-info waves-effect waves-light">Stop</button>
-        </div>
-        <div className="card-panel">
+      <div>
+      <Navbar />
+        <div className="container">
           <div className="row">
-            <Loader loaded={this.state.loaded}>
-              <form onSubmit={this.submit}className="col s6">
-                <h5>Video Submission</h5>
-                <h6>We will send you a text when its done!</h6>
-                <br/>
-            
-                <div className="input-field">
-                  <i className="material-icons prefix">view_headline</i>
-                  <input ref="title"type="text" className="validate" placeholder="Video Title"/>
+            <div id="videorecorder" className="center-align">
+              <video autoPlay="true" ref='stream'width="400" height="300" muted /> 
+            </div>
+          </div>
+          <div className="row center-align">
+            <button onClick={this.record} className="btn btn-info waves-effect waves-light ">Start</button>
+            <button onClick={this.stop} className="btn btn-info waves-effect waves-light">Stop</button>
+          </div>
+          <div className="card-panel">
+            <div className="row">
+              <Loader loaded={this.state.loaded}>
+                <form onSubmit={this.submit}className="col s6">
+                  <h5>Video Submission</h5>
+                  <h6>We will send you a text when its done!</h6>
+                  <br/>
+              
+                  <div className="input-field">
+                    <i className="material-icons prefix">view_headline</i>
+                    <input ref="title"type="text" className="validate" placeholder="Video Title"/>
+                  </div>
+                  <div className="input-field">
+                    <i className="material-icons prefix">description</i>
+                    <input ref="description"type="text" className="validate" placeholder="Description"/>
+                  </div>
+                  <div className="text-center"> 
+                    <button type="button" type="submit" className="btn btn-info waves-effect waves-light">Submit</button>
+                  </div>
+                </form>
+                <div className="col s6">
+                  <video autoPlay='true'ref='video2' width="400" height="400" />
+                  <audio ref='audio' autoPlay='true' />
                 </div>
-                <div className="input-field">
-                  <i className="material-icons prefix">description</i>
-                  <input ref="description"type="text" className="validate" placeholder="Description"/>
-                </div>
-                <div className="text-center"> 
-                  <button type="button" type="submit" className="btn btn-info waves-effect waves-light">Submit</button>
-                </div>
-              </form>
-              <div className="col s6">
-                <video autoPlay='true'ref='video2' width="400" height="400" />
-                <audio ref='audio' autoPlay='true' />
-              </div>
-            </Loader>
+              </Loader>
+            </div>
           </div>
         </div>
       </div>
