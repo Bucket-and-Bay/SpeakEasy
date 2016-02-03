@@ -16,12 +16,16 @@ var Searchbar = React.createClass({
 
   render: function() {
     return (
-      <div className="searchbar">
-        <input
-         type="text"
-         placeholder="Search..."
-         value={ this.state.query }
-         onChange={this.doSearch} />
+      <div className="card-panel">
+        <div className="input-field">
+          <i className="material-icons prefix">search</i>
+          <input
+           type="text"
+           placeholder="Search..."
+           value={ this.state.query }
+           onChange={this.doSearch} />
+        </div>
+
       </div>
     );
   }
