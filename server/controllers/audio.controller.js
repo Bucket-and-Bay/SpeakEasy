@@ -33,18 +33,33 @@ var extractAudio = function(videoURL) {
 };
 
 module.exports.audioAnalysis = function(videoURL){
- console.log('VIDEOURL', videoURL);
- return new Promise(function(resolve,rejct){
-  return extractAudio(videoURL)
-  .then(function(wavFile){
-    beyondVerbal.beyondVerbalAnalysis(wavFile);      //save beyondVerbalResults to db
+  return new Promise(function(resolve, reject){
+    extractAudio(videoURL)
+    .then(function(wavFile){
+      Promise.all([beyondVerbal.beyondVerbalAnalysis(wavFile), watsonAndAlchemy(wavFile)])
+        .then(function(data){
+          console.log(data[0][0], "BEYOND VERBAL GETANALYSIS DATA!!");
+          console.log(data[0][1], "BEYOND VERBAL UPSTREAM DATA!!!")
+          console.log(data[1][0], 'ALCHEMY RESULTS !!!!!');
+          console.log(data[1][1], 'WATSON RESULTS!!!!!!!!')
+          resolve(data[0][0], data[0][1], data[1][0], data[1][1]);
+        })
+    });
+  })
+};
+
+
+
+var watsonAndAlchemy = function(wavFile){
+  return new Promise(function(resolve, reject){
+
     watsonAnalysis.watsonSpeechToText(wavFile)       //save watsonResults to db
       .then(function(watsonResults){
         alchemy.alchemyAnalysis(watsonResults)
           .then(function(alchemyResults){
-            resolve(alchemyResults);
+            console.log(alchemyResults);
+            resolve([alchemyResults, watsonResults])
           }); //save alchemyResults to db
       })
-  });
- });
+  })
 };
