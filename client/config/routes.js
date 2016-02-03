@@ -12,6 +12,7 @@ var IndexRedirect = Router.IndexRedirect;
 var auth = require('./Auth.js');
 var Record = require('../components/Record.js');
 var Home = require('../components/Home.js');
+var Upload = require('../components/VideoInput.js');
 
 
 module.exports =  (
@@ -21,6 +22,7 @@ module.exports =  (
     <Route path='signup' component={Signup} onEnter={auth.loggedIn}/>
     <Route path='signin' component={Signin} onEnter={auth.loggedIn} />
     <Route path ='record' component={Record} onEnter={auth.requireAuth}/>
+    <Route path ='upload' component={Upload} onEnter={auth.requireAuth}/>
     <IndexRoute component={Home} />
   </Route>
 )

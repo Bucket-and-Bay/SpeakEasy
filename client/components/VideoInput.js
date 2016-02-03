@@ -8,10 +8,7 @@ var VideoInput = React.createClass({
   },
   handleSubmit: function(e) {
     e.preventDefault();
-    this.setState({
-      loaded:false
-    });
-    if(this.refs.video.files.length > 0){
+    if(this.checkForm()){
       var video = this.refs.video.files[0];
       var title = this.refs.title.value;
       var description = this.refs.description.value;
@@ -20,6 +17,9 @@ var VideoInput = React.createClass({
         'video/quicktime': true,
         'video/avi': true
       };
+      this.setState({
+        loaded:false
+      });
       if (validVideoFormats[video.type]){
 
         helpers.submitVideo(video)
@@ -55,12 +55,21 @@ var VideoInput = React.createClass({
   handleFile: function() {
     this.refs.line.value = this.refs.video.files[0].name;
   },
+  checkForm: function(){
+    if(this.refs.video.files.length > 0 && this.refs.title.value.length > 0 && this.refs.description.value.length > 0 ){
+      return true;
+    } else {
+      alert('Title and Description is required')
+      return false;
+    }
+  },
   render: function() {
     return (
+        <div className="container">
           <div className="card-panel">
             <div className="row">
               <Loader loaded={this.state.loaded}>
-                <form onSubmit={this.handleSubmit}className="col s12">
+                <form onSubmit={this.handleSubmit} className="col s12">
                   <h5>Video Submission</h5>
                   <h6>We will send you a text when its done!</h6>
                   <br/>
@@ -88,6 +97,7 @@ var VideoInput = React.createClass({
               </Loader>
             </div>
           </div>
+        </div>
     )
   }
 });
