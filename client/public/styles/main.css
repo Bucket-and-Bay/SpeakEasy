@@ -105,8 +105,8 @@ footer.page-footer {
   color: grey;
 }
 .slide {
-  width: 114px;
-  height: 26px;
+  width: 150px;
+  height: 30px;
   background: #EAECEE;
   margin: 20px auto;
   position: relative;
@@ -134,7 +134,7 @@ footer.page-footer {
 }
 .slide label {
     display: block;
-    width: 54px;
+    width: 60px;
     height: 20px;
     cursor: pointer;
     position: absolute;
@@ -151,16 +151,12 @@ footer.page-footer {
     visibility: hidden;
 }
 .slide input[type=checkbox]:checked + label {
-      left: 56px;
+      left: 95px;
 }
-.switch {
-  margin-bottom: 4rem;
-}
-
-
 
 #deletebutton{
   float: right;
   border: none;
   background: none;
 }
+
