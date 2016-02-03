@@ -9,9 +9,8 @@ var Navbar = React.createClass({
     }
   },
   logout: function(e){
-    console.log(this.props.userLoggedIn)
+
     delete localStorage.token;
-    this.props.logout();
     helper.logout();
   },
   buttons: function(){

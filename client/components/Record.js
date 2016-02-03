@@ -68,13 +68,12 @@ var Record = React.createClass({
   },
   submit: function(e){
     e.preventDefault();
-    var title = this.refs.title;
-    var description = this.refs.description;
-    this.setState({
-      loaded: false
-    })
-    console.log(this.refs , 'outermost')
-    if(!!this.state.videoFile && !!this.state.audioFile){
+    if(this.checkForm()){
+      var title = this.refs.title;
+      var description = this.refs.description;
+      this.setState({
+        loaded: false
+      });
       helpers.submitVideo(this.state.videoFile).then(function(res){
         //send shortcode to local server and then set state back to null for video
         var data = {
@@ -95,9 +94,7 @@ var Record = React.createClass({
           });
         }.bind(this))
       }.bind(this))
-    } else {
-      alert('error audio and video file')
-    }
+    } 
   },
   componentDidMount: function(){
     var video = this.refs.stream;
@@ -117,6 +114,14 @@ var Record = React.createClass({
     video.src = '';
     this.state.stream.getAudioTracks()[0].stop()
     this.state.stream.getVideoTracks()[0].stop()
+  },
+  checkForm: function(){
+    if(!!this.state.videoFile && !!this.state.audioFile && this.refs.title.value.length > 0 && this.refs.description.value.length > 0 ){
+      return true;
+    } else {
+      alert('Title and Description is required')
+      return false;
+    }
   },
   render:function(){
     return(

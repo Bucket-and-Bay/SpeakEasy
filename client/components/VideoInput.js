@@ -1,6 +1,7 @@
 var React = require('react');
 var helpers = require('../config/helper.js');
 var Loader = require('react-loader');
+var Navbar = require('./Navbar.js');
 
 var VideoInput = React.createClass({
   getInitialState: function () {
@@ -53,7 +54,17 @@ var VideoInput = React.createClass({
     });
   },
   handleFile: function() {
-    this.refs.line.value = this.refs.video.files[0].name;
+    var video = this.refs.video.files[0];
+    var videoplayer = this.refs.videoplayer;
+    this.refs.line.value = video.name;
+    console.log(video);
+    var reader = new FileReader();
+    reader.onloadend = function(e){
+
+      videoplayer.src = reader.result;
+      videoplayer.load();
+    }
+    reader.readAsDataURL(video);
   },
   checkForm: function(){
     if(this.refs.video.files.length > 0 && this.refs.title.value.length > 0 && this.refs.description.value.length > 0 ){
@@ -65,11 +76,13 @@ var VideoInput = React.createClass({
   },
   render: function() {
     return (
+      <div>
+        <Navbar />
         <div className="container">
           <div className="card-panel">
             <div className="row">
               <Loader loaded={this.state.loaded}>
-                <form onSubmit={this.handleSubmit} className="col s12">
+                <form onSubmit={this.handleSubmit} className="col s6">
                   <h5>Video Submission</h5>
                   <h6>We will send you a text when its done!</h6>
                   <br/>
@@ -94,10 +107,14 @@ var VideoInput = React.createClass({
                     <button type="button" type="submit" className="btn btn-info waves-effect waves-light">Submit</button>
                   </div>
                 </form>
+                <div className="col s6">
+                  <video autoPlay='true' ref='videoplayer' width="400" height="400" controls />
+                </div>
               </Loader>
             </div>
           </div>
         </div>
+      </div>
     )
   }
 });

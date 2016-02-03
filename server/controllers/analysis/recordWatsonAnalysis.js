@@ -33,7 +33,7 @@ module.exports.transcript = function(req){
     };
     console.log('running watsonAnalysis');
     var recognizeStream = speechToText.createRecognizeStream(params);
-    var form = new multiparty.Form();
+    var form = new multiparty.Form({maxFieldsSize : 100 * 1024 * 1024});
     form.parse(req)
     form.on('error', function(err) {
     console.log('Error parsing form: ' + err.stack);
