@@ -2,6 +2,7 @@ var Promise = require('bluebird');
 var apiKeys = require('../../config.js');
 var request = require('request-promise');
 var AlchemyAPI = require('../../alchemyapi.js');
+
 var alchemyapi = new AlchemyAPI();
 
 module.exports.alchemyAnalysis = function(watsonText) { 
