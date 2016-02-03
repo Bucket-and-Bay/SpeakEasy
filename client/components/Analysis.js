@@ -121,21 +121,23 @@ var Analysis = React.createClass({
       <Navbar />
         <div className="container">
           <div className="row">
-          <div className="col s8">
-          <VideoPlayer data={this.state.videoSource} />
-        </div>
-        <div className="col s4">
-          <div className="video-info">
-          <h4>{this.state.videoTitle}</h4>
-        <p>{this.state.videoDate}</p>
-        </div>
-          <div className="switch slide">
-        <input type="checkbox" value="true" id="slide" name="check" defaultChecked  onChange={function(){console.log('clicked')}} />
-        <label htmlFor="slide"></label>
-       </div>
-        </div>
-
-
+            <div className="col s8">
+              <VideoPlayer data={this.state.videoSource} />
+            </div>
+          <div className="col s4">
+            <div className="video-info">
+              <h4>{this.state.videoTitle}</h4>
+              <p>{this.state.videoDate}</p>
+              <div className="switch">
+                <label>
+                  Private
+                  <input type="checkbox" />
+                  <span className="lever"></span>
+                  Public
+                </label>
+              </div>
+            </div>
+          </div>
         </div>
         <div className="col 12">
           <Tabs onSelect={this.handleSelect} selectedIndex={2}>
@@ -183,7 +185,6 @@ var Analysis = React.createClass({
         </div>
       </div>
     </div>
-
     )
   }
 });
