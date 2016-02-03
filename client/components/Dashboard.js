@@ -1,6 +1,5 @@
 var React = require('react');
 var Video = require('./Video.js');
-var VideoInput = require('./VideoInput.js');
 var helper = require('../config/helper.js');
 var Searchbar = require('./Searchbar.js');
 var Navbar = require('./Navbar.js')
@@ -29,6 +28,9 @@ var Dashboard = React.createClass({
       this.setState({ video: this.state.userVideos })
     } else {
       this.state.userVideos.forEach(function(item) {
+        if (!item.title || !item.description) {
+          return;
+        }
         var title = item.title.toLowerCase();
         var description = item.description.toLowerCase();
         query = query.toLowerCase();

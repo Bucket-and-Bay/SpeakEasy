@@ -8,6 +8,7 @@ var Main = React.createClass({
   render: function() {
     return (
       <div className="main-container">
+
         <div>{this.props.children}</div>
 
         <footer className="page-footer">
