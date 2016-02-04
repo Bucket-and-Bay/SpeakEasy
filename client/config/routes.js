@@ -13,6 +13,7 @@ var auth = require('./Auth.js');
 var Record = require('../components/Record.js');
 var Home = require('../components/Home.js');
 var Upload = require('../components/VideoInput.js');
+var Public = require('../components/PublicVideos.js');
 
 
 module.exports =  (
@@ -21,8 +22,9 @@ module.exports =  (
     <Route path='analysis/:videoID' component={Analysis} onEnter={auth.requireAuth}/> 
     <Route path='signup' component={Signup} onEnter={auth.loggedIn}/>
     <Route path='signin' component={Signin} onEnter={auth.loggedIn} />
-    <Route path ='record' component={Record} onEnter={auth.requireAuth}/>
-    <Route path ='upload' component={Upload} onEnter={auth.requireAuth}/>
+    <Route path='record' component={Record} onEnter={auth.requireAuth}/>
+    <Route path='upload' component={Upload} onEnter={auth.requireAuth}/>
+    <Route path='public' component={Public} onEnter={auth.requireAuth}/>
     <IndexRoute component={Home} />
   </Route>
 )

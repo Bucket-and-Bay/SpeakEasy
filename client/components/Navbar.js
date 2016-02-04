@@ -15,7 +15,7 @@ var Navbar = React.createClass({
   },
   buttons: function(){
     if(this.state.loggedIn){
-      return [<li key='1'><a href="#/upload">Upload a Video</a></li>, <li key='2'><a href="#/record">Record a Video</a></li>,  <li key='3'><a href="#/dashboard">Your Videos</a></li>, <li key='4'><a href="#/signin" onClick={this.logout}>Logout</a></li>]
+      return [<li key='1'><a href="#/upload">Upload a Video</a></li>, <li key='2'><a href="#/record">Record a Video</a></li>,  <li key='3'><a href="#/dashboard">Your Videos</a></li>, <li key='4'><a href="#/public">Public Videos</a></li>, <li key='5'><a href="#/signin" onClick={this.logout}>Logout</a></li>]
     } else {
       return [<li key='1'><a href="#/signup">Signup</a></li>, <li key='2'><a href="#/signin">Log In</a></li>]
     }
