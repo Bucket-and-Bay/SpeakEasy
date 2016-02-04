@@ -5,7 +5,8 @@ var PrivateSwitch = React.createClass({
 
   getInitialState: function() {
     return {
-      isPrivate: this.props.data
+      isPrivate: this.props.data[0],
+      videoId: this.props.data[1]
     }
   },
 

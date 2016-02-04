@@ -54,17 +54,7 @@ var VideoInput = React.createClass({
     });
   },
   handleFile: function() {
-    var video = this.refs.video.files[0];
-    var videoplayer = this.refs.videoplayer;
-    this.refs.line.value = video.name;
-    console.log(video);
-    var reader = new FileReader();
-    reader.onloadend = function(e){
-
-      videoplayer.src = reader.result;
-      videoplayer.load();
-    }
-    reader.readAsDataURL(video);
+    this.refs.line.value = this.refs.video.files[0].name;
   },
   checkForm: function(){
     if(this.refs.video.files.length > 0 && this.refs.title.value.length > 0 && this.refs.description.value.length > 0 ){
@@ -81,7 +71,8 @@ var VideoInput = React.createClass({
         <div className="container">
           <div className="card-panel">
             <div className="row">
-                <form onSubmit={this.handleSubmit} className="col s6">
+              <Loader loaded={this.state.loaded}>
+                <form onSubmit={this.handleSubmit} className="col s12">
                   <h5>Video Submission</h5>
                   <h6>We will send you a text when its done!</h6>
                   <br/>
@@ -106,6 +97,7 @@ var VideoInput = React.createClass({
                     <button type="button" type="submit" className="btn btn-info waves-effect waves-light">Submit</button>
                   </div>
                 </form>
+              </Loader>
             </div>
           </div>
         </div>

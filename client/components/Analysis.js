@@ -24,7 +24,8 @@ var Analysis = React.createClass({
       beyondVerbalDataGroup11: [],
       watsonFullScript: '',
       alchemyAPIConcepts: [],
-      isPrivate: ''
+      isPrivate: '',
+      videoId: ''
     }
   },
 
@@ -113,14 +114,15 @@ var Analysis = React.createClass({
               name: 'Valence'
             }]
           },
-          isPrivate: response.data.isPrivate
+          isPrivate: response.data.isPrivate,
+          videoId: response.data['_id']
         })
       }.bind(this))
   },
   render: function() {
     return (
       <div>
-      <Navbar />
+        <Navbar />
         <div className="container">
           <div className="row">
             <div className="col s8">
@@ -130,7 +132,7 @@ var Analysis = React.createClass({
             <div className="video-info">
               <h4>{this.state.videoTitle}</h4>
               <p>{this.state.videoDate}</p>
-              <Switch data={this.state.isPrivate} />
+              <Switch data={[this.state.isPrivate, this.state.videoId]} />
             </div>
           </div>
         </div>
