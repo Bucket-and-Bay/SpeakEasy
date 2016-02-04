@@ -3,7 +3,6 @@ var apiKeys = require('../../config/localConfig.js');
 var request = require('request-promise');
 var path = require('path');
 var querystring = require('querystring');
-var requests = require('request');
 var fs = require('fs');
 
 /*
@@ -82,13 +81,12 @@ function analyzeFile(content, token) {
 //   auth token and wav file to get response(response.analysisSegments)
 function upstreamRequest(recID, wavFile, token) {
   return new Promise(function(resolve, reject){
-
     console.log('line 84 upstreamRequest called. recID: ', recID);
     var upstreamUrl = options.url.serverUrl + recID;
-    fs.readFile(wavFile, function(err, data) {
+    fs.readFile(wavFile, function(err, response) {
       console.log('readfile called line 88');
-      if (err) { 
-        console.log('error reading file: ', err) 
+      if (err) {
+        console.log('error reading file: ', err)
       } else {
         var optionsUR = {
           method: 'POST',
@@ -96,16 +94,17 @@ function upstreamRequest(recID, wavFile, token) {
           headers: {
             'Authorization': "Bearer " + token.access_token
           },
-          body: data
-          };  
-          request(optionsUR)
-            .then(function(data){
+          body: response
+        };
+
+        request(optionsUR)
+          .then(function(data){
             resolve(data)
-      
-            })
-            .catch(function(err){
-              console.log('Err from upstreamRequest', err);
-            });    
+
+          })
+          .catch(function(err){
+            console.log('Err from upstreamRequest', err);
+          });
       }
     });
   })
@@ -147,8 +146,12 @@ module.exports.beyondVerbalAnalysis = function(audioFile) {
 
     authenticate(audioFile).then(function(token){
       analyzeFile(audioFile, token).then(function(recID){
+        console.log("ANLYSIS FILE DONE");
+
         upstreamRequest(recID, audioFile, token).then(function(upstreamData){
+          console.log("UPSTREAM REQUEST");
           getAnalysis(recID, 10000, token).then(function(getAnalysisData){
+            console.log('DONE WITH BEYONDVERBAL');
             //get Analysisdata
             resolve([getAnalysisData, upstreamData])
           })
