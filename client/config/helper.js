@@ -129,7 +129,6 @@ var getBeyondVerbalData = function (bvData) {
   //response.data.beyondVerbalAnalysis[0].result.analysisSegments[0].analysis.Arousal.Value
   var emotions = {
     arousalData: 0,
-    //audioQData: [],
     moodDataComp: [],
     moodDataGroup11: [],
     temperData: 0,
@@ -138,14 +137,16 @@ var getBeyondVerbalData = function (bvData) {
   var count = 0;
   bvData.analysisSegments.forEach(function (item) {
 
-    emotions.moodDataComp.push(item.analysis.Mood.Composite.Primary.Phrase);
-    emotions.moodDataGroup11.push(item.analysis.Mood.Group11.Primary.Phrase);
+    emotions.moodDataComp.push(" " + item.analysis.Mood.Composite.Primary.Phrase + " ");
+    emotions.moodDataGroup11.push(" " +  item.analysis.Mood.Group11.Primary.Phrase + " ");
 
     emotions.arousalData += (Number(item.analysis.Arousal.Value));
     emotions.temperData += (Number(item.analysis.Temper.Value));
     emotions.valenceData += (Number(item.analysis.Valence.Value));
     count++;
   });
+
+
 
   emotions.arousalData = [emotions.arousalData / count];
   emotions.temperData = [emotions.temperData / count];
@@ -154,6 +155,21 @@ var getBeyondVerbalData = function (bvData) {
   return emotions;
 }
 
+var getAlchemyData = function (alchemyData) {
+  //var concepts = {};
+  var conceptsText = [];
+  var conceptsWebsites = [];
+
+
+  alchemyData.concepts.forEach(function (item) {
+    //concepts[item.text] = item.website || '';
+    conceptsText.push(item.text);
+    conceptsWebsites.push(item.website || '');
+  });
+  var concepts = [" " + conceptsText + " ", " " + conceptsWebsites + " "];
+  console.log(concepts);
+  return concepts;
+};
 
 module.exports = {
   submitVideo: submitVideo,
@@ -167,5 +183,6 @@ module.exports = {
   submitRecorded: submitRecorded,
   deleteVideo: deleteVideo,
   getBeyondVerbalData: getBeyondVerbalData,
+  getAlchemyData: getAlchemyData
 };
 
