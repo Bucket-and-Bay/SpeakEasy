@@ -16,7 +16,6 @@ module.exports.analyze = function (userData, currentUser) {
   //Polling Function Sytanx: util.poll(options, interval, condition)
   util.poll('https://api.streamable.com/videos/'+jobID, 10000, streamableDoneProcessing, 'streamable'+jobID)
     .then(function(res){
-      console.log(res)
       var videoURL = 'https:'+res.files.mp4.url;
       analysis.thumbnail_url = 'https:'+res.thumbnail_url;
       analysis.videoUrl = 'https:'+res.files.mp4.url;
