@@ -123,8 +123,38 @@ var deleteVideo = function(videoID){
     .catch(function(err){
       throw err;
     })
-
 }
+
+var getBeyondVerbalData = function (bvData) {
+  //response.data.beyondVerbalAnalysis[0].result.analysisSegments[0].analysis.Arousal.Value
+  var emotions = {
+    arousalData: 0,
+    //audioQData: [],
+    moodDataComp: [],
+    moodDataGroup11: [],
+    temperData: 0,
+    valenceData: 0
+  }
+  var count = 0;
+  bvData.analysisSegments.forEach(function (item) {
+
+    emotions.moodDataComp.push(item.analysis.Mood.Composite.Primary.Phrase);
+    emotions.moodDataGroup11.push(item.analysis.Mood.Group11.Primary.Phrase);
+
+    emotions.arousalData += (Number(item.analysis.Arousal.Value));
+    emotions.temperData += (Number(item.analysis.Temper.Value));
+    emotions.valenceData += (Number(item.analysis.Valence.Value));
+    count++;
+  });
+
+  emotions.arousalData = [emotions.arousalData / count];
+  emotions.temperData = [emotions.temperData / count];
+  emotions.valenceData = [emotions.valenceData / count];
+
+  return emotions;
+}
+
+
 module.exports = {
   submitVideo: submitVideo,
   sendCode: sendCode,
@@ -135,5 +165,7 @@ module.exports = {
   getVideoAnalysis: getVideoAnalysis,
   getEmotionData: getEmotionData,
   submitRecorded: submitRecorded,
-  deleteVideo: deleteVideo 
+  deleteVideo: deleteVideo,
+  getBeyondVerbalData: getBeyondVerbalData,
 };
+

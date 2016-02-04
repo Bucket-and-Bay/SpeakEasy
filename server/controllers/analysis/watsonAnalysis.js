@@ -48,10 +48,9 @@ module.exports.watsonSpeechToText = function(audioFile) {
     });
 
     recognizeStream.on('connection-close', function() {
-      var watsonResults = results;
-      var transcript = getText(watsonResults);
-      //TODO: save watsonResults to db
-      resolve(transcript);
+      var transcript = getText(results);
+      var watsonResults = [results, transcript];
+      resolve(watsonResults);
     });
   });
 };
