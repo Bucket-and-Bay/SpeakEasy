@@ -22,7 +22,8 @@ var Analysis = React.createClass({
       beyondVerbalAnalysis: {},
       beyondVerbalDataComp: [],
       beyondVerbalDataGroup11: [],
-      watsonFullScript: ''
+      watsonFullScript: '',
+      alchemyAPIConcepts: []
     }
   },
 
@@ -47,6 +48,10 @@ var Analysis = React.createClass({
         // Watson Script
         var watsonScript = response.data.watsonAnalysis[1];
 
+        // Alchemy API
+        var concepts = response.data.alchemyAnalysis;
+        var conceptsData = helpers.getAlchemyData(concepts);
+
         this.setState({
           videoSource: videosource,
           videoTitle: response.data.title,
@@ -54,6 +59,7 @@ var Analysis = React.createClass({
           beyondVerbalDataComp: beyondVerbalAnalysisData.moodDataComp,
           beyondVerbalDataGroup11: beyondVerbalAnalysisData.moodDataGroup11,
           watsonFullScript: watsonScript,
+          alchemyAPIConcepts: conceptsData,
           kairosAnalysis: {
             title: {
               text: 'Kairos Video Analysis'
@@ -161,6 +167,7 @@ var Analysis = React.createClass({
 
             <TabPanel>
               <h5>Alchemy</h5>
+              {this.state.alchemyAPIConcepts}
             </TabPanel>
 
             <TabPanel>
