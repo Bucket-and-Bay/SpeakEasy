@@ -1,3 +1,4 @@
+
 node_modules/
 bower_components/
 *.log
@@ -5,6 +6,7 @@ client/node_modules/
 build/
 dist/
 server/config
+server/controllers/record
 .idea/
 .floo
 .flooignore
