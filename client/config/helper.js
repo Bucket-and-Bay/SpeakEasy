@@ -8,7 +8,6 @@ var submitRecorded = function(videoData){
   var data = new FormData();
   data.append('video', videoData.shortcode);
   data.append('audio', videoData.audioFile);
-  data.append('audio64', videoData.audio64);
   data.append('title', videoData.title);
   data.append('description', videoData.description);
   return axios.post(serverURI + '/api/record', data)

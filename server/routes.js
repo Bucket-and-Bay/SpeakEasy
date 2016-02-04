@@ -4,9 +4,22 @@ var router = express.Router();
 var user = require('./controllers/user.controller.js');
 var audio = require('./controllers/audio.controller.js');
 var record = require('./controllers/record.controller.js');
+var path = require('path');
+var wavFile = path.join(__dirname + '/controllers/record/');
+var multer  = require('multer')
+var upload = multer({ dest: wavFile })
+var fs = require('fs')
 
-router.post('/api/record', function(req,res){
-  record.recordAnalysis(req, res)
+router.post('/api/record', upload.any(), function(req,res){
+  var analysisData = req.body;  
+  var audioFile = wavFile+req.files[0].filename +'.wav';
+  fs.rename(wavFile+req.files[0].filename, audioFile, function(err){
+    if(err){
+      console.log(err)
+    } else{
+      record.recordAnalysis(audioFile, analysisData);
+    }
+  })
   res.sendStatus(200);
 })
 

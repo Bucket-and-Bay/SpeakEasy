@@ -1,36 +1,23 @@
 var Promise = require('bluebird');
-var watsonAnalysis = require('./analysis/watsonAnalysis.js');
-var alchemy = require('./analysis/alchemyAnalysis.js');
 var apiKeys = require('../config/localConfig.js');
-var recordWatsonAnalysis = require('./analysis/recordWatsonAnalysis.js');
 var analysis = require('./analysis.controller.js');
-var multiparty = require('multiparty');
+var util = require('./utils.js');
+var Analysis = require('../models/analysis.model.js');
 
-module.exports.recordAnalysis = function(req, res){ 
-  recordWatsonAnalysis.transcript(req)
-    .then(function(data, rejected){
-      if(data.transcript.length > 0){
-        alchemy.alchemyAnalysis(data.transcript).then(function(alchemyResults){
-          console.log(alchemyResults, 'recorded alchemyresults')
-        })
-      } else {
-        console.log('watsonToSpeech audio to Text fail');
-      }
-      var videoAnalysis = {
-        shortcode: data.shortcode,
-        title: data.title,
-        description: data.description,
-      }
-      //data.audio64 is the audiofile string in base 64
-      //need beyond verbal analysis
-      //do all three of these analysis, then save to mongodb database
-      //along with the audio file
-       analysis.analyze(videoAnalysis, req.session.user); 
-      
+module.exports.recordAnalysis = function(audioFile, data, user){ 
+  var shortcode = data.video;
+  var analysis = new Analysis ({username : user, title: data.title, description: data.description});
+  util.poll('https://api.streamable.com/videos/'+shortcode, 10000, streamableDoneProcessing, 'streamable'+shortcode)
+    .then(function(res){
+      var videoURL = 'https:'+res.files.mp4.url;
+
     })
+
 };
 
 
 
 
 
+
+function streamableDoneProcessing (data){return data.percent === 100;};
