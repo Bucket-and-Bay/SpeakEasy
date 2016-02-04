@@ -152,7 +152,7 @@ var getBeyondVerbalData = function (bvData) {
   emotions.valenceData = [emotions.valenceData / count];
 
   return emotions;
-}
+};
 
 var getAlchemyData = function (alchemyData) {
   //var concepts = {};
@@ -170,16 +170,23 @@ var getAlchemyData = function (alchemyData) {
   return concepts;
 };
 
-var putPrivacy = function(isPrivate, id) {
-  console.log('putPrivacy', isPrivate);
-  // return axios.put(serverURI + '/api/updatePrivacy' + id) {
-  //   .then(function(response) {
-  //     return response;
-  //   })
-  //   .catch(function(err) {
-  //     throw err;
-  //   })
-  // }
+
+var putPrivacy = function(isPrivate, videoId) {
+  console.log('putPrivacy', isPrivate, videoId);
+  if (isPrivate === true || isPrivate === false) {
+    console.log('PUT REQUEST ' + isPrivate + ' NOW')
+    var options = {
+      isPrivate: isPrivate,
+      videoId: videoId
+    }
+    return axios.put(serverURI + '/api/updatePrivacy/' + videoId, options)
+      .then(function(response) {
+        return response;
+      })
+      .catch(function(err) {
+        throw err;
+      })
+  }
 };
 
 

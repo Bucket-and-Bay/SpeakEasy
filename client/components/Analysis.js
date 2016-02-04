@@ -25,7 +25,7 @@ var Analysis = React.createClass({
       watsonFullScript: '',
       alchemyAPIConcepts: [],
       isPrivate: '',
-      videoId: ''
+      videoId: this.props.params.videoID
     }
   },
 
@@ -132,7 +132,7 @@ var Analysis = React.createClass({
             <div className="video-info">
               <h4>{this.state.videoTitle}</h4>
               <p>{this.state.videoDate}</p>
-              <Switch data={[this.state.isPrivate, this.state.videoId]} />
+              <Switch data={this.state} />
             </div>
           </div>
         </div>

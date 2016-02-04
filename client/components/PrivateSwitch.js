@@ -4,17 +4,25 @@ var helper = require('../config/helper.js');
 var PrivateSwitch = React.createClass({
 
   getInitialState: function() {
+    console.log(this.props.data, 'Initial state data from analysis')
     return {
-      isPrivate: this.props.data[0],
-      videoId: this.props.data[1]
+      isPrivate: this.props.data.isPrivate,
+      videoId: this.props.data.videoId
     }
+  },
+
+  componentWillMount: function() {
+    this.setState({
+      isPrivate: this.props.data.isPrivate,
+      videoId: this.props.data.videoId
+    })
   },
 
   handleClick: function(e) {
     console.log('isPrivate', this.state.isPrivate);
     console.log('checked', e.target.checked);
     this.setState({ isPrivate: e.target.checked });
-    helper.putPrivacy(this.state.isPrivate, 313123);
+    helper.putPrivacy(this.state.isPrivate, this.state.videoId);
   },
 
   render: function() {
@@ -26,7 +34,7 @@ var PrivateSwitch = React.createClass({
                 name={this.props.name} 
                 checked={this.state.isPrivate} 
                 onClick={this.handleClick} 
-                value={this.props.value} />
+              />
               <span className="lever"></span>
               Public
             </label>

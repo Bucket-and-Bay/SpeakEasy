@@ -45,8 +45,7 @@ router.post('/api/speechToText', function(req, res){
 });
 
 router.put('/api/updatePrivacy/:id', function(req, res) {
-  console.log(req);
-  // video.updateVideo(req.body.isPrivate);
+  video.updateVideo(req.body, res);
 });
 
 
