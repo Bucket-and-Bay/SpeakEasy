@@ -57,6 +57,10 @@ var Dashboard = React.createClass({
         video: currentVideos,
         userVideos: videos
       })
+      helper.deleteVideo(videoID)
+        .then(function(response){
+          console.log('successfully deleted from database')
+        })
     } 
   },
   render: function(){

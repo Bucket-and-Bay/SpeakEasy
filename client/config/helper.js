@@ -112,7 +112,19 @@ var getEmotionData = function(videoEmotionAnalysis) {
   return emotions;
 }
 
+var deleteVideo = function(videoID){
+  var options = {
+    videoID: videoID
+  };
+  return axios.post(serverURI + '/api/delete', options)
+    .then(function(response){
+      return response
+    })
+    .catch(function(err){
+      throw err;
+    })
 
+}
 module.exports = {
   submitVideo: submitVideo,
   sendCode: sendCode,
@@ -122,5 +134,6 @@ module.exports = {
   getUserVideos: getUserVideos,
   getVideoAnalysis: getVideoAnalysis,
   getEmotionData: getEmotionData,
-  submitRecorded: submitRecorded 
+  submitRecorded: submitRecorded,
+  deleteVideo: deleteVideo 
 };

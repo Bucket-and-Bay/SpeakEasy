@@ -60,3 +60,20 @@ module.exports.fetchAnalyses = function(currentUser, response){
     response.status(200).send(analysisData);
   });
 };
+
+module.exports.delete = function(req, res){
+  var id = req.body.videoID;
+  Analysis.findOneAndRemove({_id: id}, function(err, data){
+    if(err){
+      console.log(err)
+    } else {
+      console.log(data);
+      console.log('deleted successfully')
+      res.sendStatus(204)
+    }
+  })
+}
+
+
+
+

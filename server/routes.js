@@ -16,16 +16,14 @@ router.post('/api/analyze', function(req, res){
   res.send("Your video has been successfully uploaded. You will be notified when your analysis is ready.");
 });
 
+router.post('/api/delete', analysis.delete)
+
 router.get('/api/getAnalysisById/:analysisID', function(req,res){
   analysis.getAnalysisData(req.params.analysisID, res);
 });
 
 router.get('/api/fetchAnalyses', function(req,res){
   analysis.fetchAnalyses(req.session.user, res);
-});
-
-router.post('/api/speechToText', function(req, res){
-  audio.audioAnalysis(req.body.videoURL, res);
 });
 
 
