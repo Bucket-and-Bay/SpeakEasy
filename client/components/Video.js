@@ -2,7 +2,11 @@ var React = require('react');
 
 var Video = React.createClass({
   propTypes: {
-    data: React.PropTypes.array.isRequired
+    data: React.PropTypes.array.isRequired,
+    delete: React.PropTypes.func.isRequired
+  },
+  handleClick: function(index, videoID){
+    this.props.delete(index, videoID);
   },
   render: function() {
     var pictures = this.props.data.map(function(item, idx) {
@@ -24,14 +28,14 @@ var Video = React.createClass({
                     </div>
                     <div id='time'>
                       Timestamp: {date}
-                      <button id="deletebutton">
+                      <button onClick={this.handleClick.bind(this, idx, item._id)} id="deletebutton">
                         <i id="trash"className="material-icons md-18 ">delete</i>
                       </button>
                     </div>
 
                   </div>
                 </div>
-    });
+    }.bind(this));
     return (
       <div>{pictures}</div>
     )
