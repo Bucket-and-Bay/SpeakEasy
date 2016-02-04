@@ -1,8 +1,16 @@
 var React = require('react');
 var helper = require('../config/helper.js');
 var Auth = require('../config/Auth.js');
+// var $ = require('jquery');
+
+
 
 var Navbar = React.createClass({
+  // componentDidMount: function(){
+  //   if ($ !== undefined) {
+  //     $('.button-collapse').sideNav();
+  //   }
+  // },
   getInitialState: function(){
     return {
       loggedIn: Auth.isLoggedIn()
@@ -20,18 +28,23 @@ var Navbar = React.createClass({
       return [<li key='1'><a href="#/signup">Signup</a></li>, <li key='2'><a href="#/signin">Log In</a></li>]
     }
   },
+
   render: function(){
     return (
       <nav>
         <div className="nav-wrapper">
-          <a href="#" className="brand-logo">SpeakEasy</a>
+          <a href="#!" className="brand-logo">SpeakEasy</a>
+          <a id="menu-button" href="" data-activates="mobile-nav" className="right button-collapse">
+            <i className="material-icons">menu</i>
+          </a>
           <ul id="nav-mobile" className="right hide-on-med-and-down">
             {this.buttons()}
           </ul>
+          
         </div>
       </nav>
     )
   }
-})
+});
 
 module.exports = Navbar;
