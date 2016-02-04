@@ -34,14 +34,12 @@ var extractAudio = function(videoURL) {
 
 module.exports.audioAnalysis = function(videoURL){
   return new Promise(function(resolve, reject){
+
     extractAudio(videoURL)
     .then(function(wavFile){
       Promise.all([beyondVerbal.beyondVerbalAnalysis(wavFile), watsonAndAlchemy(wavFile)])
         .then(function(data){
-          // console.log(data[0][0], "BEYOND VERBAL GETANALYSIS DATA!!");
-          // console.log(data[0][1], "BEYOND VERBAL UPSTREAM DATA!!!")
-          // console.log(data[1][0], 'ALCHEMY RESULTS !!!!!');
-          // console.log(data[1][1], 'WATSON RESULTS!!!!!!!!')
+          console.log('Audio Analysis data done!!!!!!');
           resolve([data[0][0], data[0][1], data[1][0], data[1][1]]);
         })
     });
@@ -57,7 +55,6 @@ var watsonAndAlchemy = function(wavFile){
       .then(function(watsonResults){
         alchemy.alchemyAnalysis(watsonResults)
           .then(function(alchemyResults){
-            console.log(alchemyResults);
             resolve([alchemyResults, watsonResults])
           }); //save alchemyResults to db
       })
