@@ -9,6 +9,7 @@ var wavFile = path.join(__dirname + '/controllers/record/');
 var multer  = require('multer')
 var upload = multer({ dest: wavFile })
 var fs = require('fs')
+var video = require('./controllers/video.controller.js');
 
 router.post('/api/record', upload.any(), function(req,res){
   var analysisData = req.body;  
@@ -37,6 +38,15 @@ router.get('/api/getAnalysisById/:analysisID', function(req,res){
 
 router.get('/api/fetchAnalyses', function(req,res){
   analysis.fetchAnalyses(req.session.user, res);
+});
+
+router.post('/api/speechToText', function(req, res){
+  audio.audioAnalysis(req.body.videoURL, res);
+});
+
+router.put('/api/updatePrivacy/:id', function(req, res) {
+  console.log(req);
+  // video.updateVideo(req.body.isPrivate);
 });
 
 

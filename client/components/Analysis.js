@@ -3,12 +3,12 @@ var Graph = require('./Graph.js');
 var helpers = require('../config/helper.js');
 var VideoPlayer = require("./VideoPlayer.js");
 var Navbar = require('./Navbar.js');
-//var Tabs = require('react-simpletabs');
 var ReactTabs = require('react-tabs');
 var Tab = ReactTabs.Tab;
 var Tabs = ReactTabs.Tabs;
 var TabList = ReactTabs.TabList;
 var TabPanel = ReactTabs.TabPanel;
+var Switch = require('./PrivateSwitch.js');
 
 
 var Analysis = React.createClass({
@@ -23,7 +23,8 @@ var Analysis = React.createClass({
       beyondVerbalDataComp: [],
       beyondVerbalDataGroup11: [],
       watsonFullScript: '',
-      alchemyAPIConcepts: []
+      alchemyAPIConcepts: [],
+      isPrivate: ''
     }
   },
 
@@ -111,7 +112,8 @@ var Analysis = React.createClass({
               data: beyondVerbalAnalysisData.valenceData,
               name: 'Valence'
             }]
-          }
+          },
+          isPrivate: response.data.isPrivate
         })
       }.bind(this))
   },
@@ -128,14 +130,7 @@ var Analysis = React.createClass({
             <div className="video-info">
               <h4>{this.state.videoTitle}</h4>
               <p>{this.state.videoDate}</p>
-              <div className="switch">
-                <label>
-                  Private
-                  <input type="checkbox" />
-                  <span className="lever"></span>
-                  Public
-                </label>
-              </div>
+              <Switch data={this.state.isPrivate} />
             </div>
           </div>
         </div>

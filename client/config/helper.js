@@ -170,6 +170,19 @@ var getAlchemyData = function (alchemyData) {
   return concepts;
 };
 
+var putPrivacy = function(isPrivate, id) {
+  console.log('putPrivacy', isPrivate);
+  // return axios.put(serverURI + '/api/updatePrivacy' + id) {
+  //   .then(function(response) {
+  //     return response;
+  //   })
+  //   .catch(function(err) {
+  //     throw err;
+  //   })
+  // }
+};
+
+
 module.exports = {
   submitVideo: submitVideo,
   sendCode: sendCode,
@@ -182,6 +195,7 @@ module.exports = {
   submitRecorded: submitRecorded,
   deleteVideo: deleteVideo,
   getBeyondVerbalData: getBeyondVerbalData,
-  getAlchemyData: getAlchemyData
+  getAlchemyData: getAlchemyData,
+  putPrivacy: putPrivacy
 };
 
