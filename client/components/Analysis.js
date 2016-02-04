@@ -119,6 +119,11 @@ var Analysis = React.createClass({
         })
       }.bind(this))
   },
+
+  get: function(input) {
+    console.log(input);
+  },
+
   render: function() {
     return (
       <div>
@@ -132,7 +137,7 @@ var Analysis = React.createClass({
             <div className="video-info">
               <h4>{this.state.videoTitle}</h4>
               <p>{this.state.videoDate}</p>
-              <Switch data={this.state} />
+              <Switch data={this.state} function={this.get}/>
             </div>
           </div>
         </div>

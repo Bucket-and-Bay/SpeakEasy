@@ -3,13 +3,48 @@ var Navbar = require('./Navbar.js');
 var Searchbar = require('./Searchbar.js');
 
 var PublicVideos = React.createClass({
+  getInitialState: function() {
+    return {
+      video: [],
+      publicVideos: []
+    }
+  },
+
+  componentDidMount: function(){
+    helper.getPublicVideos().then(function(response){
+      this.setState({
+        video: response.data,
+        publicVideos: response.data
+      })
+    }.bind(this))
+  },
+
+  onSearch: function(query) {
+    var results = [];
+    if(query === '') {
+      this.setState({ video: this.state.publicVideos })
+    } else {
+      this.state.publicVideos.forEach(function(item) {
+        if (!item.title || !item.description) {
+          return;
+        }
+        var title = item.title.toLowerCase();
+        var description = item.description.toLowerCase();
+        query = query.toLowerCase();
+        if(title.indexOf(query) !== -1 || description.indexOf(query) !== -1) {
+          results.push(item);
+        }
+      });
+      this.setState({ video: results });
+    }
+  },
 
   render: function() {
     return (
       <div>
         <Navbar />
         <div className="container">
-          <Searchbar onSearc={ this.onSearch } />
+          <Searchbar onSearch={ this.onSearch } />
           <div className="row">
             <p> Videos here </p>
           </div>
@@ -30,7 +65,7 @@ module.exports = PublicVideos;
   Add server route to get all public videos
   Add server helper function to query and return all public vids
   Add Comments page for single video
-  
+  Make PublicVideoItem component
   <div>
       <Navbar />
       <div className="container">

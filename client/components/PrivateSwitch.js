@@ -11,12 +11,13 @@ var PrivateSwitch = React.createClass({
     }
   },
 
-  componentWillMount: function() {
-    this.setState({
-      isPrivate: this.props.data.isPrivate,
-      videoId: this.props.data.videoId
-    })
-  },
+  // componentWillMount: function() {
+  //   // this.props.get('hi');
+  //   this.setState({
+  //     isPrivate: this.props.data.isPrivate,
+  //     videoId: this.props.data.videoId
+  //   })
+  // },
 
   handleClick: function(e) {
     console.log('isPrivate', this.state.isPrivate);
