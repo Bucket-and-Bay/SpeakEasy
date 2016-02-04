@@ -41,7 +41,28 @@ var Dashboard = React.createClass({
       this.setState({ video: results });
     }
   },
-
+  delete: function(index, videoID){
+    var confirm = window.confirm("Are you sure you want to delete this?")
+    if(confirm){
+      var videos = this.state.userVideos
+      for(var i = 0; i < videos.length; i++){
+        if(this.state.video[index] === videos[i]){
+          delete videos[i];
+          break
+        }
+      }
+      var currentVideos = this.state.video;
+      delete currentVideos[index]
+      this.setState({
+        video: currentVideos,
+        userVideos: videos
+      })
+      helper.deleteVideo(videoID)
+        .then(function(response){
+          console.log('successfully deleted from database')
+        })
+    } 
+  },
   render: function(){
     return (
     <div>
@@ -49,7 +70,7 @@ var Dashboard = React.createClass({
       <div className="container">
         <Searchbar onSearch={ this.onSearch } />
         <div className="row">
-        <Video data={this.state.video}/>
+        <Video delete={this.delete} data={this.state.video}/>
         </div>
       </div>
     </div>

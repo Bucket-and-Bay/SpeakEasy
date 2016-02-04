@@ -107,3 +107,8 @@ footer.page-footer {
 
 
 
+#deletebutton{
+  float: right;
+  border: none;
+  background: none;
+}
