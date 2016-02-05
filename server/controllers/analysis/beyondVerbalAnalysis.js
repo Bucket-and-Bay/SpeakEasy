@@ -27,10 +27,7 @@ var options = {
 // 1. Authentication POST request w/ API key to get auth token
 function authenticate(audioFile) {
   return new Promise(function(resolve, reject){
-
     console.log('authenticate line 29 called');
-    console.log('url token: ', options.url.tokenUrl);
-
     var optionsAuth = {
       method: 'POST',
       url: options.url.tokenUrl,
@@ -52,11 +49,8 @@ function authenticate(audioFile) {
 function analyzeFile(content, token) {
   return new Promise(function(resolve, reject){
 
-    console.log(token);
     console.log('analyzeFile line 49 called');
     var startUrl = options.url.serverUrl + "start";
-    console.log('url: ' + startUrl + ' token: ' + token.access_token);
-
     var optionsAF = {
       method: 'POST',
       url: startUrl,
@@ -81,10 +75,9 @@ function analyzeFile(content, token) {
 //   auth token and wav file to get response(response.analysisSegments)
 function upstreamRequest(recID, wavFile, token) {
   return new Promise(function(resolve, reject){
-    console.log('line 84 upstreamRequest called. recID: ', recID);
+    console.log('line 84 upstreamRequest called');
     var upstreamUrl = options.url.serverUrl + recID;
     fs.readFile(wavFile, function(err, response) {
-      console.log('readfile called line 88');
       if (err) {
         console.log('error reading file: ', err)
       } else {
@@ -103,7 +96,7 @@ function upstreamRequest(recID, wavFile, token) {
 
           })
           .catch(function(err){
-            console.log('Err from upstreamRequest', err);
+            console.log(err, 'Err from upstreamRequest');
           });
       }
     });
@@ -124,11 +117,9 @@ function getAnalysis(recID, interval, token) {
     }
     interval = interval || 10000;
     pTimer = setInterval(function() {
-      console.log('pTimer interval started line 98')
       request(optionsGA)
         .then(function(res, err) {
           res = JSON.parse(res);
-          console.log('ATTEMPTING getAnalysis res');
           if (res.result.sessionStatus === "Done") {
             resolve(res);
             if (pTimer) {
@@ -146,10 +137,7 @@ module.exports.beyondVerbalAnalysis = function(audioFile) {
 
     authenticate(audioFile).then(function(token){
       analyzeFile(audioFile, token).then(function(recID){
-        console.log("ANLYSIS FILE DONE");
-
         upstreamRequest(recID, audioFile, token).then(function(upstreamData){
-          console.log("UPSTREAM REQUEST");
           getAnalysis(recID, 10000, token).then(function(getAnalysisData){
             console.log('DONE WITH BEYONDVERBAL');
             //get Analysisdata
