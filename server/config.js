@@ -9,7 +9,6 @@ if(process.env.NODE_ENV!=='production'){
     kairosKey:localConfig.kairosKey
   };
 }else{
-
   config = {
     mode: 'production',
     port: process.env.PORT || 3000,
