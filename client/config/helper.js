@@ -197,6 +197,17 @@ var putPrivacy = function(isPrivate, videoId) {
   }
 };
 
+var getVideoComments = function(videoId) {
+  var options = { videoId: videoId }
+  return axios.get(serverURI + '/api/getComments/' + videoId, options)
+    .then(function(response) {
+      return response;
+    })
+    .catch(function(err) {
+      throw err;
+    })
+};
+
 
 module.exports = {
   submitVideo: submitVideo,
@@ -212,6 +223,7 @@ module.exports = {
   getBeyondVerbalData: getBeyondVerbalData,
   getAlchemyData: getAlchemyData,
   putPrivacy: putPrivacy,
-  getPublicVideos: getPublicVideos
+  getPublicVideos: getPublicVideos,
+  getVideoComments: getVideoComments
 };
 
