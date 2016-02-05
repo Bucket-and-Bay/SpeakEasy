@@ -32,7 +32,7 @@ var Analysis = React.createClass({
 
     helpers.getVideoAnalysis(this.props.params.videoID)
       .then(function(response){
-        console.log(response.data.alchemyAnalysis);
+        console.log(response);
         // date
         var videoDate = response.data.date.slice(0, 10);
         var videosource = response.data.videoUrl;

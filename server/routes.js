@@ -3,7 +3,6 @@ var analysis = require('./controllers/analysis.controller.js');
 var router = express.Router();
 var user = require('./controllers/user.controller.js');
 var audio = require('./controllers/audio.controller.js');
-var record = require('./controllers/record.controller.js');
 var path = require('path');
 var wavFile = path.join(__dirname + '/controllers/record/');
 var multer  = require('multer')
@@ -13,7 +12,7 @@ var video = require('./controllers/video.controller.js');
 router.post('/api/record', upload.any(), function(req,res){
   var analysisData = req.body;  
   var audioFile = wavFile+req.files[0].filename;
-  record.recordAnalysis(audioFile, analysisData, req.session.user);
+  analysis.analyze(analysisData, req.session.user, audioFile);
   res.sendStatus(200);
 })
 

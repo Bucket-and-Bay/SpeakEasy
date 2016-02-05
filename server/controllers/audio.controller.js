@@ -18,11 +18,11 @@ var fs = require('fs');
 
 var extractAudio = function(videoURL, uniqueID) {
   return new Promise(function(resolve, reject){
+    console.log("extracting audio")
     var wavFile = path.join(__dirname + '/wavFiles/' + uniqueID + 'file.wav');
     ffmpeg(videoURL)
       .output(wavFile)
       .on('end', function(){
-        console.log('extractAudio resolved');
         resolve(wavFile);
       })
       .on('error', function(err){
@@ -37,7 +37,7 @@ module.exports.audioAnalysis = function(videoURL, uniqueID){
 
     extractAudio(videoURL, uniqueID)
     .then(function(wavFile){
-      Promise.all([beyondVerbal.beyondVerbalAnalysis(wavFile), module.exports.watsonAndAlchemy(wavFile)])
+      Promise.all([beyondVerbal.beyondVerbalAnalysis(wavFile), watsonAndAlchemy(wavFile)])
         .then(function(data){
           console.log('Audio Analysis data done!!!!!!');
           resolve([data[0][0], data[0][1], data[1][0], data[1][1]]);
@@ -45,7 +45,7 @@ module.exports.audioAnalysis = function(videoURL, uniqueID){
             if(err){
               console.log(err)
             } else {
-              console.log('deleted audio file')
+              console.log('deleted extracted audio file')
             }
           })
         })
@@ -55,9 +55,8 @@ module.exports.audioAnalysis = function(videoURL, uniqueID){
 
 
 
-module.exports.watsonAndAlchemy = function(wavFile){
+var watsonAndAlchemy = function(wavFile){
   return new Promise(function(resolve, reject){
-
     watsonAnalysis.watsonSpeechToText(wavFile)       //save watsonResults to db
       .then(function(watsonResults){
         alchemy.alchemyAnalysis(watsonResults)
