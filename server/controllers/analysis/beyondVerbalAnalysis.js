@@ -87,7 +87,6 @@ function upstreamRequest(recID, wavFile, token) {
           headers: {
             'Authorization': "Bearer " + token.access_token
           },
-          dataFormat: {type: 'pcm', 'channels': 1, 'sample-rate': 8000, 'bits-per-sample': 16},
           body: response
         };
 
