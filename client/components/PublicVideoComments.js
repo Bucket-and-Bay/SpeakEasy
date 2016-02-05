@@ -2,6 +2,12 @@ var React = require('react');
 var Navbar = require('./Navbar.js');
 var VideoPlayer = require('./VideoPlayer.js');
 var helpers = require('../config/helper.js');
+var CommentBox = require('./CommentBox.js');
+
+var data = [
+  {id: 1, author: "Pete Hunt", text: "This is one comment"},
+  {id: 2, author: "Jordan Walke", text: "This is another comment"}
+];
 
 var PublicVideoComments = React.createClass({
   getInitialState: function(){
@@ -20,7 +26,7 @@ var PublicVideoComments = React.createClass({
         this.setState({
           videoSource: response.data[0].videoUrl,
           videoTitle: response.data[0].title,
-          videoDate: response.data[0].date,
+          videoDate: response.data[0].date.slice(0,10),
           username: response.data[0].username
         })
       }.bind(this))
@@ -39,14 +45,12 @@ var PublicVideoComments = React.createClass({
             <div className="video-info">
               <h4>{this.state.videoTitle}</h4>
               <p>User: {this.state.username}</p>
-              <p>{this.state.videoDate}</p>
+              <p>Created: {this.state.videoDate}</p>
             </div>
           </div>
         </div>
         <div className="col 12">
-          <h5>Comments</h5>
-          <p>List of Comments</p>
-          <p>Add Comments</p>
+          <CommentBox data={data}/>
           <div className="row">
             <form className="col s12">
               <div className="row">
