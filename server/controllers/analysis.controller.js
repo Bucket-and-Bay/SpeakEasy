@@ -46,12 +46,20 @@ module.exports.analyze = function (userData, currentUser, audioFile) {
 
 function streamableDoneProcessing (data){return data.percent === 100;};
 
-module.exports.getAnalysisData = function(analysisId, response){
+module.exports.getAnalysisData = function(req, response){
+  var analysisId = req.params.analysisID;
   Analysis.findById(analysisId, function(err, analysis){
     if (err){
       console.log(err);
     }else{
-      response.send(200, JSON.stringify(analysis));
+      if(req.session.user === analysis.username){
+        response.status(200).send(JSON.stringify(analysis));
+      } else {
+        //not authorized
+        response.sendStatus(401)
+        console.log('Not authorized')
+      }
+
     }
   })
 };
@@ -76,7 +84,7 @@ module.exports.delete = function(req, res){
           if(err){
             console.log(err)
           } else {
-            console.log('audio file deleted from mongodb')
+            console.log('audio file deleted from fs')
           }
         })
       }

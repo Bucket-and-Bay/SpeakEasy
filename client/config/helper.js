@@ -101,7 +101,7 @@ var getVideoAnalysis = function(id) {
       return response;
     })
     .catch(function(err){
-      throw err;
+      return err;
     })
 }
 
