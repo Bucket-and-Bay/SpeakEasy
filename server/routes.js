@@ -24,9 +24,7 @@ router.post('/api/analyze', function(req, res){
 
 router.post('/api/delete', analysis.delete)
 
-router.get('/api/getAnalysisById/:analysisID', function(req,res){
-  analysis.getAnalysisData(req.params.analysisID, res);
-});
+router.get('/api/getAnalysisById/:analysisID', analysis.getAnalysisData);
 
 router.get('/api/getPublicVideos', function(req, res){
   video.getPublicVideos(req, res);

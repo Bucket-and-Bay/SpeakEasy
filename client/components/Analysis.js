@@ -32,89 +32,96 @@ var Analysis = React.createClass({
 
     helpers.getVideoAnalysis(this.props.params.videoID)
       .then(function(response){
-        console.log(response);
+        if(response.status === 401){
+          this.props.history.transitionTo({
+            pathname: '/public',
+            search: '?a=query',
+          })
+        } else {
+
+          var videoDate = response.data.date.slice(0, 10);
+          var videosource = response.data.videoUrl;
+
+          // Kairos
+          var analysis = response.data.kairosAnalysis.frames;
+          var kairosAnalysisData = helpers.getEmotionData(analysis);
+
+          // Beyond Verbal
+          var bvData = response.data.beyondVerbalAnalysis[0].result;
+          var beyondVerbalAnalysisData = helpers.getBeyondVerbalData(bvData);
+
+          // Watson Script
+          var watsonScript = response.data.watsonAnalysis[1];
+
+          // Alchemy API
+          var concepts = response.data.alchemyAnalysis;
+          var conceptsData = helpers.getAlchemyData(concepts);
+
+          this.setState({
+            videoSource: videosource,
+            videoTitle: response.data.title,
+            videoDate: videoDate,
+            beyondVerbalDataComp: beyondVerbalAnalysisData.moodDataComp,
+            beyondVerbalDataGroup11: beyondVerbalAnalysisData.moodDataGroup11,
+            watsonFullScript: watsonScript,
+            alchemyAPIConcepts: conceptsData,
+            kairosAnalysis: {
+                title: {
+                  text: 'Kairos Video Analysis'
+                },
+                yAxis: {
+                  title: {
+                    text: ''
+                  }
+                },
+                series:[{
+                  data: kairosAnalysisData.attentionData,
+                  name: 'attention',
+                  visible: false
+                },
+                {
+                  data: kairosAnalysisData.negativeData,
+                  name: 'negative'
+                },
+                {
+                  data: kairosAnalysisData.smileData,
+                  name: 'smile'
+                },
+                {
+                  data: kairosAnalysisData.surpriseData,
+                  name:'surprise'
+                }]
+              },
+              beyondVerbalAnalysis: {
+                chart: {
+                  type: 'bar'
+                },
+                title: {
+                  text: 'Beyond Verbal Analysis'
+                },
+                yAxis: {
+                  title: {
+                    text: ''
+                  }
+                },
+                series:[{
+                  data: beyondVerbalAnalysisData.arousalData,
+                  name: 'Arousal'
+                },
+                {
+                  data: beyondVerbalAnalysisData.temperData,
+                  name: 'Temper'
+                },
+                {
+                  data: beyondVerbalAnalysisData.valenceData,
+                  name: 'Valence'
+                }]
+              },
+              isPrivate: response.data.isPrivate,
+              videoId: response.data['_id']
+            })
+        }
         // date
-        var videoDate = response.data.date.slice(0, 10);
-        var videosource = response.data.videoUrl;
-
-        // Kairos
-        var analysis = response.data.kairosAnalysis.frames;
-        var kairosAnalysisData = helpers.getEmotionData(analysis);
-
-        // Beyond Verbal
-        var bvData = response.data.beyondVerbalAnalysis[0].result;
-        var beyondVerbalAnalysisData = helpers.getBeyondVerbalData(bvData);
-
-        // Watson Script
-        var watsonScript = response.data.watsonAnalysis[1];
-
-        // Alchemy API
-        var concepts = response.data.alchemyAnalysis;
-        var conceptsData = helpers.getAlchemyData(concepts);
-
-        this.setState({
-          videoSource: videosource,
-          videoTitle: response.data.title,
-          videoDate: videoDate,
-          beyondVerbalDataComp: beyondVerbalAnalysisData.moodDataComp,
-          beyondVerbalDataGroup11: beyondVerbalAnalysisData.moodDataGroup11,
-          watsonFullScript: watsonScript,
-          alchemyAPIConcepts: conceptsData,
-          kairosAnalysis: {
-            title: {
-              text: 'Kairos Video Analysis'
-            },
-            yAxis: {
-              title: {
-                text: ''
-              }
-            },
-            series:[{
-              data: kairosAnalysisData.attentionData,
-              name: 'attention',
-              visible: false
-            },
-            {
-              data: kairosAnalysisData.negativeData,
-              name: 'negative'
-            },
-            {
-              data: kairosAnalysisData.smileData,
-              name: 'smile'
-            },
-            {
-              data: kairosAnalysisData.surpriseData,
-              name:'surprise'
-            }]
-          },
-          beyondVerbalAnalysis: {
-            chart: {
-              type: 'bar'
-            },
-            title: {
-              text: 'Beyond Verbal Analysis'
-            },
-            yAxis: {
-              title: {
-                text: ''
-              }
-            },
-            series:[{
-              data: beyondVerbalAnalysisData.arousalData,
-              name: 'Arousal'
-            },
-            {
-              data: beyondVerbalAnalysisData.temperData,
-              name: 'Temper'
-            },
-            {
-              data: beyondVerbalAnalysisData.valenceData,
-              name: 'Valence'
-            }]
-          },
-          isPrivate: response.data.isPrivate,
-          videoId: response.data['_id']
-        })
       }.bind(this))
   },
 
