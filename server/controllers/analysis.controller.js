@@ -8,7 +8,7 @@ var notify = require('./notification.controller.js');
 var apiKeys = require('../config.js');
 var audio = require('./audio.controller.js');
 var beyondVerbal = require('./analysis/beyondVerbalAnalysis.js');
-
+var fs = require('fs');
 
 module.exports.analyze = function (userData, currentUser) {
   var jobID = userData.shortcode;
@@ -16,12 +16,12 @@ module.exports.analyze = function (userData, currentUser) {
   var analysis = new Analysis ({username : currentUser, title: userData.title, description: userData.description, isPrivate: true});
 
   //Polling Function Sytanx: util.poll(options, interval, condition)
-  util.poll('https://api.streamable.com/videos/'+jobID, 10000, streamableDoneProcessing, 'streamable'+jobID)
+  util.poll('https://api.streamable.com/videos/'+jobID, 30000, streamableDoneProcessing, 'streamable'+jobID)
     .then(function(res){
       var videoURL = 'https:'+res.files.mp4.url;
       analysis.thumbnail_url = 'https:'+res.thumbnail_url;
       analysis.videoUrl = 'https:'+res.files.mp4.url;
-      Promise.all([kairos.videoAnalysis(videoURL), audio.audioAnalysis(videoURL)])
+      Promise.all([kairos.videoAnalysis(videoURL), audio.audioAnalysis(videoURL, jobID)])
         .then(function(data){
           analysis.beyondVerbalAnalysis = [data[1][0], data[1][1]];
           analysis.watsonAnalysis = data[1][3];
@@ -68,7 +68,15 @@ module.exports.delete = function(req, res){
     if(err){
       console.log(err)
     } else {
-      console.log(data);
+      if(data.isRecorded){
+        fs.unlink(data.audioFile, function(err){
+          if(err){
+            console.log(err)
+          } else {
+            console.log('audio file deleted from mongodb')
+          }
+        })
+      }
       console.log('deleted successfully')
       res.sendStatus(204)
     }

@@ -8,19 +8,12 @@ var path = require('path');
 var wavFile = path.join(__dirname + '/controllers/record/');
 var multer  = require('multer')
 var upload = multer({ dest: wavFile })
-var fs = require('fs')
 var video = require('./controllers/video.controller.js');
 
 router.post('/api/record', upload.any(), function(req,res){
   var analysisData = req.body;  
   var audioFile = wavFile+req.files[0].filename;
-  fs.rename(wavFile+req.files[0].filename, audioFile, function(err){
-    if(err){
-      console.log(err)
-    } else{
-      record.recordAnalysis(audioFile, analysisData);
-    }
-  })
+  record.recordAnalysis(audioFile, analysisData, req.session.user);
   res.sendStatus(200);
 })
 

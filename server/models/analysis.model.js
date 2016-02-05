@@ -17,7 +17,9 @@ var AnalysisSchema = new mongoose.Schema({
   kairosAnalysis      : mongoose.Schema.Types.Mixed,
   beyondVerbalAnalysis: mongoose.Schema.Types.Mixed,
   watsonAnalysis      : mongoose.Schema.Types.Mixed,
-  alchemyAnalysis     : mongoose.Schema.Types.Mixed
+  alchemyAnalysis     : mongoose.Schema.Types.Mixed,
+  isRecorded: {type: Boolean, default: false},
+  audioFile: String
 });
 
 module.exports = mongoose.model('Analysis', AnalysisSchema);
