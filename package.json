@@ -4,18 +4,19 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "postinstall": "webpack -p"
+    "postinstall": "webpack -p",
+    "ffmpeg": "brew install ffmpeg"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Daigor/SpeakEasy.git"
+    "url": "git+https://github.com/Bucket-and-Bay/SpeakEasy.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/Daigor/SpeakEasy/issues"
+    "url": "https://github.com/Bucket-and-Bay/SpeakEasy/issues"
   },
-  "homepage": "https://github.com/Daigor/SpeakEasy#readme",
+  "homepage": "https://github.com/Bucket-and-Bay/SpeakEasy#readme",
   "dependencies": {
     "axios": "^0.9.0",
     "babel-core": "^6.4.5",
