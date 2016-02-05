@@ -84,7 +84,7 @@ module.exports.delete = function(req, res){
           if(err){
             console.log(err)
           } else {
-            console.log('audio file deleted from mongodb')
+            console.log('audio file deleted from fs')
           }
         })
       }
