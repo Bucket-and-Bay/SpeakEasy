@@ -37,7 +37,7 @@ module.exports.audioAnalysis = function(videoURL, uniqueID){
 
     extractAudio(videoURL, uniqueID)
     .then(function(wavFile){
-      Promise.all([beyondVerbal.beyondVerbalAnalysis(wavFile), watsonAndAlchemy(wavFile)])
+      Promise.all([beyondVerbal.beyondVerbalAnalysis(wavFile), module.exports.watsonAndAlchemy(wavFile)])
         .then(function(data){
           console.log('Audio Analysis data done!!!!!!');
           resolve([data[0][0], data[0][1], data[1][0], data[1][1]]);
@@ -55,7 +55,7 @@ module.exports.audioAnalysis = function(videoURL, uniqueID){
 
 
 
-var watsonAndAlchemy = function(wavFile){
+module.exports.watsonAndAlchemy = function(wavFile){
   return new Promise(function(resolve, reject){
     watsonAnalysis.watsonSpeechToText(wavFile)       //save watsonResults to db
       .then(function(watsonResults){

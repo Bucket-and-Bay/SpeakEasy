@@ -9,6 +9,7 @@ var apiKeys = require('../config.js');
 var audio = require('./audio.controller.js');
 var fs = require('fs');
 
+
 module.exports.analyze = function (userData, currentUser, audioFile) {
   var jobID = userData.shortcode;
   var analysis = new Analysis ({username : currentUser, title: userData.title, description: userData.description, isPrivate: true});

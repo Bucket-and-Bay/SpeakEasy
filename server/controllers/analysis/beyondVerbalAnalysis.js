@@ -77,6 +77,7 @@ function upstreamRequest(recID, wavFile, token) {
   return new Promise(function(resolve, reject){
     console.log('line 84 upstreamRequest called');
     var upstreamUrl = options.url.serverUrl + recID;
+    console.log(wavFile, 'upstream wavFile')
     fs.readFile(wavFile, function(err, response) {
       if (err) {
         console.log('error reading file: ', err)
