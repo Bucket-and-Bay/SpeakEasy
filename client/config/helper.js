@@ -85,6 +85,16 @@ var getUserVideos = function(){
     })
 }
 
+var getPublicVideos = function() {
+  return axios.get(serverURI + '/api/getPublicVideos')
+    .then(function(response){
+      return response;
+    })
+    .catch(function(err){
+      throw err;
+    })
+}
+
 var getVideoAnalysis = function(id) {
   return axios.get(serverURI + '/api/getAnalysisById/' + id)
     .then(function(response){
@@ -172,9 +182,7 @@ var getAlchemyData = function (alchemyData) {
 
 
 var putPrivacy = function(isPrivate, videoId) {
-  console.log('putPrivacy', isPrivate, videoId);
   if (isPrivate === true || isPrivate === false) {
-    console.log('PUT REQUEST ' + isPrivate + ' NOW')
     var options = {
       isPrivate: isPrivate,
       videoId: videoId
@@ -203,6 +211,7 @@ module.exports = {
   deleteVideo: deleteVideo,
   getBeyondVerbalData: getBeyondVerbalData,
   getAlchemyData: getAlchemyData,
-  putPrivacy: putPrivacy
+  putPrivacy: putPrivacy,
+  getPublicVideos: getPublicVideos
 };
 
