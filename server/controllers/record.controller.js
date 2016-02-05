@@ -1,5 +1,4 @@
 var Promise = require('bluebird');
-var apiKeys = require('../config/localConfig.js');
 var analysis = require('./analysis.controller.js');
 var util = require('./utils.js');
 var Analysis = require('../models/analysis.model.js');
@@ -20,4 +19,4 @@ module.exports.recordAnalysis = function(audioFile, data, user){
 
 
 
-function streamableDoneProcessing (data){return data.percent === 100;};
+function streamableDoneProcessing (data){return data.percent === 100;}

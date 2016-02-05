@@ -1,7 +1,7 @@
 var Promise = require('bluebird');
 var fs = require('fs');
 var watson = require('watson-developer-cloud');
-var apiKeys = require('../../config/localConfig.js');
+var apiKeys = require('../../config.js');
 
 // var speechToText = watson.speech_to_text(apiKeys.watsonCredentials);
 var speechToText = watson.speech_to_text({
