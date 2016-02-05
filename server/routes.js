@@ -12,7 +12,7 @@ var fs = require('fs')
 
 router.post('/api/record', upload.any(), function(req,res){
   var analysisData = req.body;  
-  var audioFile = wavFile+req.files[0].filename +'.wav';
+  var audioFile = wavFile+req.files[0].filename;
   fs.rename(wavFile+req.files[0].filename, audioFile, function(err){
     if(err){
       console.log(err)
