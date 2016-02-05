@@ -7,6 +7,8 @@ var util = require('./utils.js')
 var notify = require('./notification.controller.js');
 var apiKeys = require('../config.js');
 var audio = require('./audio.controller.js');
+var beyondVerbal = require('./analysis/beyondVerbalAnalysis.js');
+
 
 module.exports.analyze = function (userData, currentUser) {
   var jobID = userData.shortcode;

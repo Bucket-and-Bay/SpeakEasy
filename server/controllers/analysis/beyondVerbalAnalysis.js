@@ -83,6 +83,7 @@ function upstreamRequest(recID, wavFile, token) {
   return new Promise(function(resolve, reject){
     console.log('line 84 upstreamRequest called. recID: ', recID);
     var upstreamUrl = options.url.serverUrl + recID;
+    console.log(wavFile, 'upstream wavFile')
     fs.readFile(wavFile, function(err, response) {
       console.log('readfile called line 88');
       if (err) {
@@ -103,7 +104,7 @@ function upstreamRequest(recID, wavFile, token) {
 
           })
           .catch(function(err){
-            console.log('Err from upstreamRequest', err);
+            console.log(err, 'Err from upstreamRequest');
           });
       }
     });
