@@ -8,7 +8,7 @@ var PublicVideoItem = React.createClass({
   render: function() {
     var cards = this.props.data.map(function(item, idx) {
       var date = new Date(item.date).toLocaleDateString() + " " + new Date(item.date).toLocaleTimeString();
-      var location = "#/analysis/" + item._id
+      var location = "#/comment/" + item._id
       return  <div className="col s4" key={idx}>
                 <div className="card hoverable small">
                   <a href={location}>
