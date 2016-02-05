@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "postinstall": "webpack -p"
+    "postinstall": "webpack -p",
+    "ffmpeg": "brew install ffmpeg"
   },
   "repository": {
     "type": "git",
