@@ -36,6 +36,10 @@ router.get('/api/getAnalysisById/:analysisID', function(req,res){
   analysis.getAnalysisData(req.params.analysisID, res);
 });
 
+router.get('/api/getPublicVideos', function(req, res){
+  video.getPublicVideos(req, res);
+})
+
 router.get('/api/fetchAnalyses', function(req,res){
   analysis.fetchAnalyses(req.session.user, res);
 });

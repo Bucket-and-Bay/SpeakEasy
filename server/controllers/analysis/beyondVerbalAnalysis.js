@@ -1,5 +1,5 @@
 var Promise = require('bluebird');
-var apiKeys = require('../../config/localConfig.js');
+var apiKeys = require('../../config.js');
 var request = require('request-promise');
 var path = require('path');
 var querystring = require('querystring');

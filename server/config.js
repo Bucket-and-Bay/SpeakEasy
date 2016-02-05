@@ -6,7 +6,11 @@ if(process.env.NODE_ENV!=='production'){
     port: 3000,
     mongoUri:localConfig.mongoURI,
     kairosID:localConfig.kairosID,
-    kairosKey:localConfig.kairosKey
+    kairosKey:localConfig.kairosKey,
+    alchemyKey: localConfig.alchemyKey,
+    watsonUsername: localConfig.watsonUsername,
+    watsonPassword: localConfig.watsonPassword,
+    beyondVerbalKey:localConfig.beyondVerbalKey
   };
 }else{
   config = {
@@ -14,7 +18,11 @@ if(process.env.NODE_ENV!=='production'){
     port: process.env.PORT || 3000,
     mongoUri: process.env.MONGOLAB_URI,
     kairosID: process.env.kairosID,
-    kairosKey: process.env.kairosKey
+    kairosKey: process.env.kairosKey,
+    alchemyKey: process.env.alchemyKey,
+    watsonUsername: process.env.watsonUsername,
+    watsonPassword: process.env.watsonPassword,
+    beyondVerbalKey:process.env.beyondVerbalKey
   };
 }
 

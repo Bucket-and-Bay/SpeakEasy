@@ -1,5 +1,4 @@
 var Promise = require('bluebird');
-var apiKeys = require('../config/localConfig.js');
 var analysis = require('./analysis.controller.js');
 var util = require('./utils.js');
 var Analysis = require('../models/analysis.model.js');
