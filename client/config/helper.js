@@ -136,8 +136,8 @@ var getBeyondVerbalData = function (bvData) {
   var count = 0;
   bvData.analysisSegments.forEach(function (item) {
 
-    emotions.moodDataComp.push(" " + item.analysis.Mood.Composite.Primary.Phrase + " ");
-    emotions.moodDataGroup11.push(" " +  item.analysis.Mood.Group11.Primary.Phrase + " ");
+    emotions.moodDataComp.push(item.analysis.Mood.Composite.Primary.Phrase);
+    emotions.moodDataGroup11.push(item.analysis.Mood.Group11.Primary.Phrase);
 
     emotions.arousalData += (Number(item.analysis.Arousal.Value));
     emotions.temperData += (Number(item.analysis.Temper.Value));
@@ -165,7 +165,7 @@ var getAlchemyData = function (alchemyData) {
     conceptsText.push(item.text);
     conceptsWebsites.push(item.website || '');
   });
-  var concepts = [" " + conceptsText + " ", " " + conceptsWebsites + " "];
+  var concepts = [conceptsText,conceptsWebsites];
   console.log(concepts);
   return concepts;
 };
