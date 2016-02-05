@@ -3,12 +3,12 @@ var Graph = require('./Graph.js');
 var helpers = require('../config/helper.js');
 var VideoPlayer = require("./VideoPlayer.js");
 var Navbar = require('./Navbar.js');
-//var Tabs = require('react-simpletabs');
 var ReactTabs = require('react-tabs');
 var Tab = ReactTabs.Tab;
 var Tabs = ReactTabs.Tabs;
 var TabList = ReactTabs.TabList;
 var TabPanel = ReactTabs.TabPanel;
+var Switch = require('./PrivateSwitch.js');
 
 
 var Analysis = React.createClass({
@@ -23,7 +23,9 @@ var Analysis = React.createClass({
       beyondVerbalDataComp: [],
       beyondVerbalDataGroup11: [],
       watsonFullScript: '',
-      alchemyAPIConcepts: []
+      alchemyAPIConcepts: [],
+      isPrivate: '',
+      videoId: this.props.params.videoID
     }
   },
 
@@ -111,26 +113,33 @@ var Analysis = React.createClass({
               data: beyondVerbalAnalysisData.valenceData,
               name: 'Valence'
             }]
-          }
+          },
+          isPrivate: response.data.isPrivate,
+          videoId: response.data['_id']
         })
       }.bind(this))
   },
+
+  get: function(input) {
+    console.log(input);
+  },
+
   render: function() {
     return (
       <div>
-      <Navbar />
+        <Navbar />
         <div className="container">
           <div className="row">
-          <div className="col s8">
-          <VideoPlayer data={this.state.videoSource} />
-        </div>
-        <div className="col s4">
-          <div className="video-info">
-          <h4>{this.state.videoTitle}</h4>
-        <p>{this.state.videoDate}</p>
-        </div>
-        </div>
-
+            <div className="col s8">
+              <VideoPlayer data={this.state.videoSource} />
+            </div>
+          <div className="col s4">
+            <div className="video-info">
+              <h4>{this.state.videoTitle}</h4>
+              <p>{this.state.videoDate}</p>
+              <Switch data={this.state} function={this.get}/>
+            </div>
+          </div>
         </div>
         <div className="col 12">
           <Tabs onSelect={this.handleSelect} selectedIndex={2}>
