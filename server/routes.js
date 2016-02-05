@@ -37,13 +37,13 @@ router.get('/api/fetchAnalyses', function(req,res){
   analysis.fetchAnalyses(req.session.user, res);
 });
 
-router.post('/api/speechToText', function(req, res){
-  audio.audioAnalysis(req.body.videoURL, res);
-});
-
 router.put('/api/updatePrivacy/:id', function(req, res) {
   video.updateVideo(req.body, res);
 });
+
+router.get('/api/getComments/:videoId', function(req, res) {
+  video.getComments(req.params.videoId, res);
+})
 
 
 router.post('/user/login', user.login)

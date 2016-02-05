@@ -12,16 +12,26 @@ var updateVideo = function(data) {
 
 var getPublicVideos = function(req, response) {
   Analysis.find({ isPrivate: false }, 
-    '_id videoUrl date title thumbnail_url description isPrivate')
+    '_id videoUrl date title thumbnail_url description isPrivate username')
     .then(function (data) {
       var publicVideos = JSON.stringify(data);
       response.status(200).send(publicVideos);
     })
+};
+
+var getComments = function(videoId, response) {
+  Analysis.find({_id: videoId },
+  '_id videoUrl date title thumbnail_url description username comments')
+  .then(function(data) {
+    var commentData = JSON.stringify(data);
+    response.status(200).send(commentData);
+  })
 }
 
 
 
 module.exports = {
   updateVideo: updateVideo,
-  getPublicVideos: getPublicVideos
+  getPublicVideos: getPublicVideos,
+  getComments: getComments
 }
