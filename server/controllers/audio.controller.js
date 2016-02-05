@@ -45,7 +45,7 @@ module.exports.audioAnalysis = function(videoURL, uniqueID){
             if(err){
               console.log(err)
             } else {
-              console.log('deleted extracted audio file')
+              console.log('deleted extracted audio file from fs')
             }
           })
         })
