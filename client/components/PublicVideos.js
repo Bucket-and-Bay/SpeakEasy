@@ -1,17 +1,19 @@
 var React = require('react');
 var Navbar = require('./Navbar.js');
 var Searchbar = require('./Searchbar.js');
+var helper = require('../config/helper.js');
 
 var PublicVideos = React.createClass({
   getInitialState: function() {
     return {
-      video: [],
+      videos: [],
       publicVideos: []
     }
   },
 
   componentDidMount: function(){
     helper.getPublicVideos().then(function(response){
+      console.log(response, 'RESPONSE FROM HELPER.GPV')
       this.setState({
         video: response.data,
         publicVideos: response.data

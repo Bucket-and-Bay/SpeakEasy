@@ -10,6 +10,18 @@ var updateVideo = function(data) {
  });
 };
 
+var getPublicVideos = function(req, response) {
+  Analysis.find({ isPrivate: false }, 
+    '_id videoUrl date title thumbnail_url description isPrivate')
+    .then(function (data) {
+      var publicVideos = JSON.stringify(data);
+      response.status(200).send(publicVideos);
+    })
+}
+
+
+
 module.exports = {
-  updateVideo: updateVideo
+  updateVideo: updateVideo,
+  getPublicVideos: getPublicVideos
 }

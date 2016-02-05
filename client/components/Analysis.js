@@ -8,8 +8,6 @@ var Tab = ReactTabs.Tab;
 var Tabs = ReactTabs.Tabs;
 var TabList = ReactTabs.TabList;
 var TabPanel = ReactTabs.TabPanel;
-var Switch = require('./PrivateSwitch.js');
-
 
 var Analysis = React.createClass({
 
@@ -24,7 +22,7 @@ var Analysis = React.createClass({
       beyondVerbalDataGroup11: [],
       watsonFullScript: '',
       alchemyAPIConcepts: [],
-      isPrivate: '',
+      isPrivate: null,
       videoId: this.props.params.videoID
     }
   },
@@ -120,8 +118,11 @@ var Analysis = React.createClass({
       }.bind(this))
   },
 
-  get: function(input) {
-    console.log(input);
+  handleClick: function(e) {
+    this.setState({ isPrivate: e.target.checked }, function(){
+      helpers.putPrivacy(this.state.isPrivate, this.state.videoId);
+
+    });
   },
 
   render: function() {
@@ -137,12 +138,22 @@ var Analysis = React.createClass({
             <div className="video-info">
               <h4>{this.state.videoTitle}</h4>
               <p>{this.state.videoDate}</p>
-              <Switch data={this.state} function={this.get}/>
+              <div className="switch">
+                <label>
+                  Public
+                  <input type="checkbox" 
+                    name="private" 
+                    checked={this.state.isPrivate} 
+                    onClick={this.handleClick} />
+                  <span className="lever"></span>
+                  Private
+                </label>
+              </div>
             </div>
           </div>
         </div>
         <div className="col 12">
-          <Tabs onSelect={this.handleSelect} selectedIndex={2}>
+          <Tabs onSelect={this.handleSelect} selectedIndex={0}>
 
             <TabList>
               <Tab>Kairos Video Analysis</Tab>
