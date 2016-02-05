@@ -14,7 +14,7 @@ module.exports.analyze = function (userData, currentUser, audioFile) {
   var analysis = new Analysis ({username : currentUser, title: userData.title, description: userData.description, isPrivate: true});
   var audioLocation;
   //Polling Function Sytanx: util.poll(options, interval, condition)
-  util.poll('https://api.streamable.com/videos/'+jobID, 30000, streamableDoneProcessing, 'streamable'+jobID)
+  util.poll('https://api.streamable.com/videos/'+jobID, 10000, streamableDoneProcessing, 'streamable'+jobID)
     .then(function(res){
       var videoURL = 'https:'+res.files.mp4.url;
       analysis.thumbnail_url = 'https:'+res.thumbnail_url;
