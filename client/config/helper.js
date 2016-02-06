@@ -32,8 +32,6 @@ var submitVideo = function(video){
     })
 }
 
-
-
 var sendCode = function(data) {
   return axios.post(serverURI + '/api/analyze', data)
     .then(function(response) {
@@ -54,6 +52,7 @@ var login = function(user){
       throw err;
     })
 }
+
 var signup = function(user){
   console.log('line 40 signup')
   return axios.post(serverURI + '/user/signup', user)
@@ -200,6 +199,21 @@ var putPrivacy = function(isPrivate, videoId) {
 var getVideoComments = function(videoId) {
   var options = { videoId: videoId }
   return axios.get(serverURI + '/api/getComments/' + videoId, options)
+    .then(function(response) {
+      return response;
+    })
+    .catch(function(err) {
+      throw err;
+    })
+};
+
+var submitComment = function(videoId, username, text) {
+  var options = {
+    videoId: videoId,
+    username: username,
+    text: text
+  }
+  return axios.put(serverURI + '/api/addComment' + videoId, options)
     .then(function(response) {
       return response;
     })

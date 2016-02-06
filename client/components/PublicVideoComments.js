@@ -2,12 +2,121 @@ var React = require('react');
 var Navbar = require('./Navbar.js');
 var VideoPlayer = require('./VideoPlayer.js');
 var helpers = require('../config/helper.js');
-var CommentBox = require('./CommentBox.js');
+// var CommentBox = require('./CommentBox.js');
 
-var data = [
-  {id: 1, author: "Pete Hunt", text: "This is one comment"},
-  {id: 2, author: "Jordan Walke", text: "This is another comment"}
-];
+var Comment = React.createClass({
+  render: function() {
+    return (
+      <div className="comment">
+        <h5 className="commentAuthor">
+          {this.props.username}
+        </h5>
+        {this.props.children}
+      </div>      
+    );
+  }
+});
+
+var CommentBox = React.createClass({
+  getInitialState: function() {
+    return { 
+      data: [
+        {id: 1, username: "Pete Hunt", text: "This is one comment"},
+        {id: 2, username: "Jordan Walke", text: "This is *another* comment"}
+      ]
+    };
+  },
+
+  handleCommentSubmit: function(videoId, username, comment) {
+    var comments = this.state.data;
+    console.log(comments, 'comments in handleCommentSubmit')
+    var newComments = comments.concat([comment]);
+    this.setState({data: newComments});
+    // helpers.submitComment(videoId, username, data);
+  },
+
+  render: function() {
+    return (
+      <div className="commentBox">
+        <h1>Comments</h1>
+        <CommentList data={this.state.data}/>
+        <CommentForm onCommentSubmit={this.handleCommentSubmit} />
+      </div>
+    );
+  }
+});
+
+var CommentList = React.createClass({
+  render: function() {
+    var commentNodes = this.props.data.map(function(comment, idx) {
+      return (
+          <Comment username={comment.username} key={idx}>
+            {comment.text}
+          </Comment>
+      );
+    });
+    return (
+      <div className="commentList">
+        {commentNodes}
+      </div>
+    );
+  }
+});
+
+var CommentForm = React.createClass({
+  getInitialState: function() {
+    return {
+      username: '',
+      text: '',
+      videoId: '',
+      date: ''
+    }
+  },
+
+  componentWillMount: function() {
+    this.setState({
+      username: this.props.username,
+      text: this.props.text,
+      videoId: this.props.text
+
+    })
+  },
+
+  handleTextChange: function(e) {
+    this.setState({ text: e.target.value });
+  },
+
+  handleSubmit: function(e) {
+    e.preventDefault();
+    var text = this.state.text.trim();
+    if(!text) {
+      return;
+    }
+    this.props.onCommentSubmit({text: text})
+    this.setState({
+      text: ''
+    });
+  },
+
+  render: function() {
+    return (
+      <div className="row">
+        <form className="col s12 commentForm" onSubmit={this.handleSubmit}>
+          <div className="row">
+            <div className="input-field col s12">
+              <i className="material-icons prefix">mode_edit</i>
+              <input type="text" value={this.state.text} onChange={this.handleTextChange} id="icon_prefix2" className="materialize-textarea" placeholder="Leave comment..."></input>
+              <label htmlFor="icon_prefix2"></label>
+              <button className="btn waves-effect waves-light" type="submit" name="action">Submit
+                <i className="material-icons right">send</i>
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+    )
+  }
+});
 
 var PublicVideoComments = React.createClass({
   getInitialState: function(){
@@ -16,18 +125,21 @@ var PublicVideoComments = React.createClass({
       videoTitle: '',
       videoDate: '',
       videoId: this.props.params.videoID,
-      username: ''
+      username: '',
+      comments: []
     }
   },
 
   componentDidMount: function() {
     helpers.getVideoComments(this.props.params.videoID)
       .then(function(response){
+        console.log('response', response);
         this.setState({
           videoSource: response.data[0].videoUrl,
           videoTitle: response.data[0].title,
           videoDate: response.data[0].date.slice(0,10),
-          username: response.data[0].username
+          username: response.data[0].username,
+          comments: response.data[0].comments
         })
       }.bind(this))
   },
@@ -50,18 +162,7 @@ var PublicVideoComments = React.createClass({
           </div>
         </div>
         <div className="col 12">
-          <CommentBox data={data}/>
-          <div className="row">
-            <form className="col s12">
-              <div className="row">
-                <div className="input-field col s12">
-                  <i className="material-icons prefix">mode_edit</i>
-                  <textarea id="icon_prefix2" className="materialize-textarea" placeholder="Leave comment..."></textarea>
-                  <label htmlFor="icon_prefix2"></label>
-                </div>
-              </div>
-            </form>
-          </div>
+          <CommentBox data={this.state.comments} username={this.state.username} videoId={this.state.videoId} />
         </div>
       </div>
       </div>
