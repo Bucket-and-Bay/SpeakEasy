@@ -197,7 +197,6 @@ var putPrivacy = function(isPrivate, videoId) {
 };
 
 var getVideoComments = function(videoId) {
-  console.log('getVideoComments called')
   var options = { videoId: videoId }
   return axios.get(serverURI + '/api/getComments/' + videoId, options)
     .then(function(response) {

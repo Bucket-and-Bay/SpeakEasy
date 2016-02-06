@@ -28,16 +28,21 @@ var getComments = function(videoId, response) {
   })
 };
 
-var addComment = function(data) {
-  console.log(data.videoId,'videoId');
-  console.log(data.text, 'text');
-  console.log(data.username, 'username');
-  //TODO: save to database with date
-  // var update = {}
-  // Analysis.findbyIdAndUpdate({ _id: videoId }, {new: true}, function(err, model) {
-  //   if (err) {console.log('Error adding comment: ', err.message)}
-
-  // });
+var addComment = function(data, author) {
+  var videoId = data.videoId;
+  var currentTime = new Date();
+  var comment = {
+    text: data.text,
+    date: currentTime,
+    username: author
+  };
+  var update = {$push: { comments: comment }};
+  Analysis.findByIdAndUpdate(videoId, update, function(err, model) {
+    if (err) {console.log('Error adding comment: ', err.message)}
+    else {
+      console.log('comment added to model schema');
+    }
+  });
 }
 
 
