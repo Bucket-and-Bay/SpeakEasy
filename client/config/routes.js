@@ -15,7 +15,7 @@ var Home = require('../components/Home.js');
 var Upload = require('../components/VideoInput.js');
 var Public = require('../components/PublicVideos.js');
 var Comment = require('../components/PublicVideoComments.js');
-
+var Team = require('../components/About.js');
 
 module.exports =  (
   <Route path ='/'component={Main}>
@@ -27,6 +27,7 @@ module.exports =  (
     <Route path='upload' component={Upload} onEnter={auth.requireAuth}/>
     <Route path='public' component={Public} onEnter={auth.requireAuth}/>
     <Route path='comment/:videoID' component={Comment} onEnter={auth.requireAuth}/>
+    <Route path='about' component={Team} />
     <IndexRoute component={Home} />
   </Route>
 )
