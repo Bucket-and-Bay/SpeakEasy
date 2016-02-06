@@ -7,10 +7,9 @@ var Comment = React.createClass({
   render: function() {
     return (
       <div className="comment">
-        <h5 className="commentAuthor">
-          {this.props.username}
-        </h5>
-        {this.props.children}
+        <span className="commentAuthor">
+          {this.props.author}:</span> {this.props.children}
+        <hr />
       </div>      
     );
   }
@@ -23,22 +22,39 @@ var CommentBox = React.createClass({
     }
   },
 
+  componentWillReceiveProps: function(nextProps) {
+    var that = this;
+    if (nextProps.data){
+      this.setState({ data: nextProps.data });
+    }
+    // setInterval(function(){
+    //   helpers.getVideoComments(nextProps.videoId).then(function(response){
+    //   that.setState({ data: response.data[0].comments })
+    // }.bind(that))}, 7000)
+  },
+
   handleCommentSubmit: function(videoId, author, text) {
-    var comments = this.state.data;
+    var comments = this.props.data;
     var comment = {
       videoId: videoId,
       author: author,
       text: text
     }
     var newComments = comments.concat([comment]);
-    this.setState({data: newComments});
+    // this.setState({data: newComments});
     helpers.submitComment(videoId, author, text);
+    helpers.getVideoComments(videoId)
+      .then(function(response){
+        this.setState({
+          data: response.data[0].comments
+        })
+      }.bind(this))
   },
 
   render: function() {
     return (
       <div className="commentBox">
-        <h1>Comments</h1>
+        <h4>Comments</h4>
         <CommentList data={this.state.data}/>
         <CommentForm onCommentSubmit={this.handleCommentSubmit} videoId={this.props.videoId} />
       </div>
@@ -50,7 +66,7 @@ var CommentList = React.createClass({
   render: function() {
     var commentNodes = this.props.data.map(function(comment, idx) {
       return (
-          <Comment author={comment.author} key={idx}>
+          <Comment author={comment.username} key={idx}>
             {comment.text}
           </Comment>
       );
@@ -130,11 +146,9 @@ var PublicVideoComments = React.createClass({
     }
   },
 
-  componentDidMount: function() {
-    var that = this;
+  componentWillMount: function() {
     helpers.getVideoComments(this.props.params.videoID)
       .then(function(response){
-        console.log(response.data[0].comments, 'PublicVideoComments');
         this.setState({
           videoSource: response.data[0].videoUrl,
           videoTitle: response.data[0].title,
@@ -143,9 +157,6 @@ var PublicVideoComments = React.createClass({
           comments: response.data[0].comments
         })
       }.bind(this))
-    // setInterval(function(){
-    //   helpers.getVideoComments(that.props.params.videoId)
-    //   }, 5000)
   },
 
   render: function() {

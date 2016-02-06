@@ -121,4 +121,8 @@ footer.page-footer {
   flex: 1 1 auto;
 }
 
+.commentAuthor {
+  font-weight: bold;
+}
+
 
