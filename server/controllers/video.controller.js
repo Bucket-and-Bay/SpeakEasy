@@ -32,6 +32,7 @@ var addComment = function(data) {
   console.log(data.videoId,'videoId');
   console.log(data.text, 'text');
   console.log(data.username, 'username');
+  //TODO: save to database with date
   // var update = {}
   // Analysis.findbyIdAndUpdate({ _id: videoId }, {new: true}, function(err, model) {
   //   if (err) {console.log('Error adding comment: ', err.message)}

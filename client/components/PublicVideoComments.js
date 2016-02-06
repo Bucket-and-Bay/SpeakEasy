@@ -2,7 +2,6 @@ var React = require('react');
 var Navbar = require('./Navbar.js');
 var VideoPlayer = require('./VideoPlayer.js');
 var helpers = require('../config/helper.js');
-// var CommentBox = require('./CommentBox.js');
 
 var Comment = React.createClass({
   render: function() {
@@ -20,11 +19,12 @@ var Comment = React.createClass({
 var CommentBox = React.createClass({
   getInitialState: function() {
     return { 
-      data: [
-        {videoId: 1, author: "Pete Hunt", text: "This is one comment"},
-        {videoId: 2, author: "Jordan Walke", text: "This is *another* comment"}
-      ]
-    };
+      data: []
+    }
+  },
+
+  componentDidMount: function() {
+
   },
 
   handleCommentSubmit: function(videoId, author, text) {
@@ -36,7 +36,7 @@ var CommentBox = React.createClass({
     }
     var newComments = comments.concat([comment]);
     this.setState({data: newComments});
-    // helpers.submitComment(videoId, author, data);
+    helpers.submitComment(videoId, author, text);
   },
 
   render: function() {
@@ -82,7 +82,6 @@ var CommentForm = React.createClass({
       author: 'do not know',
       text: this.props.text,
       videoId: this.props.videoId
-
     })
   },
 
@@ -131,7 +130,7 @@ var PublicVideoComments = React.createClass({
       videoId: this.props.params.videoID,
       username: '',
       comments: [],
-      author: ''  //TODO: get username of author
+      author: ''  //TODO: get username of author??
     }
   },
 
@@ -146,7 +145,7 @@ var PublicVideoComments = React.createClass({
           username: response.data[0].username,
           comments: response.data[0].comments
         })
-      }.bind(this))
+      }.bind(this));
   },
 
   render: function() {

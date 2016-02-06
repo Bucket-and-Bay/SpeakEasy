@@ -38,9 +38,7 @@ router.get('/api/getComments/:videoId', function(req, res) {
   video.getComments(req.params.videoId, res);
 })
 router.put('/api/addComment', function(req, res) {
-  console.log('add comment put route called ', req.body);
-  console.log('add comment route ', req.params);
-  video.addComment(req.params, req.body, res);
+  video.addComment(req.body, res);
 })
 
 //Routes for user authentication

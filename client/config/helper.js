@@ -1,7 +1,7 @@
 var axios = require('axios');
 
-var serverURI = 'http://localhost:3000';
-// var serverURI = 'https://bab-speakeasy.herokuapp.com';
+// var serverURI = 'http://localhost:3000';
+var serverURI = 'https://bab-speakeasy.herokuapp.com';
 
 var submitRecorded = function(videoData){
   console.log(videoData);
@@ -197,6 +197,7 @@ var putPrivacy = function(isPrivate, videoId) {
 };
 
 var getVideoComments = function(videoId) {
+  console.log('getVideoComments called')
   var options = { videoId: videoId }
   return axios.get(serverURI + '/api/getComments/' + videoId, options)
     .then(function(response) {
@@ -213,7 +214,7 @@ var submitComment = function(videoId, username, text) {
     username: username,
     text: text
   }
-  return axios.put(serverURI + '/api/addComment' + videoId, options)
+  return axios.put(serverURI + '/api/addComment', options)
     .then(function(response) {
       return response;
     })
@@ -238,6 +239,7 @@ module.exports = {
   getAlchemyData: getAlchemyData,
   putPrivacy: putPrivacy,
   getPublicVideos: getPublicVideos,
-  getVideoComments: getVideoComments
+  getVideoComments: getVideoComments,
+  submitComment: submitComment
 };
 
