@@ -38,7 +38,6 @@
     "mongoose": "^4.3.7",
     "morgan": "^1.6.1",
     "multer": "^1.1.0",
-    "multiparty": "^4.1.2",
     "querystring": "^0.2.0",
     "react": "^0.14.7",
     "react-dom": "^0.14.6",
