@@ -21,18 +21,22 @@ var CommentBox = React.createClass({
   getInitialState: function() {
     return { 
       data: [
-        {id: 1, username: "Pete Hunt", text: "This is one comment"},
-        {id: 2, username: "Jordan Walke", text: "This is *another* comment"}
+        {videoId: 1, author: "Pete Hunt", text: "This is one comment"},
+        {videoId: 2, author: "Jordan Walke", text: "This is *another* comment"}
       ]
     };
   },
 
-  handleCommentSubmit: function(videoId, username, comment) {
+  handleCommentSubmit: function(videoId, author, text) {
     var comments = this.state.data;
-    console.log(comments, 'comments in handleCommentSubmit')
+    var comment = {
+      videoId: videoId,
+      author: author,
+      text: text
+    }
     var newComments = comments.concat([comment]);
     this.setState({data: newComments});
-    // helpers.submitComment(videoId, username, data);
+    // helpers.submitComment(videoId, author, data);
   },
 
   render: function() {
@@ -40,7 +44,7 @@ var CommentBox = React.createClass({
       <div className="commentBox">
         <h1>Comments</h1>
         <CommentList data={this.state.data}/>
-        <CommentForm onCommentSubmit={this.handleCommentSubmit} />
+        <CommentForm onCommentSubmit={this.handleCommentSubmit} videoId={this.props.videoId} />
       </div>
     );
   }
@@ -50,7 +54,7 @@ var CommentList = React.createClass({
   render: function() {
     var commentNodes = this.props.data.map(function(comment, idx) {
       return (
-          <Comment username={comment.username} key={idx}>
+          <Comment author={comment.author} key={idx}>
             {comment.text}
           </Comment>
       );
@@ -66,18 +70,18 @@ var CommentList = React.createClass({
 var CommentForm = React.createClass({
   getInitialState: function() {
     return {
-      username: '',
+      author: '',
       text: '',
       videoId: '',
       date: ''
     }
   },
 
-  componentWillMount: function() {
+  componentDidMount: function() {
     this.setState({
-      username: this.props.username,
+      author: 'do not know',
       text: this.props.text,
-      videoId: this.props.text
+      videoId: this.props.videoId
 
     })
   },
@@ -92,7 +96,7 @@ var CommentForm = React.createClass({
     if(!text) {
       return;
     }
-    this.props.onCommentSubmit({text: text})
+    this.props.onCommentSubmit(this.state.videoId, this.state.author, this.state.text);
     this.setState({
       text: ''
     });
@@ -126,7 +130,8 @@ var PublicVideoComments = React.createClass({
       videoDate: '',
       videoId: this.props.params.videoID,
       username: '',
-      comments: []
+      comments: [],
+      author: ''  //TODO: get username of author
     }
   },
 
@@ -162,7 +167,7 @@ var PublicVideoComments = React.createClass({
           </div>
         </div>
         <div className="col 12">
-          <CommentBox data={this.state.comments} username={this.state.username} videoId={this.state.videoId} />
+          <CommentBox data={this.state.comments} author={this.state.author} videoId={this.state.videoId} />
         </div>
       </div>
       </div>
