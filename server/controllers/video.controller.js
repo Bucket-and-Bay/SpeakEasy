@@ -20,12 +20,24 @@ var getPublicVideos = function(req, response) {
 };
 
 var getComments = function(videoId, response) {
-  Analysis.find({_id: videoId },
+  Analysis.find({ _id: videoId },
   '_id videoUrl date title thumbnail_url description username comments')
   .then(function(data) {
     var commentData = JSON.stringify(data);
     response.status(200).send(commentData);
   })
+};
+
+var addComment = function(data) {
+  console.log(data.videoId,'videoId');
+  console.log(data.text, 'text');
+  console.log(data.username, 'username');
+  //TODO: save to database with date
+  // var update = {}
+  // Analysis.findbyIdAndUpdate({ _id: videoId }, {new: true}, function(err, model) {
+  //   if (err) {console.log('Error adding comment: ', err.message)}
+
+  // });
 }
 
 
@@ -33,5 +45,6 @@ var getComments = function(videoId, response) {
 module.exports = {
   updateVideo: updateVideo,
   getPublicVideos: getPublicVideos,
-  getComments: getComments
+  getComments: getComments,
+  addComment: addComment
 }

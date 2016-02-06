@@ -37,6 +37,9 @@ router.put('/api/updatePrivacy/:id', function(req, res) {
 router.get('/api/getComments/:videoId', function(req, res) {
   video.getComments(req.params.videoId, res);
 })
+router.put('/api/addComment', function(req, res) {
+  video.addComment(req.body, res);
+})
 
 //Routes for user authentication
 router.post('/user/login', user.login)
