@@ -162,10 +162,6 @@ module.exports.beyondVerbalAnalysis = function(audioFile) {
       reject(authError)
     })
   })
-  //FOR TESTING:
-  // analyzeFile(options.apiKey, audioFile, options.token);
-  // upstreamRequest(recID, audioFile, options.token);
-  // getAnalysis('d8e6a4a5-a59f-43ad-98c1-fd963e1f8f80');
 }
 
 
