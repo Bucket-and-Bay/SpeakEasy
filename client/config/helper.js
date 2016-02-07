@@ -140,8 +140,9 @@ var getBeyondVerbalData = function (bvData) {
     moodDataComp: [],
     moodDataGroup11: [],
     temperData: 0,
-    valenceData: 0
-  }
+    valenceData: 0,
+    finalDataGroup11: {}
+  };
   var count = 0;
   bvData.analysisSegments.forEach(function (item) {
 
@@ -154,12 +155,20 @@ var getBeyondVerbalData = function (bvData) {
     count++;
   });
 
+  emotions.moodDataGroup11.forEach(function (group) {
+    var obj = emotions.finalDataGroup11;
 
+    if (!(group in obj)) {
+      obj[group] = 1;
+    } else {
+      obj[group]++;
+    }
+  });
 
   emotions.arousalData = [emotions.arousalData / count];
   emotions.temperData = [emotions.temperData / count];
   emotions.valenceData = [emotions.valenceData / count];
-
+  console.log('Emotions: ', emotions.moodDataGroup11);
   return emotions;
 };
 
@@ -175,7 +184,7 @@ var getAlchemyData = function (alchemyData) {
     conceptsWebsites.push(item.website || '');
   });
   var concepts = [conceptsText,conceptsWebsites];
-  console.log(concepts);
+  console.log('Concepts: ', concepts);
   return concepts;
 };
 
