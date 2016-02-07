@@ -12,4 +12,5 @@ server/controllers/record/
 .flooignore
 client/public/bundle.js
 server/controllers/wavFiles/
-server/api_key.txt
+server/controllers/
+

@@ -45,6 +45,7 @@
     "react-dom": "^0.14.6",
     "react-highcharts": "^6.0.0",
     "react-loader": "^2.0.0",
+    "react-materialize": "^0.14.2",
     "react-router": "^1.0.3",
     "react-tabs": "^0.5.3",
     "recordrtc": "^5.2.7",

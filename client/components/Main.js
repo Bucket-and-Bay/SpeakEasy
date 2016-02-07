@@ -23,7 +23,7 @@ var Main = React.createClass({
                 </ul>
               </div>
               <div className="col l4 offset-l2 s12">
-                <h5 className="white-text">API's Used</h5>
+                <h5 className="white-text">APIs Used</h5>
                 <ul>
                   <li><a className="grey-text text-lighten-3" href="https://www.kairos.com">Kairos</a></li>
                   <li><a className="grey-text text-lighten-3" href="http://www.beyondverbal.com">Beyond Verbal</a></li>
