@@ -10,7 +10,7 @@ module.exports.poll = function(options, interval,condition){
     .then(function(res, err){
       var data = JSON.parse(res);
       if(err){
-        console.log(err);
+        reject(err);
       }else{
         if(condition && condition(data)){
           resolve(data);

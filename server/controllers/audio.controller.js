@@ -26,7 +26,7 @@ var extractAudio = function(videoURL, uniqueID) {
         resolve(wavFile);
       })
       .on('error', function(err){
-        reject(err);
+        reject('extracted audio error');
       })
       .run();
   })
@@ -37,32 +37,60 @@ module.exports.audioAnalysis = function(videoURL, uniqueID){
 
     extractAudio(videoURL, uniqueID)
     .then(function(wavFile){
-      Promise.all([beyondVerbal.beyondVerbalAnalysis(wavFile), watsonAndAlchemy(wavFile)])
-        .then(function(data){
-          console.log('Audio Analysis data done!!!!!!');
-          resolve([data[0][0], data[0][1], data[1][0], data[1][1]]);
-          fs.unlink(wavFile, function(err){
-            if(err){
-              console.log(err)
-            } else {
-              console.log('deleted extracted audio file from fs')
-            }
-          })
-        })
+      var promises = [beyondVerbal.beyondVerbalAnalysis(wavFile), watsonAndAlchemy(wavFile)]
+      Promise.all(promises.map(function(promise){
+        return promise.reflect();
+      })).then(function(inspections){
+        var results = [];
+        if(inspections[0].isFulfilled()){
+          results[0] = inspections[0].value()[0];
+          results[1] = inspections[0].value()[1];
+        } 
+        if(inspections[1].isFulfilled()){
+          results[2] = inspections[1].value()[0];
+          results[3] = inspections[1].value()[1];      
+        }
+        //if Watson gets rejected, then there is no [beyond, beyond, undefined, undefined]
+        //if alchemy gets rejected, [beyond, beyond, undefined, watson]
+        //if beyond gets rejected, [undefined, undefined, alchemy, watson]
+        resolve(results);
+        deleteWav(wavFile);
+      })
+    }, function(extractAudioError){
+      reject(extractAudioError);
+      deleteWav(wavFile)
     });
   })
 };
 
-
+var deleteWav = function(fileLocation){
+  fs.unlink(fileLocation, function(err){
+    if(err){
+      console.log(err)
+    } else {
+      console.log('delete extracted audio file from fs')
+    }
+  })
+}
 
 var watsonAndAlchemy = function(wavFile){
   return new Promise(function(resolve, reject){
     watsonAnalysis.watsonSpeechToText(wavFile)       //save watsonResults to db
       .then(function(watsonResults){
-        alchemy.alchemyAnalysis(watsonResults)
-          .then(function(alchemyResults){
-            resolve([alchemyResults, watsonResults])
+        alchemy.alchemyAnalysis(watsonResults).reflect()
+          .then(function(alchemyData){
+            if(alchemyData.isFulfilled()){
+              console.log('alchemy data')
+              resolve([alchemyData.value(), watsonResults])
+            } else {
+              console.log('error alchemy')
+              resolve([undefined, watsonResults])
+            }
+          
+          //error catching
           }); //save alchemyResults to db
+      }, function(watsonReject){
+        reject(watsonReject);
       })
   })
 };
