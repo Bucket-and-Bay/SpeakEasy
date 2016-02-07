@@ -1,7 +1,7 @@
 var axios = require('axios');
 
-var serverURI = 'http://localhost:3000';
-// var serverURI = 'https://bab-speakeasy.herokuapp.com';
+// var serverURI = 'http://localhost:3000';
+var serverURI = 'https://bab-speakeasy.herokuapp.com';
 
 var submitRecorded = function(videoData){
   console.log(videoData);
@@ -197,7 +197,6 @@ var putPrivacy = function(isPrivate, videoId) {
 };
 
 var getVideoComments = function(videoId) {
-  console.log('getVideoComments called')
   var options = { videoId: videoId }
   return axios.get(serverURI + '/api/getComments/' + videoId, options)
     .then(function(response) {

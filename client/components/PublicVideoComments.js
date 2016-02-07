@@ -7,10 +7,9 @@ var Comment = React.createClass({
   render: function() {
     return (
       <div className="comment">
-        <h5 className="commentAuthor">
-          {this.props.username}
-        </h5>
-        {this.props.children}
+        <span className="commentAuthor">
+          {this.props.author}:</span> {this.props.children}
+        <hr />
       </div>      
     );
   }
@@ -23,26 +22,39 @@ var CommentBox = React.createClass({
     }
   },
 
-  componentDidMount: function() {
-
+  componentWillReceiveProps: function(nextProps) {
+    var that = this;
+    if (nextProps.data){
+      this.setState({ data: nextProps.data });
+    }
+    // setInterval(function(){
+    //   helpers.getVideoComments(nextProps.videoId).then(function(response){
+    //   that.setState({ data: response.data[0].comments })
+    // }.bind(that))}, 7000)
   },
 
   handleCommentSubmit: function(videoId, author, text) {
-    var comments = this.state.data;
+    var comments = this.props.data;
     var comment = {
       videoId: videoId,
       author: author,
       text: text
     }
     var newComments = comments.concat([comment]);
-    this.setState({data: newComments});
+    // this.setState({data: newComments});
     helpers.submitComment(videoId, author, text);
+    helpers.getVideoComments(videoId)
+      .then(function(response){
+        this.setState({
+          data: response.data[0].comments
+        })
+      }.bind(this))
   },
 
   render: function() {
     return (
       <div className="commentBox">
-        <h1>Comments</h1>
+        <h4>Comments</h4>
         <CommentList data={this.state.data}/>
         <CommentForm onCommentSubmit={this.handleCommentSubmit} videoId={this.props.videoId} />
       </div>
@@ -54,7 +66,7 @@ var CommentList = React.createClass({
   render: function() {
     var commentNodes = this.props.data.map(function(comment, idx) {
       return (
-          <Comment author={comment.author} key={idx}>
+          <Comment author={comment.username} key={idx}>
             {comment.text}
           </Comment>
       );
@@ -79,7 +91,7 @@ var CommentForm = React.createClass({
 
   componentDidMount: function() {
     this.setState({
-      author: 'do not know',
+      author: 'user',
       text: this.props.text,
       videoId: this.props.videoId
     })
@@ -130,14 +142,13 @@ var PublicVideoComments = React.createClass({
       videoId: this.props.params.videoID,
       username: '',
       comments: [],
-      author: ''  //TODO: get username of author??
+      author: ''
     }
   },
 
-  componentDidMount: function() {
+  componentWillMount: function() {
     helpers.getVideoComments(this.props.params.videoID)
       .then(function(response){
-        console.log('response', response);
         this.setState({
           videoSource: response.data[0].videoUrl,
           videoTitle: response.data[0].title,
@@ -145,7 +156,7 @@ var PublicVideoComments = React.createClass({
           username: response.data[0].username,
           comments: response.data[0].comments
         })
-      }.bind(this));
+      }.bind(this))
   },
 
   render: function() {
