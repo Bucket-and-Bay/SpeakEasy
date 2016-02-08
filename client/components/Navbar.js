@@ -1,11 +1,19 @@
 var React = require('react');
 var helper = require('../config/helper.js');
 var Auth = require('../config/Auth.js');
+var Logo = require('./logo');
+var NavWrapper = require('react-materialize').Navbar;
+var NavItem = require('react-materialize').NavItem;
+var Dropdown = require('react-materialize').Dropdown
+var Button = require('react-materialize').Button
 
 var Navbar = React.createClass({
+  componentDidMount: function(){
+      document.documentElement.addEventListener('scroll', this.handleScroll);
+  },
   getInitialState: function(){
     return {
-      loggedIn: Auth.isLoggedIn()
+      loggedIn: Auth.isLoggedIn(),
     }
   },
   logout: function(e){
@@ -15,23 +23,37 @@ var Navbar = React.createClass({
   },
   buttons: function(){
     if(this.state.loggedIn){
-      return [<li key='1'><a href="#/upload">Upload a Video</a></li>, <li key='2'><a href="#/record">Record a Video</a></li>,  <li key='3'><a href="#/dashboard">Your Videos</a></li>, <li key='4'><a href="#/public">Public Videos</a></li>, <li key='5'><a href="#/signin" onClick={this.logout}>Logout</a></li>]
+    return [<NavItem key="1" href="#/upload">Upload a Video</NavItem>, <NavItem key="2"href="#/record">Record a Video</NavItem>,  <NavItem key="3" href="#/dashboard">Your Videos</NavItem>, <NavItem key="4" href="#/public">Public Videos</NavItem>, <NavItem key="5" href="#/signin" onClick={this.logout}>Logout</NavItem>]
     } else {
-      return [<li key='1'><a href="#/signup">Signup</a></li>, <li key='2'><a href="#/signin">Log In</a></li>]
+      return [<NavItem key="1" href="#/signup">Signup</NavItem>, <NavItem key="2" href="#/signin">Log In</NavItem>]
     }
   },
-  render: function(){
+  handleScroll: function() {
+    this.refs.nav.getDOMNode().style.top = document.documentElement.scrollTop + 'px';
+  },
+
+  render:function(){
     return (
-      <nav>
-        <div className="nav-wrapper">
-          <a href="#" className="brand-logo">SpeakEasy</a>
-          <ul id="nav-mobile" className="right hide-on-med-and-down">
-            {this.buttons()}
-          </ul>
+      <nav >
+        <div className="nav-wrap">
+         <a href="#" className="brand-logo left">
+          <Logo/>
+         </a> 
+          <div id="mobile-nav" className="right"> 
+            <Dropdown className="right" trigger={
+              <Button id="menu-wrap" className="transparent" right>
+               <a className="teal-text">
+                 <i className="material-icons">menu </i>
+               </a>
+              </Button>
+             }> 
+             {this.buttons()}
+            </Dropdown>
+          </div>
         </div>
       </nav>
     )
   }
-})
+});
 
 module.exports = Navbar;
