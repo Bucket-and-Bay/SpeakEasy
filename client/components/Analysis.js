@@ -22,6 +22,9 @@ var Analysis = React.createClass({
       beyondVerbalDataGroup11: [],
       watsonFullScript: '',
       alchemyAPIConcepts: [],
+      atvArousal: [],
+      atvTemper: [],
+      atvValence: [],
       isPrivate: null,
       videoId: this.props.params.videoID
     }
@@ -38,7 +41,7 @@ var Analysis = React.createClass({
             search: '?a=query'
           })
         } else {
-
+          console.log(response.data.beyondVerbalAnalysis);
           var videoDate = response.data.date.slice(0, 10);
           var videosource = response.data.videoUrl;
 
@@ -49,7 +52,8 @@ var Analysis = React.createClass({
           // Beyond Verbal
           var bvData = response.data.beyondVerbalAnalysis[0].result;
           var beyondVerbalAnalysisData = helpers.getBeyondVerbalData(bvData);
-          console.log(beyondVerbalAnalysisData.finalDataGroup11['Supremacy, Arrogance']);
+          console.log(beyondVerbalAnalysisData.summary);
+
           // Watson Script
           var watsonScript = response.data.watsonAnalysis[1];
 
@@ -65,6 +69,10 @@ var Analysis = React.createClass({
             beyondVerbalDataGroup11: beyondVerbalAnalysisData.moodDataGroup11,
             watsonFullScript: watsonScript,
             alchemyAPIConcepts: conceptsData,
+            atvArousal: beyondVerbalAnalysisData.summary['arousal'],
+            atvTemper: beyondVerbalAnalysisData.summary['temper'],
+            atvValence: beyondVerbalAnalysisData.summary['valence'],
+
             kairosAnalysis: {
                 title: {
                   text: 'Kairos Video Analysis'
@@ -108,6 +116,7 @@ var Analysis = React.createClass({
                 //  y: -60,
                 //  shadow: true
                 //},
+
                 chart: {
                   type: 'bar'
                 },
@@ -146,10 +155,10 @@ var Analysis = React.createClass({
                   type: 'pie'
                 },
                 title: {
-                  text: 'Mood Groups 11'
+                  text: 'Your voice emotions'
                 },
                 tooltip: {
-                  //pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+                  pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
                 },
                 plotOptions: {
                   pie: {
@@ -157,7 +166,7 @@ var Analysis = React.createClass({
                     cursor: 'pointer',
                     dataLabels: {
                       enabled: true,
-                      //format: '<b>{point.name}</b>: {point.percentage:.1f} %',
+                      format: '<b>{point.name}</b>: {point.percentage:.1f} %',
                       style: {
                         color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
                       }
@@ -168,29 +177,40 @@ var Analysis = React.createClass({
                   name: 'Mood',
                   colorByPoint: true,
                   data: [{
-                    name: 'Creative, Passionate',
-                    y: beyondVerbalAnalysisData.finalDataGroup11['Creative, Passionate'] || 0
-                  }, {
-                    name: 'Criticism, Cynicism',
-                    y: beyondVerbalAnalysisData.finalDataGroup11['Criticism, Cynicism'] || 0
-
-                  }, {
-                    name: 'Defensiveness, Anxiety',
-                    y: beyondVerbalAnalysisData.finalDataGroup11['Defensivness, Anxiety'] || 0
-                  }, {
-                    name: 'Friendly, Warm',
-                    y: beyondVerbalAnalysisData.finalDataGroup11['Friendly, Warm'] || 0
-                  }, {
-                    name: 'Hostility, Anger',
-                    y: beyondVerbalAnalysisData.finalDataGroup11['Hostility, Anger'] || 0
-                  }, {
-                    name: 'Leadership, Charisma',
-                    y: beyondVerbalAnalysisData.finalDataGroup11['Leadership, Charisma'] || 0
-                  }, {
                     name: 'Supremacy, Arrogance',
-                    y: beyondVerbalAnalysisData.finalDataGroup11['Supremacy, Arrogance'] || 0,
+                    y: beyondVerbalAnalysisData.finalDataGroup11['Supremacy, Arrogance'] || null,
                     sliced: true,
                     selected: true
+                  }, {
+                    name: 'Hostility and Anger',
+                    y: beyondVerbalAnalysisData.finalDataGroup11['Hostility, Anger'] || null
+                  }, {
+                    name: 'Criticism and Cynicism',
+                    y: beyondVerbalAnalysisData.finalDataGroup11['Criticism, Cynicism'] || null
+                  }, {
+                    name: 'Self-control and Practicality',
+                    y: beyondVerbalAnalysisData.finalDataGroup11['Self-control, Practicality'] || null
+                  }, {
+                    name: 'Leadership and Charisma',
+                    y: beyondVerbalAnalysisData.finalDataGroup11['Leadership, Charisma'] || null
+                  }, {
+                    name: 'Creative and Passion',
+                    y: beyondVerbalAnalysisData.finalDataGroup11['Creative, Passionate'] || null
+                  }, {
+                    name: 'Friendliness and Warm',
+                    y: beyondVerbalAnalysisData.finalDataGroup11['Friendly, Warm'] || null
+                  }, {
+                    name: 'Love and Happiness',
+                    y: beyondVerbalAnalysisData.finalDataGroup11['Love, Happiness'] || null
+                  }, {
+                    name: 'Loneliness and Unfulfillment',
+                    y: beyondVerbalAnalysisData.finalDataGroup11['Loneliness, Unfulfillment'] || null
+                  }, {
+                    name: 'Sadness and Sorrow',
+                    y: beyondVerbalAnalysisData.finalDataGroup11['Sadness, Sorrow'] || null
+                  }, {
+                    name: 'Defensiveness and Anxiety',
+                    y: beyondVerbalAnalysisData.finalDataGroup11['Defensivness, Anxiety'] || null
                   }]
                 }]
               },
@@ -235,7 +255,7 @@ var Analysis = React.createClass({
           </div>
         </div>
         <div className="col 12">
-          <Tabs onSelect={this.handleSelect} selectedIndex={2}>
+          <Tabs onSelect={this.handleSelect} selectedIndex={1}>
 
             <TabList>
               <Tab>Kairos Video Analysis</Tab>
@@ -252,6 +272,25 @@ var Analysis = React.createClass({
 
             <TabPanel>
               <Graph data={this.state.beyondVerbalAnalysis}/>
+              <h5 className="row col s12 center-align">Scroll down to read what your results mean</h5>
+
+              <div className="row">
+                <div className="col s4 center-align card-panel hoverable">
+                  Your Arousal was {this.state.atvArousal[0]}
+                  <hr/>
+                  {this.state.atvArousal[1]}
+                </div>
+                <div className="col s4 center-align card-panel hoverable">
+                  Your Temper was {this.state.atvTemper[0]}
+                  <hr/>
+                  {this.state.atvTemper[1]}
+                </div>
+                <div className="col s4 center-align card-panel hoverable">
+                  Your Valence was {this.state.atvValence[0]}
+                  <hr/>
+                  {this.state.atvValence[1]}
+                </div>
+              </div>
             </TabPanel>
 
             <TabPanel>

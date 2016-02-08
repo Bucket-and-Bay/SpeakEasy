@@ -141,7 +141,8 @@ var getBeyondVerbalData = function (bvData) {
     moodDataGroup11: [],
     temperData: 0,
     valenceData: 0,
-    finalDataGroup11: {}
+    finalDataGroup11: {},
+    summary: {}
   };
   var count = 0;
   bvData.analysisSegments.forEach(function (item) {
@@ -154,6 +155,16 @@ var getBeyondVerbalData = function (bvData) {
     emotions.valenceData += (Number(item.analysis.Valence.Value));
     count++;
   });
+
+  emotions.summary['arousal'] = bvData.analysisSummary.AnalysisResult['Arousal'].Mode;
+  emotions.summary['temper'] = bvData.analysisSummary.AnalysisResult['Temper'].Mode;
+  emotions.summary['valence'] = bvData.analysisSummary.AnalysisResult['Valence'].Mode;
+
+  //console.log(emotions.summary);
+
+
+  emotions.summary = atvModes(emotions.summary);
+  //console.log(emotions.summary);
 
   emotions.moodDataGroup11.forEach(function (group) {
     var obj = emotions.finalDataGroup11;
@@ -168,8 +179,46 @@ var getBeyondVerbalData = function (bvData) {
   emotions.arousalData = [emotions.arousalData / count];
   emotions.temperData = [emotions.temperData / count];
   emotions.valenceData = [emotions.valenceData / count];
-  console.log('Emotions: ', emotions.moodDataGroup11);
   return emotions;
+};
+
+var atvModes = function (summaries) {
+  var moods = {
+    arousal : {
+      low: 'Low Arousal, conveys low levels of alertness and can be registered in cases of sadness, comfort, relief or sleepiness.',
+      medium: 'Mid Arousal, conveys a medium level of alertness and can be registered in cases of normal conduct, indifference or self-control.',
+      neutral: ' Arousal neutral perhaps not needed...',
+      high: 'High Arousal, conveys a high level of alertness such as excitement, surprise, passionate communication, extreme happiness or anger.'
+    },
+    temper : {
+      low: 'Low temper occurs when the speaker experiences and expresses depressive emotions in an inhibited fashion, such as sadness, pain, suffering, insult, inferiority, self-blame, self-criticism, regret, fear, anxiety and concern (can also be interpreted as fatigued). It is as though the speaker is waning, growing smaller or pulling back.',
+      medium: 'Medium temper occurs when the speaker experiences and expresses the following three types of emotions: Embracive “positive” emotions, communicated in a warm and friendly manner, such as positivity, empathy, acceptance, friendliness, closeness, kindness, affection, love, calmness, and motivation. Self-controlled “neutral” emotions communicated in a “matter-of-fact” intonation. No significant emotions are evident in the speaker’s voice.',
+      neutral: 'Temper neutral perhaps not needed...',
+      high: 'High temper occurs when the speaker experiences and expresses aggressive emotions, such as active resistance, anger, hatred, hostility, aggressiveness, forceful commandment and/or arrogance.'
+    },
+    valence : {
+      negative: 'Negative Valence. The speaker’s voice conveys emotional pain and weakness or aggressive and antagonistic emotions.',
+      neutral: 'Neutral Valence. The speaker’s voice conveys no preference and comes across as self-control or neutral.',
+      positive: 'Positive Valence. The speaker’s voice conveys affection, love, acceptance and openness.'
+    }
+  };
+  // Object {Arousal: "high", Temper: "medium", Valence: "neutral"}
+  // return object with three moods and their data
+  // {Arousal: ['high', 'big string']}
+
+  var summaryAllData = {};
+
+  for (var outerKey in moods) {
+    var next = moods[outerKey];
+    for (var innerKey in next) {
+      if (innerKey === summaries[outerKey]) {
+        summaryAllData[outerKey] = [innerKey, next[innerKey]];
+      }
+    }
+  }
+
+  return summaryAllData;
+
 };
 
 var getAlchemyData = function (alchemyData) {
@@ -184,7 +233,7 @@ var getAlchemyData = function (alchemyData) {
     conceptsWebsites.push(item.website || '');
   });
   var concepts = [conceptsText,conceptsWebsites];
-  console.log('Concepts: ', concepts);
+  //console.log('Concepts: ', concepts);
   return concepts;
 };
 
