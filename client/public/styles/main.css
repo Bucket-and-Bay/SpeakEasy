@@ -121,8 +121,42 @@ footer.page-footer {
   flex: 1 1 auto;
 }
 
-.commentAuthor {
-  font-weight: bold;
+.relative-time {
+  font-size: 70%;
+  color: #8c8c8c;
+  margin: 0;
+  padding: 0;
+  line-height: 1rem;
+}
+
+.comment{
+  background-color: #e9f6f4;
+  margin-bottom: 2px;
+  display: flex;
+  justify-content: center;
+  border-radius: 3px;
+}
+
+.comment-heading {
+  margin: 4px;
+}
+
+.comment-author {
+  margin: 0;
+  padding: 0;
+  line-height: 1rem;
+  color: #26a69a;
+  padding-top: 4px;
+}
+
+.comment-content {
+  background-color: #fafafa;
+  margin-right: 10px;
+  align-self: center;
+  border-radius: 3px;
+  margin-top: 4px;
+  margin-bottom: 4px;
+  color: #515151;
 }
 
 
