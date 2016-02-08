@@ -2,13 +2,18 @@ var React = require('react');
 var Navbar = require('./Navbar.js');
 var VideoPlayer = require('./VideoPlayer.js');
 var helpers = require('../config/helper.js');
+var moment = require('moment');
 
 var Comment = React.createClass({
   render: function() {
+    var date = this.props.date;
+    var relativeTime = moment(date).fromNow();
     return (
       <div className="comment">
         <span className="commentAuthor">
-          {this.props.author}:</span> {this.props.children}
+          {this.props.author}</span>  <span className="relativeTime">{relativeTime}</span> 
+          <br />
+          {this.props.text}
         <hr />
       </div>      
     );
@@ -23,6 +28,7 @@ var CommentBox = React.createClass({
   },
 
   componentWillReceiveProps: function(nextProps) {
+    console.log(nextProps.data, 'data')
     var that = this;
     if (nextProps.data){
       this.setState({ data: nextProps.data });
@@ -65,8 +71,9 @@ var CommentBox = React.createClass({
 var CommentList = React.createClass({
   render: function() {
     var commentNodes = this.props.data.map(function(comment, idx) {
+      console.log(comment);
       return (
-          <Comment author={comment.username} key={idx}>
+          <Comment author={comment.username} date={comment.date} text={comment.text} key={idx}>
             {comment.text}
           </Comment>
       );
