@@ -3,10 +3,10 @@ var Navbar = require('./Navbar.js')
 
 var Home = React.createClass({
   render: function(){
-    return (
-    <div>
-      <Navbar />
-      <div id="index-banner" className="parallax-container">
+    return ( 
+      <div> 
+      <div id="index-banner" className="parallax-container"> 
+        <Navbar id="home-nav"/> 
         <div className="section no-pad-bot">
           <div className="container">
             <p>&nbsp;</p>
@@ -30,7 +30,7 @@ var Home = React.createClass({
           <div className="row">
             <div className="col s12 m4">
               <div className="icon-block">
-                <h2 className="center blue-text"><i className="material-icons">videocam</i></h2>
+                <h2 className="center teal-text"><i className="material-icons">videocam</i></h2>
                 <h5 className="center">Easy to Use</h5>
 
                 <p className="light">Submit a video recording of yourself or take one on the spot. Just upload the videos you want and we'll send you a text when it's done.</p>
@@ -38,7 +38,7 @@ var Home = React.createClass({
             </div>
             <div className="col s12 m4">
               <div className="icon-block">
-                <h2 className="center blue-text"><i className="material-icons">group</i></h2>
+                <h2 className="center teal-text"><i className="material-icons">group</i></h2>
                 <h5 className="center">Community Driven</h5>
 
                 <p className="light">Recieve comments and tips from our community to help you improve! Please no internet trolls, you will be ban hammered</p>
@@ -47,7 +47,7 @@ var Home = React.createClass({
 
             <div className="col s12 m4">
               <div className="icon-block">
-                <h2 className="center blue-text"><i className="material-icons">speaker_notes</i></h2>
+                <h2 className="center teal-text"><i className="material-icons">speaker_notes</i></h2>
                 <h5 className="center">Speech Analysis</h5>
 
                 <p className="light">Get analysis on the emotions you portray when speaking as well as the contents of your speech. Speech and tone analyzation on content of your speechs to help you give positive upbeat</p>
