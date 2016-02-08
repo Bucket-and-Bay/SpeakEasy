@@ -18,13 +18,15 @@ var Analysis = React.createClass({
       kairosAnalysis: {},
       beyondVerbalAnalysis: {},
       moodGroup11Analysis: {},
-      beyondVerbalDataComp: [],
+      beyondVerbalDataCompPrimary: [],
+      beyondVerbalDataCompSecondary: [],
       beyondVerbalDataGroup11: [],
       watsonFullScript: '',
       alchemyAPIConcepts: [],
       atvArousal: [],
       atvTemper: [],
       atvValence: [],
+      moodComposites: [],
       isPrivate: null,
       videoId: this.props.params.videoID
     }
@@ -64,13 +66,15 @@ var Analysis = React.createClass({
             videoSource: videosource,
             videoTitle: response.data.title,
             videoDate: videoDate,
-            beyondVerbalDataComp: beyondVerbalAnalysisData.moodDataComp,
+            beyondVerbalDataCompPrimary: beyondVerbalAnalysisData.moodDataCompPrimary,
+            beyondVerbalDataCompSecondary: beyondVerbalAnalysisData.moodDataCompSecondary,
             beyondVerbalDataGroup11: beyondVerbalAnalysisData.moodDataGroup11,
             watsonFullScript: watsonScript,
             alchemyAPIConcepts: conceptsData,
             atvArousal: beyondVerbalAnalysisData.summary['arousal'],
             atvTemper: beyondVerbalAnalysisData.summary['temper'],
             atvValence: beyondVerbalAnalysisData.summary['valence'],
+            moodComposites: beyondVerbalAnalysisData.moodDataGroup11,
 
             kairosAnalysis: {
                 title: {
@@ -188,7 +192,7 @@ var Analysis = React.createClass({
                     y: beyondVerbalAnalysisData.finalDataGroup11['Criticism, Cynicism'] || null
                   }, {
                     name: 'Self-control and Practicality',
-                    y: beyondVerbalAnalysisData.finalDataGroup11['Self-control, Practicality'] || null
+                    y: beyondVerbalAnalysisData.finalDataGroup11['Self-Control, Practicality'] || null
                   }, {
                     name: 'Leadership and Charisma',
                     y: beyondVerbalAnalysisData.finalDataGroup11['Leadership, Charisma'] || null
@@ -254,7 +258,7 @@ var Analysis = React.createClass({
           </div>
         </div>
         <div className="col 12">
-          <Tabs onSelect={this.handleSelect} selectedIndex={1}>
+          <Tabs onSelect={this.handleSelect} selectedIndex={2}>
 
             <TabList>
               <Tab>Kairos Video Analysis</Tab>
@@ -275,32 +279,53 @@ var Analysis = React.createClass({
 
               <div className="row">
                 <div className="col s4 center-align card-panel hoverable">
-                  <img className="col s12" src="arousal.png"/>
-                  Your Arousal was {this.state.atvArousal[0]}
+                  <p><img className="col s12" src="arousal.png"/>
+                  Your Arousal was {this.state.atvArousal[0]}</p>
                   <hr/>
-                  {this.state.atvArousal[1]}
+                  <p>{this.state.atvArousal[1]}</p>
                 </div>
                 <div className="col s4 center-align card-panel hoverable">
-                  <img className="col s12" src="temper.png"/>
-                  Your Temper was {this.state.atvTemper[0]}
+                  <p><img className="col s12" src="temper.png"/>
+                  Your Temper was {this.state.atvTemper[0]}</p>
                   <hr/>
-                  {this.state.atvTemper[1]}
+                  <p>{this.state.atvTemper[1]}</p>
                 </div>
                 <div className="col s4 center-align card-panel hoverable">
-                  <img className="col s12" src="valence.png"/>
-                  Your Valence was {this.state.atvValence[0]}
+                  <p><img className="col s12" src="valence.png"/>
+                  Your Valence was {this.state.atvValence[0]}</p>
                   <hr/>
-                  {this.state.atvValence[1]}
+                  <p>{this.state.atvValence[1]}</p>
                 </div>
               </div>
             </TabPanel>
 
             <TabPanel>
-              <h5>Mood Composite</h5>
-              {this.state.beyondVerbalDataComp}
+              <h5>Mood Composites</h5>
+              <div className="row">
+                <div className="col s6 center-align card-panel hoverable">
+                  <p>Your Primary Mood Composites</p>
+                  <hr/>
+                  <p>{this.state.beyondVerbalDataCompPrimary}</p>
+                </div>
+                <div className="col s6 center-align card-panel hoverable">
+                  <p>Your Secondary Mood Composites</p>
+                  <hr/>
+                  <p>{this.state.beyondVerbalDataCompSecondary}</p>
+                </div>
+              </div>
+
               <hr/>
-              <h5>Mood Group</h5>
+              <h5>Mood Groups</h5>
               <Graph data={this.state.moodGroup11Analysis}/>
+              <div className="row">
+                {this.state.moodComposites.map(function (item) {
+                  return <div className="col s5 offset-s1 center-align card-panel hoverable">
+                      <p>{item[0]}</p>
+                    <hr/>
+                    <p>{item[1]}</p>
+                  </div>
+                })}
+              </div>
             </TabPanel>
 
             <TabPanel>
