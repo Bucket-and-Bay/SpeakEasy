@@ -39,7 +39,7 @@ function authenticate(audioFile) {
     }
     request(optionsAuth)
       .then(function(data, err) {
-        if (err) { console.log('error', err) };
+        if (err) { reject(err, 'beyondVerbal authenticate error') };
         var token = JSON.parse(data);
         resolve(token);
       });
@@ -65,7 +65,7 @@ function analyzeFile(content, token) {
 
     request(optionsAF)
       .then(function(data, err) {
-        if (err) { console.log('Error: ', err) }
+        if (err) { reject(err, "BeyondVerbal Analyze File Reject") }
         var recID = data.recordingId ? data.recordingId : JSON.parse(data).recordingId;
         resolve(recID);
       });
@@ -96,7 +96,7 @@ function upstreamRequest(recID, wavFile, token) {
 
           })
           .catch(function(err){
-            console.log(err, 'Err from upstreamRequest');
+            reject(err, 'Err from upstreamRequest');
           });
       }
     });
@@ -126,7 +126,10 @@ function getAnalysis(recID, interval, token) {
               clearInterval(pTimer);
             }
           }
-        });
+        })
+        .catch(function(err){
+          reject(err, 'Err from Beyond Verbal get Analysis')
+        })
           //TODO: save to results to db
       }, interval);
   })
@@ -135,22 +138,30 @@ function getAnalysis(recID, interval, token) {
 module.exports.beyondVerbalAnalysis = function(audioFile) {
   return new Promise(function(resolve, reject){
 
-    authenticate(audioFile).then(function(token){
-      analyzeFile(audioFile, token).then(function(recID){
-        upstreamRequest(recID, audioFile, token).then(function(upstreamData){
-          getAnalysis(recID, 10000, token).then(function(getAnalysisData){
+    authenticate(audioFile)
+      .then(function(token){
+      analyzeFile(audioFile, token)
+        .then(function(recID){
+        upstreamRequest(recID, audioFile, token)
+          .then(function(upstreamData){
+          getAnalysis(recID, 10000, token)
+            .then(function(getAnalysisData){
             console.log('DONE WITH BEYONDVERBAL');
             //get Analysisdata
-            resolve([getAnalysisData, upstreamData])
+              resolve([getAnalysisData, upstreamData])
+          }, function(getAnalysisError){
+            reject(getAnalysisError)
           })
+        }, function(upstreamError){
+          reject(upstreamError)
         })
+      }, function(analyzeError){
+        reject(analyzeError)
       })
+    }, function(authError){
+      reject(authError)
     })
   })
-  //FOR TESTING:
-  // analyzeFile(options.apiKey, audioFile, options.token);
-  // upstreamRequest(recID, audioFile, options.token);
-  // getAnalysis('d8e6a4a5-a59f-43ad-98c1-fd963e1f8f80');
 }
 
 

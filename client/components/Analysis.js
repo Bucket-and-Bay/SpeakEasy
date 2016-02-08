@@ -32,6 +32,7 @@ var Analysis = React.createClass({
 
     helpers.getVideoAnalysis(this.props.params.videoID)
       .then(function(response){
+        console.log(response)
         if(response.status === 401){
           this.props.history.transitionTo({
             pathname: '/public',

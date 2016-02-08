@@ -46,7 +46,7 @@ module.exports.watsonSpeechToText = function(audioFile) {
     });
 
     recognizeStream.on('error', function(err) {
-      console.log('Error writing to transcript.json: ' + err);
+      reject('watson transcript error');
     });
 
     recognizeStream.on('connection-close', function() {
