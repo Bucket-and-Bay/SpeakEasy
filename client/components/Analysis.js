@@ -52,7 +52,6 @@ var Analysis = React.createClass({
           // Beyond Verbal
           var bvData = response.data.beyondVerbalAnalysis[0].result;
           var beyondVerbalAnalysisData = helpers.getBeyondVerbalData(bvData);
-          console.log(beyondVerbalAnalysisData.summary);
 
           // Watson Script
           var watsonScript = response.data.watsonAnalysis[1];
@@ -276,16 +275,19 @@ var Analysis = React.createClass({
 
               <div className="row">
                 <div className="col s4 center-align card-panel hoverable">
+                  <img className="col s12" src="arousal.png"/>
                   Your Arousal was {this.state.atvArousal[0]}
                   <hr/>
                   {this.state.atvArousal[1]}
                 </div>
                 <div className="col s4 center-align card-panel hoverable">
+                  <img className="col s12" src="temper.png"/>
                   Your Temper was {this.state.atvTemper[0]}
                   <hr/>
                   {this.state.atvTemper[1]}
                 </div>
                 <div className="col s4 center-align card-panel hoverable">
+                  <img className="col s12" src="valence.png"/>
                   Your Valence was {this.state.atvValence[0]}
                   <hr/>
                   {this.state.atvValence[1]}

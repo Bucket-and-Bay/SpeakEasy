@@ -146,9 +146,13 @@ var getBeyondVerbalData = function (bvData) {
   };
   var count = 0;
   bvData.analysisSegments.forEach(function (item) {
-
+    // Secondary moods may throw off the analysis?
     emotions.moodDataComp.push(item.analysis.Mood.Composite.Primary.Phrase);
+    emotions.moodDataComp.push(item.analysis.Mood.Composite.Secondary.Phrase);
+
     emotions.moodDataGroup11.push(item.analysis.Mood.Group11.Primary.Phrase);
+    emotions.moodDataGroup11.push(item.analysis.Mood.Group11.Secondary.Phrase);
+
 
     emotions.arousalData += (Number(item.analysis.Arousal.Value));
     emotions.temperData += (Number(item.analysis.Temper.Value));
@@ -162,7 +166,6 @@ var getBeyondVerbalData = function (bvData) {
 
   //console.log(emotions.summary);
 
-
   emotions.summary = atvModes(emotions.summary);
   //console.log(emotions.summary);
 
@@ -175,6 +178,17 @@ var getBeyondVerbalData = function (bvData) {
       obj[group]++;
     }
   });
+
+  // delete duplicates from Group11
+  emotions.moodDataGroup11 = emotions.moodDataGroup11
+    .reduce(function(accum, current) {
+      if (accum.indexOf(current) < 0) {
+        accum.push(current);
+      }
+      return accum;
+    }, []);
+
+  emotions.moodDataGroup11 = bvMoodPhrases(emotions.moodDataGroup11);
 
   emotions.arousalData = [emotions.arousalData / count];
   emotions.temperData = [emotions.temperData / count];
@@ -218,6 +232,33 @@ var atvModes = function (summaries) {
   }
 
   return summaryAllData;
+
+};
+
+var bvMoodPhrases = function (moodPhrases) {
+  var phrasesExplained = {
+    'Supremacy, Arrogance': 'Supremacy and Arrogance. This group is typified by feelings of power, superiority, ascendancy, self-importance or self-entitlement. The feelings can range from a feeling of superiority to a tendency to assert control when dealing with others.',
+    'Hostility, Anger': 'Hostility and Anger. This group has negative emotions of antagonism, enmity or unfriendliness that can be directed against individuals, entities, objects or ideas. The feelings can range from aversion and offensiveness to open aggressiveness and incitement.',
+    'Criticism, Cynicism': 'Criticism and Cynicism. This group is typified by a feeling of general distrust or skepticism. The feelings can also be described as scornful and jaded negativity.',
+    'Self-control, Practicality': 'Self-control and practicality. This group is typified by feelings of controlled emotions, behaviors and desires. The feelings can range from self-restraint to irrelevance.',
+    'Leadership, Charisma': 'Leadershipand Charisma. This group is typified by feelings of power, vision and motivation. The feelings can range from protectiveness, communication of ideas or ideology with an underline of motivation.',
+    'Creative, Passionate': 'Creativeness and Passion. This group is typified by a feeling of eagerness and/or desire. The feelings can range from desire, want and craving with an underline of action to achieve goals. These emotions are highly correlated with vivid imagination, hopes and dreams.',
+    'Friendly, Warm': 'Friendliness and Warm. This group is typified by positive feelings and pleasant accommodation. The feelings include approval, empathy and hospitability. The group can also include feelings of being approved or wanted by others (“being part of a team”) as well as being receptive to another person, idea or item.',
+    'Love, Happiness': 'Love and Happiness. This group is typified by long term happiness, affiliation and pleasurable sensation. The group also includes feelings of strong affection for another person, idea or item as well as arising out of kinship or personal ties.',
+    'Loneliness, Unfulfillment': 'Loneliness and Unfulfillment. This group is typified by feelings of inadequacy, lack of worth, disappointment or failure.',
+    'Sadness, Sorrow': 'Sadness and Sorrow. This group is typified by emotional pain such as unhappiness, self-pity and powerlessness.',
+    'Defensivness, Anxiety': 'Defensiveness and Anxiety. This group is typified by negative emotions of fear, worry and uneasiness. The group also includes low self-esteem and can also often be accompanied by inner turmoil and restlessness.'
+  };
+
+  var phrasesAllData = {};
+
+  moodPhrases.forEach(function (phrase) {
+    if (phrase in phrasesExplained) {
+      console.log('here');
+      phrasesAllData[phrase] = [phrase, phrasesExplained[phrase]];
+    }
+  });
+  console.log(phrasesAllData);
 
 };
 
