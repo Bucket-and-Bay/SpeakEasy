@@ -44,6 +44,7 @@ box-shadow: 0 10px 20px rgba(0, 0, 0, 0.22), 0 14px 56px rgba(0, 0, 0, 0.25);
   width: 90%;
   margin: 0 auto;
   margin-left: -.25em;
+  margin-top: -.05em;
 }
 
 .card-title{

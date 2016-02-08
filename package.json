@@ -37,6 +37,7 @@
     "jquery": "^2.2.0",
     "kerberos": "0.0.18",
     "materialize-css": "^0.97.5",
+    "moment": "^2.11.2",
     "mongoose": "^4.3.7",
     "morgan": "^1.6.1",
     "multer": "^1.1.0",

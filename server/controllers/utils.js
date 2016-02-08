@@ -13,6 +13,7 @@ module.exports.poll = function(options, interval,condition){
         reject(err);
       }else{
         if(condition && condition(data)){
+          console.log(data);
           resolve(data);
         }else{
           console.log('Polling');
