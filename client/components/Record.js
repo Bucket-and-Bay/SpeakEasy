@@ -12,6 +12,10 @@ function videoError(){
 var Record = React.createClass({
   getInitialState: function(){
     return {
+      timer: undefined,
+      isStart: false,
+      diff: 0,
+      elapsed: 0, 
       loaded: true,
       stream: {},
       recorder: {},
@@ -21,50 +25,82 @@ var Record = React.createClass({
       audio64: null,
     }
   },
+
   record: function(){
-    var videoOptions = {
-      mimeType: 'video/mp4', // or video/mp4 or audio/ogg
-      bitsPerSecond: 128000
-    };
-    var audioOptions = {
-      mimeType: 'audio/ogg',
-      bitsPerSecond: 128000
+    if(!this.state.isStart){
+      var timer = setInterval(this.tick, 33);
+      this.setState({
+        isStart: true,
+        timer: timer,
+        start: new Date()
+      })
+      var videoOptions = {
+        mimeType: 'video/mp4', // or video/mp4 or audio/ogg
+        bitsPerSecond: 128000
+      };
+      var audioOptions = {
+        mimeType: 'audio/ogg',
+        bitsPerSecond: 128000
+      }
+      var videoRTC = RecordRTC(this.state.stream, videoOptions);
+      var audioRTC = RecordRTC(this.state.stream, audioOptions);
+      videoRTC.startRecording();
+      audioRTC.startRecording();
+      this.setState({
+        recorder: videoRTC,
+        audio: audioRTC
+      })
     }
-    var videoRTC = RecordRTC(this.state.stream, videoOptions);
-    var audioRTC = RecordRTC(this.state.stream, audioOptions);
-    videoRTC.startRecording();
-    audioRTC.startRecording();
+
+  },
+  tick: function(){
+    var elapsed = Date.now() - this.state.start + this.state.diff
     this.setState({
-      recorder: videoRTC,
-      audio: audioRTC
+      elapsed: elapsed
     })
   },
   stop: function(){
-    this.state.audio.stopRecording(function(data){
-      var audioFile = this.state.audio.getBlob();
-      this.refs.audio.src= data;
-      this.refs.audio.play();
-      var reader = new window.FileReader();
-      reader.readAsDataURL(audioFile);
-      reader.onloadend = function() {
-        var base64data = reader.result;                
+
+    if(this.state.isStart){
+      console.log('clear')
+      clearInterval(this.state.timer);
         this.setState({
-          audioFile: audioFile,
-          audio64: base64data
+        timer: undefined,
+        isStart: false,
+        diff: 0,
+      });  
+      this.state.audio.stopRecording(function(data){
+        var audioFile = this.state.audio.getBlob();
+        this.refs.audio.src= data;
+        this.refs.audio.play();
+        var reader = new window.FileReader();
+        reader.readAsDataURL(audioFile);
+        reader.onloadend = function() {
+          var base64data = reader.result;                
+          this.setState({
+            audioFile: audioFile,
+            audio64: base64data
+          })
+        }.bind(this); 
+       
+      }.bind(this));
+
+      this.state.recorder.stopRecording(function(data){
+        this.refs.video2.src = data;
+        this.refs.video2.load();
+        var videoFile = this.state.recorder.getBlob();
+        this.setState({
+          videoFile: videoFile
         })
-      }.bind(this); 
-     
-    }.bind(this));
+      }.bind(this));
+    }
 
-    this.state.recorder.stopRecording(function(data){
-      this.refs.video2.src = data;
-      this.refs.video2.load();
-      var videoFile = this.state.recorder.getBlob();
-      this.setState({
-        videoFile: videoFile
-      })
-    }.bind(this));
-
+  },
+  getTimeSpan: function(elapsed) { // 754567(ms) -> "12:34.567"
+    var m = String(Math.floor(elapsed/1000/60)+100).substring(1);
+    var s = String(Math.floor((elapsed%(1000*60))/1000)+100).substring(1);
+    var ms = String(elapsed % 1000 + 1000).substring(1);
+    return m+":"+s+"."+ms;
   },
   submit: function(e){
     e.preventDefault();
@@ -110,6 +146,10 @@ var Record = React.createClass({
     }
   },
   componentWillUnmount: function(){
+    clearInterval(this.state.timer);
+    this.setState({
+      timer: undefined
+    });
     var video = this.refs.stream;
     video.src = '';
     this.state.stream.getAudioTracks()[0].stop()
@@ -134,6 +174,7 @@ var Record = React.createClass({
             </div>
           </div>
           <div className="row center-align">
+            <div>Timer: {this.getTimeSpan(this.state.elapsed)}</div>
             <button onClick={this.record} className="btn btn-info waves-effect waves-light ">Start</button>
             <button onClick={this.stop} className="btn btn-info waves-effect waves-light">Stop</button>
           </div>
