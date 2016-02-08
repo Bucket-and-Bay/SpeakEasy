@@ -27,7 +27,7 @@ var Signin = React.createClass({
   render: function() {
     return (
       <div>
-        <Navbar />
+        <Navbar className="teal-text"/>
         <div id="signin">
           <form className="col s12" onSubmit={this.handleSubmit}>
             <div className="row">

@@ -11,7 +11,7 @@ var Main = React.createClass({
         <div className="main-container">
           <div>{this.props.children}</div>
         </div>
-        <footer className="page-footer">
+        <footer className="page-footer teal">
           <div className="container">
             <div className="row">
               <div className="col l6 s12">
@@ -32,7 +32,7 @@ var Main = React.createClass({
               </div>
             </div>
           </div>
-          <div className="footer-copyright">
+          <div className="footer-copyright blue-grey darken-1 teal-text text-accent-1">
             <div className="container">
             Copyright © 2016 BucketAndBay
             </div>

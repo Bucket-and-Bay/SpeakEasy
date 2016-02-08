@@ -21,8 +21,9 @@
 }
 
 nav {
-  background-color: steelblue;
-  border-bottom-style: solid; 
+  background-color: rgba(0, 0, 0, 0);
+/*  border-bottom-style: solid; */
+  box-shadow: none;
 }
 
 footer.page-footer {
@@ -197,10 +198,27 @@ footer.page-footer {
   color: #515151;
 }
 
+#menu-wrap, #menu-wrap:active{
+  margin-top: -2em;
+  background:none;
+  box-shadow: none;
+  border:none;
+  outline:none;
+}
+
+#home-nav{
+  background-color: rgba(0, 0, 0, 0);
+}
+
+#logo-wrap{
+  padding: .5em !important;
+}
+
+
+
 #index-banner{
   background-color: rgba(0, 0, 0, 0.6);
 }
-
 
 
 @media only screen and (max-width : 600px) {
@@ -210,3 +228,4 @@ footer.page-footer {
     top: 0;
   }
 }
+
