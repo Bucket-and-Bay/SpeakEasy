@@ -9,12 +9,14 @@ var Comment = React.createClass({
     var date = this.props.date;
     var relativeTime = moment(date).fromNow();
     return (
-      <div className="comment">
-        <span className="commentAuthor">
-          {this.props.author}</span>  <span className="relativeTime">{relativeTime}</span> 
-          <br />
+      <div className="comment row">
+        <div className="comment-heading col s2">
+          <p className="comment-author">{this.props.author}</p>
+          <p className="relative-time">{relativeTime}</p>
+        </div>
+        <div className="comment-content col s10">
           {this.props.text}
-        <hr />
+        </div>
       </div>      
     );
   }
