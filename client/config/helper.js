@@ -292,6 +292,16 @@ var getAlchemyKeywordsSentiment = function (alchemyData) {
   return sentiment;
 };
 
+var wpmWatson = function (script, videoLength) {
+  script = script.split(' ');
+  script.forEach(function (word, i) {
+    if (word === '' || word === ' ') {
+      script.splice(i, 1);
+    }
+  });
+
+  return (script.length / videoLength * 60).toFixed();
+};
 
 var putPrivacy = function(isPrivate, videoId) {
   if (isPrivate === true || isPrivate === false) {
@@ -354,6 +364,7 @@ module.exports = {
   putPrivacy: putPrivacy,
   getPublicVideos: getPublicVideos,
   getVideoComments: getVideoComments,
-  submitComment: submitComment
+  submitComment: submitComment,
+  wpmWatson: wpmWatson
 };
 

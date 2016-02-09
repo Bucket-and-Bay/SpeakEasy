@@ -29,6 +29,7 @@ var Analysis = React.createClass({
       atvTemper: [],
       atvValence: [],
       moodComposites: [],
+      wpmWatson: 0,
       isPrivate: null,
       videoId: this.props.params.videoID
     }
@@ -57,8 +58,9 @@ var Analysis = React.createClass({
           var bvData = response.data.beyondVerbalAnalysis[0].result;
           var beyondVerbalAnalysisData = helpers.getBeyondVerbalData(bvData);
 
-          // Watson Script
+          // Watson Script and words per minute
           var watsonScript = response.data.watsonAnalysis[1];
+          var wpm = helpers.wpmWatson(watsonScript, response.data.kairosAnalysis.length);
 
           // Alchemy API
           var alchemyData = response.data.alchemyAnalysis;
@@ -81,6 +83,7 @@ var Analysis = React.createClass({
             atvTemper: beyondVerbalAnalysisData.summary['temper'],
             atvValence: beyondVerbalAnalysisData.summary['valence'],
             moodComposites: beyondVerbalAnalysisData.moodDataGroup11,
+            wpmWatson: wpm,
 
             kairosAnalysis: {
                 title: {
@@ -364,6 +367,16 @@ var Analysis = React.createClass({
               </div>
             <h5>The Full Script</h5>
               {this.state.watsonFullScript}
+              <hr/>
+              <div className="card-panel hoverable">
+                <p>
+                  The  average American English speaker engaged in a friendly
+                  conversation speaks at a rate of approximately 110–150 words per minute.
+                </p>
+                <p>
+                  Your words per minute were: <b>{this.state.wpmWatson}</b>
+                </p>
+              </div>
             </TabPanel>
 
             <TabPanel>
