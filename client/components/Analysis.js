@@ -7,6 +7,7 @@ var Tab = ReactTabs.Tab;
 var Tabs = ReactTabs.Tabs;
 var TabList = ReactTabs.TabList;
 var TabPanel = ReactTabs.TabPanel;
+var CommentBox = require('./CommentBox.js');
 
 var Analysis = React.createClass({
 
@@ -426,12 +427,10 @@ var Analysis = React.createClass({
             </TabPanel>
 
             <TabPanel>
-              <div className="row col s12 card-panel light-blue">
-                Comments that the public has put on your video
+              <div className="col 12">
+                <CommentBox data={this.state.comments} author={this.state.author} videoId={this.state.videoId} />
               </div>
-            <p>When life gives you lemons, don’t make lemonade. Make life take the lemons back! Get mad! I don’t want your damn lemons, what the hell am I supposed to do with these? Demand to see life’s manager! Make life rue the day it thought it could give Cave Johnson lemons! Do you know who I am? I’m the man who’s gonna burn your house down! With the lemons! I’m gonna get my engineers to invent a combustible lemon that burns your house down!</p>
             </TabPanel>
-
           </Tabs>
         </div>
       </div>
