@@ -5,12 +5,12 @@ var AlchemyAPI = require('../../alchemyapi.js');
 
 var alchemyapi = new AlchemyAPI();
 
-module.exports.alchemyAnalysis = function(watsonText) { 
- 
+module.exports.alchemyAnalysis = function(watsonText) {
+
   var transcript = watsonText;
   var alchemyResults = {};
   return new Promise(function(resolve, reject){
-    alchemyapi.keywords('text', transcript, {}, function(response){
+    alchemyapi.keywords('text', transcript, {sentiment: 1}, function(response){
       alchemyResults["keywords"] = response["keywords"];
       alchemyapi.concepts('text', transcript, {}, function(response){
         alchemyResults["concepts"] = response["concepts"];
@@ -27,4 +27,3 @@ module.exports.alchemyAnalysis = function(watsonText) {
     })
   })
 };
-

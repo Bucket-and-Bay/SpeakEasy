@@ -143,7 +143,8 @@ var getBeyondVerbalData = function (bvData) {
     temperData: 0,
     valenceData: 0,
     finalDataGroup11: {},
-    summary: {}
+    summary: {},
+    audioQData: 0
   };
   var count = 0;
   bvData.analysisSegments.forEach(function (item) {
@@ -154,10 +155,11 @@ var getBeyondVerbalData = function (bvData) {
     emotions.moodDataGroup11.push(item.analysis.Mood.Group11.Primary.Phrase);
     emotions.moodDataGroup11.push(item.analysis.Mood.Group11.Secondary.Phrase);
 
-
     emotions.arousalData += (Number(item.analysis.Arousal.Value));
     emotions.temperData += (Number(item.analysis.Temper.Value));
     emotions.valenceData += (Number(item.analysis.Valence.Value));
+    emotions.audioQData += (Number(item.analysis.AudioQuality.Value));
+
     count++;
   });
 
@@ -165,10 +167,7 @@ var getBeyondVerbalData = function (bvData) {
   emotions.summary['temper'] = bvData.analysisSummary.AnalysisResult['Temper'].Mode;
   emotions.summary['valence'] = bvData.analysisSummary.AnalysisResult['Valence'].Mode;
 
-  //console.log(emotions.summary);
-
   emotions.summary = atvModes(emotions.summary);
-  //console.log(emotions.summary);
 
   emotions.moodDataGroup11.forEach(function (group) {
     var obj = emotions.finalDataGroup11;
@@ -194,6 +193,8 @@ var getBeyondVerbalData = function (bvData) {
   emotions.arousalData = [emotions.arousalData / count];
   emotions.temperData = [emotions.temperData / count];
   emotions.valenceData = [emotions.valenceData / count];
+  emotions.audioQData = [emotions.audioQData / count];
+
   return emotions;
 };
 
@@ -217,9 +218,6 @@ var atvModes = function (summaries) {
       positive: 'Positive Valence. The speaker’s voice conveys affection, love, acceptance and openness.'
     }
   };
-  // Object {Arousal: "high", Temper: "medium", Valence: "neutral"}
-  // return object with three moods and their data
-  // {Arousal: ['high', 'big string']}
 
   var summaryAllData = {};
 
@@ -258,23 +256,40 @@ var bvMoodPhrases = function (moodPhrases) {
       phrasesAllData.push([phrase, phrasesExplained[phrase]]);
     }
   });
-  console.log(phrasesAllData);
   return phrasesAllData;
 };
 
-var getAlchemyData = function (alchemyData) {
-  //var concepts = {};
-  var conceptsText = [];
-  var conceptsWebsites = [];
+var getAlchemyKeywordsText = function (alchemyData) {
 
+  var text = [];
 
-  alchemyData.concepts.forEach(function (item) {
-    conceptsText.push(item.text);
-    conceptsWebsites.push(item.website || '');
+  alchemyData.keywords.forEach(function (item) {
+    text.push(item.text || '');
   });
-  var concepts = [conceptsText,conceptsWebsites];
-  //console.log('Concepts: ', concepts);
-  return concepts;
+
+  return text;
+};
+
+var getAlchemyKeywordsRelevance = function (alchemyData) {
+
+  var relevance = [];
+
+  alchemyData.keywords.forEach(function (item) {
+    relevance.push(item.relevance || '');
+  });
+
+  return relevance;
+};
+
+var getAlchemyKeywordsSentiment = function (alchemyData) {
+
+  var sentiment = [];
+
+  alchemyData.keywords.forEach(function (item) {
+    sentiment.push(item.sentiment.type || '');
+  });
+
+  return sentiment;
 };
 
 
@@ -333,7 +348,9 @@ module.exports = {
   submitRecorded: submitRecorded,
   deleteVideo: deleteVideo,
   getBeyondVerbalData: getBeyondVerbalData,
-  getAlchemyData: getAlchemyData,
+  getAlchemyKeywordsText: getAlchemyKeywordsText,
+  getAlchemyKeywordsRelevance: getAlchemyKeywordsRelevance,
+  getAlchemyKeywordsSentiment: getAlchemyKeywordsSentiment,
   putPrivacy: putPrivacy,
   getPublicVideos: getPublicVideos,
   getVideoComments: getVideoComments,
