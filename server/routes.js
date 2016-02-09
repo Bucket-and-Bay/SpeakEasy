@@ -34,12 +34,14 @@ router.post('/api/delete', analysis.delete)
 router.get('/api/getPublicVideos', video.getPublicVideos)
 router.put('/api/updatePrivacy/:id', function(req, res) {
   video.updateVideo(req.body, res);
+  res.send('PUT request to update privacy');
 });
 router.get('/api/getComments/:videoId', function(req, res) {
   video.getComments(req.params.videoId, res);
 })
 router.put('/api/addComment', function(req, res) {
   video.addComment(req.body, req.session.user);
+  res.send('PUT request to add comment');
 })
 
 //Routes for user authentication

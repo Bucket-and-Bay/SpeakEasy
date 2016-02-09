@@ -52,6 +52,7 @@ var CommentBox = React.createClass({
   },
 
   handleCommentSubmit: function(videoId, author, text) {
+    console.log('2. handleCommentSubmit')
     var comments = this.props.data;
     var comment = {
       videoId: videoId,
@@ -121,6 +122,7 @@ var CommentForm = React.createClass({
   },
 
   handleSubmit: function(e) {
+    console.log('1. handleSubmit line 125')
     e.preventDefault();
     var text = this.state.text.trim();
     if(!text) {

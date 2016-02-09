@@ -40,7 +40,7 @@ var addComment = function(data, author) {
   Analysis.findByIdAndUpdate(videoId, update, function(err, model) {
     if (err) {console.log('Error adding comment: ', err.message)}
     else {
-      console.log('comment added to model schema');
+      console.log('5. comment added to model schema');
     }
   });
 }

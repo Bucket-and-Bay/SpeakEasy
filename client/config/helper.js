@@ -332,6 +332,7 @@ var getVideoComments = function(videoId) {
 };
 
 var submitComment = function(videoId, username, text) {
+  console.log('3. submitComment called on helper client')
   var options = {
     videoId: videoId,
     username: username,
