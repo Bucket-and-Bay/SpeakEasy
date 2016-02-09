@@ -17,10 +17,10 @@ var Team = React.createClass({
           </div>
           <div className="row">
             <div className="col s12 m6 l3 center-align">
-              <a href=""><img className="circle responsive-img img-center hoverable" src="user.png" alt="" /></a>
-              <h3>John Smith</h3>
-              <medium>Job Title</medium>
-              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+              <a href=""><img className="circle responsive-img img-center hoverable" src="jason.jpg" alt="" /></a>
+              <h3>Jason Jensen</h3>
+              <medium>Full Stack Developer</medium>
+              <p>All your base are belong to us.</p>
             </div>
             <div className="col s12 m6 l3 center-align">
               <a href=""><img className="circle responsive-img img-center hoverable" src="user.png" alt=""/></a>
