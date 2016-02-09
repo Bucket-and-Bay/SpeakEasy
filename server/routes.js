@@ -12,11 +12,9 @@ var video = require('./controllers/video.controller.js');
 
 //Routes to Analyze videos
 router.post('/api/record', upload.any(), function(req,res){
-  var analysisData = req.body;  
   var audioFile = wavFile+req.files[0].filename;
   var videoFile = webmFile+req.files[1].filename;
-  analysis.merge(audioFile, videoFile);
-  // analysis.analyze(analysisData, req.session.user, audioFile);
+  analysis.merge(req, audioFile, videoFile);
   res.sendStatus(201);
 })
 router.post('/api/analyze', function(req, res){

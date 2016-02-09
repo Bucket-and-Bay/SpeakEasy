@@ -1,5 +1,6 @@
 var mongoose = require('mongoose');
 var request = require('request-promise');
+var Promise = require('bluebird');
 var Analysis = require('../models/analysis.model.js');
 var kairos = require('./analysis/videoAnalyzer.js');
 var eventEmitter = require('./events.controller.js');
@@ -8,49 +9,82 @@ var notify = require('./notification.controller.js');
 var apiKeys = require('../config.js');
 var audio = require('./audio.controller.js');
 var fs = require('fs');
+
 var ffmpeg = require('fluent-ffmpeg');
 var path = require('path');
 var exec = require('child_process').exec;
- var util = require('util');
+var util = require('util');
 
-module.exports.merge = function(audioFile, videoFile){
+module.exports.merge = function(req, audioFile, videoFile){
   var videoLocation = path.join(__dirname + '/wavFiles/testfile.webm');
   var audioLocation = path.join(__dirname + '/wavFiles/testfile.wav');
-  ffmpeg(videoFile)
-    .output(videoLocation)
-    .on('end', function(){
-      console.log('Video saved');
-    })
-    .on('error', function(err){
-      console.log(err);
-    })
-    .run();
-  ffmpeg(audioFile)
-    .output(audioLocation)
-    .on('end', function(){
-      console.log('audio q  saved');
-    })
-    .on('error', function(err){
-      console.log(err);
-    })
-    .run();
-  var mergedFile =path.join(__dirname + '/wavFiles/merged.webm');
-  var command = "ffmpeg -i " + audioFile + " -itsoffset -00:00:01 -i " + videoFile + " -map 0:0 -map 1:0 " + mergedFile;
 
-  exec(command, function (error, stdout, stderr) {
+  Promise.all([ffmpegWrite(videoFile, videoLocation), ffmpegWrite(audioFile, audioLocation)])
+    .then(function(){
+      console.log('SAVED');
+      mergeAudioAndVideo(audioFile, videoFile)
+      .then(function(mergedFile){
+        console.log('MERGED');
+        // uploadToStreamable(mergedFile)
+        //   .then(function(shortcode){
+        //     console.log('UPLOADED TO STREAMABLE', shortcode);
+        //     module.exports.analyze(req.body, req.session.user, shortcode);
+        //   });
+      });
+    });
+}
+
+function mergeAudioAndVideo (audioFile, videoFile){
+  return new Promise (function(resolve, reject){
+    var mergedFile =path.join(__dirname + '/wavFiles/merged.webm');
+    //-itsoffset takes an argument which is a duration  (hr:min:sec) to offset the file immediately before it.
+    var command = "ffmpeg -i " + audioFile + " -itsoffset -00:00:01 -i " + videoFile + " -map 0:0 -map 1:0 " + mergedFile; 
+    console.log('AUDIO FILE', audioFile);
+    console.log('VIDEO FILE', videoFile);
+    console.log('MERGED FILE', mergedFile); 
+    exec(command, function (error, stdout, stderr) {
         if (stdout) console.log(stdout);
         if (stderr) console.log(stderr);
 
         if (error) {
             console.log('exec error: ' + error);
-            response.statusCode = 404;
-            response.end();
 
         } else {
             fs.unlink(audioFile);
             fs.unlink(videoFile);
+            resolve(mergedFile);
+            
         }
+    });
+  });
+};
 
+function ffmpegWrite (file, location){
+  return new Promise(function(resolve, reject){
+   ffmpeg(file)
+    .output(location)
+    .on('end', function(){
+      resolve(file);
+    })
+    .on('error', function(err){
+      console.log(err);
+    })
+    .run();
+  });
+}
+
+function uploadToStreamable (file){
+ return new Promise(function(resolve, reject){
+  var formData = new FormData();
+  formData.append('file', video);
+  request.post('https://api.streamable.com/upload', formData)
+    .then(function(response){
+      console.log(response.data.shortcode, 'line 10 in helper')
+      resolve(response.data.shortcode);
+    })
+    .catch(function(err){
+      throw err;
+    })
   });
 }
 
