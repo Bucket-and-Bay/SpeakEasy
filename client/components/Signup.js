@@ -1,6 +1,6 @@
 var React = require('react');
 var helpers = require('../config/helper.js');
-var Navbar = require('./Navbar.js');
+
 
 var Signup = React.createClass({
   handleSubmit: function(e){
@@ -27,7 +27,6 @@ var Signup = React.createClass({
   render: function() {
     return (
       <div>
-      <Navbar />
         <div id='signin'className="row container">
           <form className="col s12" onSubmit={this.handleSubmit}>
             <div className="input-field col s6">

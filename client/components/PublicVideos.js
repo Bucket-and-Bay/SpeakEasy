@@ -1,5 +1,4 @@
 var React = require('react');
-var Navbar = require('./Navbar.js');
 var Searchbar = require('./Searchbar.js');
 var helper = require('../config/helper.js');
 var PublicVideoItem = require('./PublicVideoItem.js');
@@ -44,7 +43,6 @@ var PublicVideos = React.createClass({
   render: function() {
     return (
       <div>
-        <Navbar />
         <div className="container">
           <Searchbar onSearch={ this.onSearch } />
           <div className="row">

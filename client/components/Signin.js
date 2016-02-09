@@ -1,6 +1,5 @@
 var React = require('react');
 var helpers = require('../config/helper.js');
-var Navbar = require('./Navbar.js');
 
 var Signin = React.createClass({
 
@@ -27,7 +26,6 @@ var Signin = React.createClass({
   render: function() {
     return (
       <div>
-        <Navbar className="teal-text"/>
         <div id="signin">
           <form className="col s12" onSubmit={this.handleSubmit}>
             <div className="row">
