@@ -285,7 +285,7 @@ var Analysis = React.createClass({
             </TabList>
 
             <TabPanel>
-              <div className="row col s12 card-panel light-blue">
+              <div className="row col s12 card-panel teal">
                   Analyze and understand facial expressions and engagement in most videos.
                   We look for faces in your footage and pass the facial features and expressions through our Emotion Algorithms.
                   Every 250ms we will return values for things like "smile", "surprise", "negative" and "attention".
@@ -295,7 +295,7 @@ var Analysis = React.createClass({
             </TabPanel>
 
             <TabPanel>
-              <div className="row col s12 card-panel light-blue">
+              <div className="row col s12 card-panel teal">
                 *BETA
                 Valence is an output which measures speaker’s level of negativity / positivity.
                 The Valence output is divided into two distinct measurements:
@@ -329,7 +329,7 @@ var Analysis = React.createClass({
             </TabPanel>
 
             <TabPanel>
-              <div className="row col s12 card-panel light-blue">
+              <div className="row col s12 card-panel teal">
                 Mood groups are an indicator of a speaker’s emotional state during the analyzed voice section.
                 There are 432 combined emotions which are grouped into eleven main mood groups.
                 Mood groups are distinct outputs and not measured in a scale.
@@ -363,7 +363,7 @@ var Analysis = React.createClass({
             </TabPanel>
 
             <TabPanel>
-              <div className="row col s12 card-panel light-blue">
+              <div className="row col s12 card-panel teal">
                 This is your whole script back from Alchemy API. Do Words per minute here
               </div>
             <h5>The Full Script</h5>
@@ -381,7 +381,7 @@ var Analysis = React.createClass({
             </TabPanel>
 
             <TabPanel>
-              <div className="row col s12 card-panel light-blue">
+              <div className="row col s12 card-panel teal">
                 Make a treemap and table of the keywords and their sentiment and relevance and click to see website
               </div>
               <h5>Alchemy</h5>
