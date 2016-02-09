@@ -175,6 +175,7 @@ footer.page-footer {
   justify-content: center;
   border-radius: 3px;
   box-shadow: 0 0.5px 1px rgba(0, 0, 0, 0.35);
+  height: 50px;
 }
 
 .comment-heading {
@@ -194,10 +195,11 @@ footer.page-footer {
   margin-right: 10px;
   align-self: center;
   border-radius: 3px;
-  margin-top: 4px;
-  margin-bottom: 4px;
   color: #515151;
-  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.35);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.35);
+  height: 80%;
+  overflow-y: scroll;
+  font-size: 80%;
 }
 
 #menu-wrap, #menu-wrap:active{
