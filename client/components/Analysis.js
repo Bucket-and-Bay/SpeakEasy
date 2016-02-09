@@ -17,17 +17,25 @@ var Analysis = React.createClass({
       videoDate: '',
       kairosAnalysis: {},
       beyondVerbalAnalysis: {},
-      beyondVerbalDataComp: [],
+      moodGroup11Analysis: {},
+      beyondVerbalDataCompPrimary: [],
+      beyondVerbalDataCompSecondary: [],
       beyondVerbalDataGroup11: [],
       watsonFullScript: '',
-      alchemyAPIConcepts: [],
+      alchemyAPIKeywordsText: [],
+      alchemyAPIKeywordsRelevance: [],
+      alchemyAPIKeywordsSentiment: [],
+      atvArousal: [],
+      atvTemper: [],
+      atvValence: [],
+      moodComposites: [],
+      wpmWatson: 0,
       isPrivate: null,
       videoId: this.props.params.videoID
     }
   },
 
   componentDidMount: function(){
-    var that = this;
 
     helpers.getVideoAnalysis(this.props.params.videoID)
       .then(function(response){
@@ -35,10 +43,10 @@ var Analysis = React.createClass({
         if(response.status === 401){
           this.props.history.transitionTo({
             pathname: '/public',
-            search: '?a=query',
+            search: '?a=query'
           })
         } else {
-
+          console.log(response.data);
           var videoDate = response.data.date.slice(0, 10);
           var videosource = response.data.videoUrl;
 
@@ -50,26 +58,43 @@ var Analysis = React.createClass({
           var bvData = response.data.beyondVerbalAnalysis[0].result;
           var beyondVerbalAnalysisData = helpers.getBeyondVerbalData(bvData);
 
-          // Watson Script
+          // Watson Script and words per minute
           var watsonScript = response.data.watsonAnalysis[1];
+          var wpm = helpers.wpmWatson(watsonScript, response.data.kairosAnalysis.length);
 
           // Alchemy API
-          var concepts = response.data.alchemyAnalysis;
-          var conceptsData = helpers.getAlchemyData(concepts);
+          var alchemyData = response.data.alchemyAnalysis;
+          var alchemyAPIKeywordsText = helpers.getAlchemyKeywordsText(alchemyData);
+          var alchemyAPIKeywordsRelevance = helpers.getAlchemyKeywordsRelevance(alchemyData);
+          var alchemyAPIKeywordsSentiment = helpers.getAlchemyKeywordsSentiment(alchemyData);
 
           this.setState({
             videoSource: videosource,
             videoTitle: response.data.title,
             videoDate: videoDate,
-            beyondVerbalDataComp: beyondVerbalAnalysisData.moodDataComp,
+            beyondVerbalDataCompPrimary: beyondVerbalAnalysisData.moodDataCompPrimary,
+            beyondVerbalDataCompSecondary: beyondVerbalAnalysisData.moodDataCompSecondary,
             beyondVerbalDataGroup11: beyondVerbalAnalysisData.moodDataGroup11,
             watsonFullScript: watsonScript,
-            alchemyAPIConcepts: conceptsData,
+            alchemyAPIKeywordsText: alchemyAPIKeywordsText,
+            alchemyAPIKeywordsRelevance: alchemyAPIKeywordsRelevance,
+            alchemyAPIKeywordsSentiment: alchemyAPIKeywordsSentiment,
+            atvArousal: beyondVerbalAnalysisData.summary['arousal'],
+            atvTemper: beyondVerbalAnalysisData.summary['temper'],
+            atvValence: beyondVerbalAnalysisData.summary['valence'],
+            moodComposites: beyondVerbalAnalysisData.moodDataGroup11,
+            wpmWatson: wpm,
+
             kairosAnalysis: {
                 title: {
                   text: 'Kairos Video Analysis'
                 },
                 yAxis: {
+                  title: {
+                    text: ''
+                  }
+                },
+                xAxis: {
                   title: {
                     text: ''
                   }
@@ -93,13 +118,30 @@ var Analysis = React.createClass({
                 }]
               },
               beyondVerbalAnalysis: {
+                legend: {
+                  backgroundColor: '#FFFFFF',
+                  layout: 'vertical',
+                  floating: true,
+                  align: 'right',
+                  verticalAlign: 'bottom',
+                  x: -30,
+                  y: -60,
+                  shadow: true
+                },
+
                 chart: {
                   type: 'bar'
                 },
                 title: {
-                  text: 'Beyond Verbal Analysis'
+                  text: ''
                 },
                 yAxis: {
+                  title: {
+                    text: ''
+                  }
+                },
+                xAxis: {
+                  categories: ['Verbal Stats'],
                   title: {
                     text: ''
                   }
@@ -115,13 +157,84 @@ var Analysis = React.createClass({
                 {
                   data: beyondVerbalAnalysisData.valenceData,
                   name: 'Valence'
+                },
+                {
+                  data: beyondVerbalAnalysisData.audioQData,
+                  name: 'Audio Quality',
+                  visible: false
+                }]
+              },
+              moodGroup11Analysis: {
+                chart: {
+                  plotBackgroundColor: null,
+                  plotBorderWidth: null,
+                  plotShadow: false,
+                  type: 'pie'
+                },
+                title: {
+                  text: 'Your voice emotions'
+                },
+                tooltip: {
+                  pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+                },
+                plotOptions: {
+                  pie: {
+                    allowPointSelect: true,
+                    cursor: 'pointer',
+                    dataLabels: {
+                      enabled: true,
+                      format: '<b>{point.name}</b>: {point.percentage:.1f} %',
+                      style: {
+                        color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+                      }
+                    }
+                  }
+                },
+                series: [{
+                  name: 'Mood',
+                  colorByPoint: true,
+                  data: [{
+                    name: 'Supremacy, Arrogance',
+                    y: beyondVerbalAnalysisData.finalDataGroup11['Supremacy, Arrogance'] || null,
+                    sliced: true,
+                    selected: true
+                  }, {
+                    name: 'Hostility and Anger',
+                    y: beyondVerbalAnalysisData.finalDataGroup11['Hostility, Anger'] || null
+                  }, {
+                    name: 'Criticism and Cynicism',
+                    y: beyondVerbalAnalysisData.finalDataGroup11['Criticism, Cynicism'] || null
+                  }, {
+                    name: 'Self-control and Practicality',
+                    y: beyondVerbalAnalysisData.finalDataGroup11['Self-Control, Practicality'] || null
+                  }, {
+                    name: 'Leadership and Charisma',
+                    y: beyondVerbalAnalysisData.finalDataGroup11['Leadership, Charisma'] || null
+                  }, {
+                    name: 'Creative and Passion',
+                    y: beyondVerbalAnalysisData.finalDataGroup11['Creative, Passionate'] || null
+                  }, {
+                    name: 'Friendliness and Warm',
+                    y: beyondVerbalAnalysisData.finalDataGroup11['Friendly, Warm'] || null
+                  }, {
+                    name: 'Love and Happiness',
+                    y: beyondVerbalAnalysisData.finalDataGroup11['Love, Happiness'] || null
+                  }, {
+                    name: 'Loneliness and Unfulfillment',
+                    y: beyondVerbalAnalysisData.finalDataGroup11['Loneliness, Unfulfillment'] || null
+                  }, {
+                    name: 'Sadness and Sorrow',
+                    y: beyondVerbalAnalysisData.finalDataGroup11['Sadness, Sorrow'] || null
+                  }, {
+                    name: 'Defensiveness and Anxiety',
+                    y: beyondVerbalAnalysisData.finalDataGroup11['Defensivness, Anxiety'] || null
+                  }]
                 }]
               },
               isPrivate: response.data.isPrivate,
               videoId: response.data['_id']
             })
         }
-        // date
       }.bind(this))
   },
 
@@ -151,7 +264,7 @@ var Analysis = React.createClass({
                     name="private" 
                     checked={this.state.isPrivate} 
                     onClick={this.handleClick} />
-                  <span className="lever"></span>
+                  <span className="lever"/>
                   Private
                 </label>
               </div>
@@ -159,7 +272,7 @@ var Analysis = React.createClass({
           </div>
         </div>
         <div className="col 12">
-          <Tabs onSelect={this.handleSelect} selectedIndex={0}>
+          <Tabs onSelect={this.handleSelect} selectedIndex={4}>
 
             <TabList>
               <Tab>Kairos Video Analysis</Tab>
@@ -171,32 +284,151 @@ var Analysis = React.createClass({
             </TabList>
 
             <TabPanel>
-            <Graph className="col s12" data={this.state.kairosAnalysis}/>
+              <div className="row col s12 card-panel light-blue">
+                  Analyze and understand facial expressions and engagement in most videos.
+                  We look for faces in your footage and pass the facial features and expressions through our Emotion Algorithms.
+                  Every 250ms we will return values for things like "smile", "surprise", "negative" and "attention".
+                  This helps you figure out how someone might be feeling.
+              </div>
+              <Graph className="row col s12" data={this.state.kairosAnalysis}/>
             </TabPanel>
 
             <TabPanel>
-            <Graph className="col s12" data={this.state.beyondVerbalAnalysis}/>
+              <div className="row col s12 card-panel light-blue">
+                *BETA
+                Valence is an output which measures speaker’s level of negativity / positivity.
+                The Valence output is divided into two distinct measurements:
+                Continuous Scale ranging from 0 to 100, representing a valence shift from negative attitude at the
+                lower part of the scale to a positive attitude at the higher part of the same scale.
+                Valence groups which consist of three distinct groups: Negative, Neutral and Positive.
+              </div>
+              <Graph data={this.state.beyondVerbalAnalysis}/>
+              <h5 className="row col s12 center-align">Scroll down to read what your results mean</h5>
+
+              <div className="row">
+                <div className="col s4 center-align card-panel hoverable">
+                  <p><img className="col s12" src="arousal.png"/>
+                  Your Arousal was {this.state.atvArousal[0]}</p>
+                  <hr/>
+                  <p>{this.state.atvArousal[1]}</p>
+                </div>
+                <div className="col s4 center-align card-panel hoverable">
+                  <p><img className="col s12" src="temper.png"/>
+                  Your Temper was {this.state.atvTemper[0]}</p>
+                  <hr/>
+                  <p>{this.state.atvTemper[1]}</p>
+                </div>
+                <div className="col s4 center-align card-panel hoverable">
+                  <p><img className="col s12" src="valence.png"/>
+                  Your Valence was {this.state.atvValence[0]}</p>
+                  <hr/>
+                  <p>{this.state.atvValence[1]}</p>
+                </div>
+              </div>
             </TabPanel>
 
             <TabPanel>
-              <h5>Mood Composite</h5>
-              {this.state.beyondVerbalDataComp}
+              <div className="row col s12 card-panel light-blue">
+                Mood groups are an indicator of a speaker’s emotional state during the analyzed voice section.
+                There are 432 combined emotions which are grouped into eleven main mood groups.
+                Mood groups are distinct outputs and not measured in a scale.
+              </div>
+              <h5>Mood Composites</h5>
+              <div className="row">
+                <div className="col s6 center-align card-panel hoverable">
+                  <p>Your Primary Mood Composites</p>
+                  <hr/>
+                  <p>{this.state.beyondVerbalDataCompPrimary}</p>
+                </div>
+                <div className="col s6 center-align card-panel hoverable">
+                  <p>Your Secondary Mood Composites</p>
+                  <hr/>
+                  <p>{this.state.beyondVerbalDataCompSecondary}</p>
+                </div>
+              </div>
+
               <hr/>
-              <h5>Mood Group</h5>
-              {this.state.beyondVerbalDataGroup11}
+              <h5>Mood Groups</h5>
+              <Graph data={this.state.moodGroup11Analysis}/>
+              <div className="row">
+                {this.state.moodComposites.map(function (item) {
+                  return <div className="col s5 offset-s1 center-align card-panel hoverable">
+                      <p>{item[0]}</p>
+                    <hr/>
+                    <p>{item[1]}</p>
+                  </div>
+                })}
+              </div>
             </TabPanel>
 
             <TabPanel>
+              <div className="row col s12 card-panel light-blue">
+                This is your whole script back from Alchemy API. Do Words per minute here
+              </div>
             <h5>The Full Script</h5>
               {this.state.watsonFullScript}
+              <hr/>
+              <div className="card-panel hoverable">
+                <p>
+                  The  average American English speaker engaged in a friendly
+                  conversation speaks at a rate of approximately 110–150 words per minute.
+                </p>
+                <p>
+                  Your words per minute were: <b>{this.state.wpmWatson}</b>
+                </p>
+              </div>
             </TabPanel>
 
             <TabPanel>
+              <div className="row col s12 card-panel light-blue">
+                Make a treemap and table of the keywords and their sentiment and relevance and click to see website
+              </div>
               <h5>Alchemy</h5>
-              {this.state.alchemyAPIConcepts}
+
+              <div className="row">
+                <table className="striped bordered col s4">
+                  <tbody>
+                    <tr>
+                      <td><b>Keyword</b></td>
+                    </tr>
+                    {this.state.alchemyAPIKeywordsText.map(function (item) {
+                      return <tr><td>{item}</td></tr>
+                    })}
+                  </tbody>
+                </table>
+                <table className="striped bordered col s4">
+                  <tbody>
+                    <tr>
+                      <td><b>Relevance</b></td>
+                    </tr>
+                    {this.state.alchemyAPIKeywordsRelevance.map(function (item) {
+                      return <tr><td>{item}</td></tr>
+                    })}
+                  </tbody>
+                </table>
+                <table className="striped bordered col s4">
+                  <tbody>
+                    <tr>
+                      <td><b>Sentiment</b></td>
+                    </tr>
+                    {this.state.alchemyAPIKeywordsSentiment.map(function (item) {
+                      if (item === 'negative') {
+                        return <tr><td><font color="red">{item}</font></td></tr>
+                      } else if (item === 'positive') {
+                        return <tr><td><font color="green">{item}</font></td></tr>
+                      } else {
+                        return <tr><td>{item}</td></tr>
+                      }
+                    })}
+                  </tbody>
+                </table>
+              </div>
             </TabPanel>
 
             <TabPanel>
+              <div className="row col s12 card-panel light-blue">
+                Comments that the public has put on your video
+              </div>
             <p>When life gives you lemons, don’t make lemonade. Make life take the lemons back! Get mad! I don’t want your damn lemons, what the hell am I supposed to do with these? Demand to see life’s manager! Make life rue the day it thought it could give Cave Johnson lemons! Do you know who I am? I’m the man who’s gonna burn your house down! With the lemons! I’m gonna get my engineers to invent a combustible lemon that burns your house down!</p>
             </TabPanel>
 
@@ -209,4 +441,3 @@ var Analysis = React.createClass({
 });
 
 module.exports = Analysis;
-
