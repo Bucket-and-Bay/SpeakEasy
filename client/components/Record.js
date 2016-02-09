@@ -101,25 +101,24 @@ var Record = React.createClass({
       this.setState({
         loaded: false
       });
-      helpers.submitVideo(this.state.videoFile).then(function(res){
+    
         //send shortcode to local server and then set state back to null for video
-        var data = {
-          shortcode: res,
-          audioFile: this.state.audioFile,
-          videoFile: this.state.videoFile,
-          title: title.value,
-          description: description.value
-        }
-        helpers.submitRecorded(data).then(function(){
-          title.value = '';
-          description.value = '';
-          this.setState({
-            videoFile: null,
-            audioFile: null,
-            loaded: true
-          });
-        }.bind(this))
+      var data = {
+        audioFile: this.state.audioFile,
+        videoFile: this.state.videoFile,
+        title: title.value,
+        description: description.value
+      }
+      helpers.submitRecorded(data).then(function(){
+        title.value = '';
+        description.value = '';
+        this.setState({
+          videoFile: null,
+          audioFile: null,
+          loaded: true
+        });
       }.bind(this))
+   
     } 
   },
   componentDidMount: function(){

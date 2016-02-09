@@ -1,20 +1,21 @@
 var express = require('express');
 var analysis = require('./controllers/analysis.controller.js');
 var router = express.Router();
+var path = require('path');
 var user = require('./controllers/user.controller.js');
 var audio = require('./controllers/audio.controller.js');
-var path = require('path');
+var video = require('./controllers/video.controller.js');
+var record = require('./controllers/record.controller.js')
 var wavFile = path.join(__dirname + '/controllers/record/');
-var webmFile = path.join(__dirname+'/controllers/record/');
 var multer  = require('multer')
 var upload = multer({ dest: wavFile })
-var video = require('./controllers/video.controller.js');
+
 
 //Routes to Analyze videos
 router.post('/api/record', upload.any(), function(req,res){
   var audioFile = wavFile+req.files[0].filename;
-  var videoFile = webmFile+req.files[1].filename;
-  analysis.merge(req, audioFile, videoFile);
+  var videoFile = wavFile+req.files[1].filename;
+  record.merge(req, audioFile, videoFile);
   res.sendStatus(201);
 })
 router.post('/api/analyze', function(req, res){
