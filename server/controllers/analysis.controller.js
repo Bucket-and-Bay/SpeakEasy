@@ -13,7 +13,6 @@ var fs = require('fs');
 var ffmpeg = require('fluent-ffmpeg');
 var path = require('path');
 var exec = require('child_process').exec;
-var util = require('util');
 
 module.exports.merge = function(req, audioFile, videoFile){
   var videoLocation = path.join(__dirname + '/wavFiles/testfile.webm');
