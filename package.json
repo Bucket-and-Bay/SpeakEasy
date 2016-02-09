@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "postinstall": "webpack -p",
-    "ffmpeg": "brew install ffmpeg"
+    "ffmpeg": "brew install ffmpeg --with-vpx --with-vorbis --with-libvorbis --with-vpx --with-vorbis --with-theora --with-libogg --with-libvorbis --with-gpl --with-version3 --with-nonfree --with-postproc --with-libaacplus --with-libass --with-libcelt --with-libfaac --with-libfdk-aac --with-libfreetype --with-libmp3lame --with-libopencore-amrnb --with-libopencore-amrwb --with-libopenjpeg --with-openssl --with-libopus --with-libschroedinger --with-libspeex --with-libtheora --with-libvo-aacenc --with-libvorbis --with-libvpx --with-libx264 --with-libxvid"
   },
   "repository": {
     "type": "git",
@@ -32,9 +32,9 @@
     "express": "^4.13.4",
     "express-session": "^1.13.0",
     "fluent-ffmpeg": "^2.0.1",
+    "form-data": "^0.2.0",
     "highcharts": "^4.2.1",
     "history": "^1.17.0",
-    "jquery": "^2.2.0",
     "kerberos": "0.0.18",
     "materialize-css": "^0.97.5",
     "moment": "^2.11.2",
@@ -53,6 +53,7 @@
     "recordrtc": "^5.2.7",
     "request": "^2.69.0",
     "request-promise": "^2.0.0",
+    "shortid": "^2.2.4",
     "twilio": "^2.8.0",
     "watson-developer-cloud": "^1.2.1",
     "webpack": "^1.12.11"

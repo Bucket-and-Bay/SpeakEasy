@@ -21,7 +21,6 @@ var Record = React.createClass({
       audio: {},
       videoFile: null,
       audioFile: null,
-      audio64: null,
     }
   },
 
@@ -71,17 +70,10 @@ var Record = React.createClass({
       this.state.audio.stopRecording(function(data){
         var audioFile = this.state.audio.getBlob();
         this.refs.audio.src= data;
-        this.refs.audio.play();
-        var reader = new window.FileReader();
-        reader.readAsDataURL(audioFile);
-        reader.onloadend = function() {
-          var base64data = reader.result;                
-          this.setState({
-            audioFile: audioFile,
-            audio64: base64data
-          })
-        }.bind(this); 
-       
+        this.refs.audio.play();             
+        this.setState({
+          audioFile: audioFile,
+        })
       }.bind(this));
 
       this.state.recorder.stopRecording(function(data){
@@ -109,27 +101,24 @@ var Record = React.createClass({
       this.setState({
         loaded: false
       });
-      helpers.submitVideo(this.state.videoFile).then(function(res){
+    
         //send shortcode to local server and then set state back to null for video
-        var data = {
-          shortcode: res,
-          audioFile: this.state.audioFile,
-          videoFile: this.state.videoFile,
-          audio64: this.state.audio64,
-          title: title.value,
-          description: description.value
-        }
-        helpers.submitRecorded(data).then(function(){
-          title.value = '';
-          description.value = '';
-          this.setState({
-            videoFile: null,
-            audioFile: null,
-            audio64: null,
-            loaded: true
-          });
-        }.bind(this))
+      var data = {
+        audioFile: this.state.audioFile,
+        videoFile: this.state.videoFile,
+        title: title.value,
+        description: description.value
+      }
+      helpers.submitRecorded(data).then(function(){
+        title.value = '';
+        description.value = '';
+        this.setState({
+          videoFile: null,
+          audioFile: null,
+          loaded: true
+        });
       }.bind(this))
+   
     } 
   },
   componentDidMount: function(){
