@@ -6,7 +6,6 @@ var serverURI = 'http://localhost:3000';
 var submitRecorded = function(videoData){
   console.log(videoData);
   var data = new FormData();
-  data.append('shortcode', videoData.shortcode);
   data.append('audio', videoData.audioFile);
   data.append('video', videoData.videoFile);
   data.append('title', videoData.title);
