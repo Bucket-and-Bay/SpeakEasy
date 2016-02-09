@@ -39,9 +39,6 @@ function mergeAudioAndVideo (audioFile, videoFile){
     var mergedFile =path.join(__dirname + '/wavFiles/merged.webm');
     //-itsoffset takes an argument which is a duration  (hr:min:sec) to offset the file immediately before it.
     var command = "ffmpeg -i " + audioFile + " -itsoffset -00:00:01 -i " + videoFile + " -map 0:0 -map 1:0 " + mergedFile; 
-    console.log('AUDIO FILE', audioFile);
-    console.log('VIDEO FILE', videoFile);
-    console.log('MERGED FILE', mergedFile); 
     exec(command, function (error, stdout, stderr) {
         if (stdout) console.log(stdout);
         if (stderr) console.log(stderr);
