@@ -2,6 +2,7 @@ var React = require('react');
 var VideoPlayer = require('./VideoPlayer.js');
 var helpers = require('../config/helper.js');
 var moment = require('moment');
+var Infinite = require('react-infinite');
 
 var Comment = React.createClass({
   render: function() {
@@ -61,8 +62,8 @@ var CommentBox = React.createClass({
   render: function() {
     return (
       <div className="commentBox">
-        <h4>Comments</h4>
-        <CommentList data={this.state.data}/>
+        <h4 className="comment-header">Comments</h4>
+          <CommentList data={this.state.data}/>
         <CommentForm onCommentSubmit={this.handleCommentSubmit} videoId={this.props.videoId} />
       </div>
     );
@@ -81,7 +82,9 @@ var CommentList = React.createClass({
     });
     return (
       <div className="commentList">
-        {commentNodes}
+        <Infinite className="comment-container" containerHeight={300} elementHeight={50} >
+          {commentNodes}
+        </Infinite>
       </div>
     );
   }
