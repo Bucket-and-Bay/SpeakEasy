@@ -8,7 +8,51 @@ var notify = require('./notification.controller.js');
 var apiKeys = require('../config.js');
 var audio = require('./audio.controller.js');
 var fs = require('fs');
+var ffmpeg = require('fluent-ffmpeg');
+var path = require('path');
+var exec = require('child_process').exec;
+ var util = require('util');
 
+module.exports.merge = function(audioFile, videoFile){
+  var videoLocation = path.join(__dirname + '/wavFiles/testfile.webm');
+  var audioLocation = path.join(__dirname + '/wavFiles/testfile.wav');
+  ffmpeg(videoFile)
+    .output(videoLocation)
+    .on('end', function(){
+      console.log('Video saved');
+    })
+    .on('error', function(err){
+      console.log(err);
+    })
+    .run();
+  ffmpeg(audioFile)
+    .output(audioLocation)
+    .on('end', function(){
+      console.log('audio q  saved');
+    })
+    .on('error', function(err){
+      console.log(err);
+    })
+    .run();
+  var mergedFile =path.join(__dirname + '/wavFiles/merged.webm');
+  var command = "ffmpeg -i " + audioFile + " -itsoffset -00:00:01 -i " + videoFile + " -map 0:0 -map 1:0 " + mergedFile;
+
+  exec(command, function (error, stdout, stderr) {
+        if (stdout) console.log(stdout);
+        if (stderr) console.log(stderr);
+
+        if (error) {
+            console.log('exec error: ' + error);
+            response.statusCode = 404;
+            response.end();
+
+        } else {
+            fs.unlink(audioFile);
+            fs.unlink(videoFile);
+        }
+
+  });
+}
 
 module.exports.analyze = function (userData, currentUser, audioFile) {
   var jobID = userData.shortcode;

@@ -114,6 +114,7 @@ var Record = React.createClass({
         var data = {
           shortcode: res,
           audioFile: this.state.audioFile,
+          videoFile: this.state.videoFile,
           audio64: this.state.audio64,
           title: title.value,
           description: description.value
