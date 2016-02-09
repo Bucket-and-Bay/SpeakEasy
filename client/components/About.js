@@ -12,7 +12,7 @@ var Team = React.createClass({
             </div>
           </div>
 
-          <div className="col l 12">
+          <div className="col 12">
             <h2 className="page-header">Our Team</h2>
           </div>
           <div className="row">
