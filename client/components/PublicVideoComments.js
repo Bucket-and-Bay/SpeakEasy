@@ -2,6 +2,7 @@ var React = require('react');
 var VideoPlayer = require('./VideoPlayer.js');
 var helpers = require('../config/helper.js');
 var moment = require('moment');
+var Infinite = require('react-infinite');
 
 var Comment = React.createClass({
   render: function() {
@@ -24,20 +25,30 @@ var Comment = React.createClass({
 var CommentBox = React.createClass({
   getInitialState: function() {
     return { 
-      data: []
+      data: [],
+      interval: []
     }
   },
 
   componentWillReceiveProps: function(nextProps) {
-    console.log(nextProps.data, 'data')
-    var that = this;
     if (nextProps.data){
       this.setState({ data: nextProps.data });
     }
-    // setInterval(function(){
-    //   helpers.getVideoComments(nextProps.videoId).then(function(response){
-    //   that.setState({ data: response.data[0].comments })
-    // }.bind(that))}, 7000)
+    
+  },
+
+  componentWillMount: function() {
+    var videoId = this.props.videoId;
+    var that = this;
+    this.state.interval.push(setInterval(function(){
+        helpers.getVideoComments(videoId).then(function(response){
+          that.setState({ data: response.data[0].comments })
+          }.bind(that))}, 7000)
+    )
+  },
+
+  componentWillUnmount: function() {
+    this.state.interval.forEach(clearInterval);
   },
 
   handleCommentSubmit: function(videoId, author, text) {
@@ -48,7 +59,6 @@ var CommentBox = React.createClass({
       text: text
     }
     var newComments = comments.concat([comment]);
-    // this.setState({data: newComments});
     helpers.submitComment(videoId, author, text);
     helpers.getVideoComments(videoId)
       .then(function(response){
@@ -61,8 +71,8 @@ var CommentBox = React.createClass({
   render: function() {
     return (
       <div className="commentBox">
-        <h4>Comments</h4>
-        <CommentList data={this.state.data}/>
+        <h4 className="comment-header">Comments</h4>
+          <CommentList data={this.state.data}/>
         <CommentForm onCommentSubmit={this.handleCommentSubmit} videoId={this.props.videoId} />
       </div>
     );
@@ -72,7 +82,6 @@ var CommentBox = React.createClass({
 var CommentList = React.createClass({
   render: function() {
     var commentNodes = this.props.data.map(function(comment, idx) {
-      console.log(comment);
       return (
           <Comment author={comment.username} date={comment.date} text={comment.text} key={idx}>
             {comment.text}
@@ -81,7 +90,9 @@ var CommentList = React.createClass({
     });
     return (
       <div className="commentList">
-        {commentNodes}
+        <Infinite className="comment-container" containerHeight={300} elementHeight={50} >
+          {commentNodes}
+        </Infinite>
       </div>
     );
   }
