@@ -9,6 +9,7 @@ var Main = React.createClass({
     return (
       <div className="flex-wrapper">
         <div className="main-container">
+         <Navbar />
           <div>{this.props.children}</div>
         </div>
         <footer className="page-footer teal">

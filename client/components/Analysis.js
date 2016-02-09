@@ -2,7 +2,6 @@ var React = require('react');
 var Graph = require('./Graph.js');
 var helpers = require('../config/helper.js');
 var VideoPlayer = require("./VideoPlayer.js");
-var Navbar = require('./Navbar.js');
 var ReactTabs = require('react-tabs');
 var Tab = ReactTabs.Tab;
 var Tabs = ReactTabs.Tabs;
@@ -136,7 +135,6 @@ var Analysis = React.createClass({
   render: function() {
     return (
       <div>
-        <Navbar />
         <div className="container">
           <div className="row">
             <div className="col s8">

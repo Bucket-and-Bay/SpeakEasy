@@ -8,9 +8,6 @@ var Dropdown = require('react-materialize').Dropdown
 var Button = require('react-materialize').Button
 
 var Navbar = React.createClass({
-  componentDidMount: function(){
-      document.documentElement.addEventListener('scroll', this.handleScroll);
-  },
   getInitialState: function(){
     return {
       loggedIn: Auth.isLoggedIn(),
@@ -22,14 +19,12 @@ var Navbar = React.createClass({
     helper.logout();
   },
   buttons: function(){
-    if(this.state.loggedIn){
+    // console.log('LOGGED IN', this.state.loggedIn)
+    if(Auth.isLoggedIn()){
     return [<NavItem key="1" href="#/upload">Upload a Video</NavItem>, <NavItem key="2"href="#/record">Record a Video</NavItem>,  <NavItem key="3" href="#/dashboard">Your Videos</NavItem>, <NavItem key="4" href="#/public">Public Videos</NavItem>, <NavItem key="5" href="#/signin" onClick={this.logout}>Logout</NavItem>]
     } else {
       return [<NavItem key="1" href="#/signup">Signup</NavItem>, <NavItem key="2" href="#/signin">Log In</NavItem>]
     }
-  },
-  handleScroll: function() {
-    this.refs.nav.getDOMNode().style.top = document.documentElement.scrollTop + 'px';
   },
 
   render:function(){

@@ -3,7 +3,6 @@ var helpers = require('../config/helper.js');
 var RecordRTC = require('recordrtc');
 var helpers = require('../config/helper.js');
 var Loader = require('react-loader');
-var Navbar = require('./Navbar.js');
 
 function videoError(){
   console.log('error')
@@ -166,7 +165,6 @@ var Record = React.createClass({
   render:function(){
     return(
       <div>
-      <Navbar />
         <div className="container">
           <div className="row">
             <div id="videorecorder" className="center-align">

@@ -1,7 +1,6 @@
 var React = require('react');
 var helpers = require('../config/helper.js');
 var Loader = require('react-loader');
-var Navbar = require('./Navbar.js');
 
 var VideoInput = React.createClass({
   getInitialState: function () {
@@ -67,7 +66,6 @@ var VideoInput = React.createClass({
   render: function() {
     return (
       <div>
-        <Navbar />
         <div className="container">
           <div className="card-panel">
             <div className="row">

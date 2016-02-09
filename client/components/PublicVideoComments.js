@@ -1,5 +1,4 @@
 var React = require('react');
-var Navbar = require('./Navbar.js');
 var VideoPlayer = require('./VideoPlayer.js');
 var helpers = require('../config/helper.js');
 var moment = require('moment');
@@ -171,7 +170,6 @@ var PublicVideoComments = React.createClass({
   render: function() {
     return (
       <div>
-        <Navbar />
         <div className="container">
           <div className="row">
             <div className="col s8">

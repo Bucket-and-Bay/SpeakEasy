@@ -1,11 +1,9 @@
 var React = require('react');
-var Navbar = require('./Navbar.js');
 
 var Team = React.createClass({
   render: function(){
     return(
       <div>
-        <Navbar />
         <div className="container">
           <div className="row">
             <div className="col l12">
