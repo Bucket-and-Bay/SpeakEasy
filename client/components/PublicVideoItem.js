@@ -1,4 +1,5 @@
 var React = require('react');
+var moment = require('moment');
 
 var PublicVideoItem = React.createClass({
   propTypes: {
@@ -7,7 +8,7 @@ var PublicVideoItem = React.createClass({
 
   render: function() {
     var cards = this.props.data.map(function(item, idx) {
-      var date = new Date(item.date).toLocaleDateString() + " " + new Date(item.date).toLocaleTimeString();
+      var date = moment(item.date).format('MMM Do YYYY h:mm a');
       var location = "#/comment/" + item._id
       return  <div className="col s4" key={idx}>
                 <div className="card hoverable small">
@@ -21,7 +22,7 @@ var PublicVideoItem = React.createClass({
                     <p>Description: {item.description}</p>
                   </div>
                   <div id='time'>
-                    Timestamp: {date}
+                    Created: {date}
                   </div>
                 </div>
               </div> 

@@ -38,7 +38,7 @@ var Team = React.createClass({
               <a href=""><img className="circle responsive-img img-center hoverable" src="tiffany.JPG" alt="" /></a>
               <h3>Tiffany Huang</h3>
               <medium>Full Stack Developer</medium>   
-              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+              <p></p>
             </div>
           </div>
         </div>
