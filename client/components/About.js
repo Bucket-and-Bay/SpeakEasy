@@ -35,9 +35,9 @@ var Team = React.createClass({
               <p>Comitting messages that make zero sense on the daily.</p>
             </div>
             <div className="col s12 m6 l3 center-align">
-              <a href=""><img className="circle responsive-img img-center hoverable" src="user.png" alt="" /></a>
-              <h3>John Smith</h3>
-              <medium>Job Title</medium>   
+              <a href=""><img className="circle responsive-img img-center hoverable" src="tiffany.JPG" alt="" /></a>
+              <h3>Tiffany Huang</h3>
+              <medium>Full Stack Developer</medium>   
               <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
             </div>
           </div>

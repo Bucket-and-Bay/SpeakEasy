@@ -236,6 +236,16 @@ var Analysis = React.createClass({
     });
   },
 
+  verbalIcons: function() {
+    return (
+      <div className="verbal-icons">
+        <i className="material-icons">thumb_down</i>
+        <i className="material-icons">thumb_up</i>
+        <i className="material-icons">thumbs_up_down</i>
+      </div>
+    )
+  },
+
   render: function() {
     return (
       <div>
@@ -263,7 +273,7 @@ var Analysis = React.createClass({
           </div>
         </div>
         <div className="col 12">
-          <Tabs onSelect={this.handleSelect} selectedIndex={2}>
+          <Tabs onSelect={this.handleSelect} selectedIndex={0}>
 
             <TabList>
               <Tab>Video Emotion</Tab>
@@ -294,19 +304,34 @@ var Analysis = React.createClass({
               <br/>
               <div className="row">
                 <div className="col s4 center-align card-panel hoverable">
-                  <p><img className="col s12" src="arousal.png"/>
+                  <div className="verbal-icons">
+                    <i className="material-icons low">battery_alert</i>
+                    <i className="material-icons neutral">battery_full</i>
+                    <i className="material-icons high">battery_charging_full</i>
+                  </div>
+                  <p>
                   Your Arousal was {this.state.atvArousal[0]}</p>
                   <hr/>
                   <p>{this.state.atvArousal[1]}</p>
                 </div>
                 <div className="col s4 center-align card-panel hoverable">
-                  <p><img className="col s12" src="temper.png"/>
+                  <div className="verbal-icons">
+                    <i className="material-icons low">sentiment_dissatisfied</i>
+                    <i className="material-icons neutral">sentiment_neutral</i>
+                    <i className="material-icons high">sentiment_satisfied</i>
+                  </div>
+                  <p>
                   Your Temper was {this.state.atvTemper[0]}</p>
                   <hr/>
                   <p>{this.state.atvTemper[1]}</p>
                 </div>
                 <div className="col s4 center-align card-panel hoverable">
-                  <p><img className="col s12" src="valence.png"/>
+                  <div className="verbal-icons">
+                    <i className="material-icons low">thumb_down</i>
+                    <i className="material-icons neutral">thumbs_up_down</i>
+                    <i className="material-icons high">thumb_up</i>
+                  </div>
+                  <p>
                   Your Valence was {this.state.atvValence[0]}</p>
                   <hr/>
                   <p>{this.state.atvValence[1]}</p>
