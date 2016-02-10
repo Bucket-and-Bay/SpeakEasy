@@ -295,6 +295,7 @@ var Analysis = React.createClass({
 
             <TabPanel>
               <div className="row card-panel explanations">
+                <p className="col s12">The results of your voice analysis include:</p>
                 <span className="col s1"><strong>Energy:</strong></span> <span className="col s11">measures degree of energy ranging from tranquil, bored or sleepy to excited and highly energetic.</span>
                 <span className="col s1"><strong>Temper:</strong></span> <span className="col s11">reflects temperament or emotional state ranging from gloomy or depressive, embracive and friendly, to confrontational or aggressive.</span>
                 <span className="col s1"><strong>Valence:</strong></span> <span className="col s11">measures level of attitude from negative to positive</span>
@@ -303,33 +304,77 @@ var Analysis = React.createClass({
               <br/>
               <div className="row">
                 <div className="col s4 center-align card-panel hoverable">
-                  <div className="verbal-icons">
-                    <i className="material-icons low">battery_alert</i>
-                    <i className="material-icons neutral">battery_full</i>
-                    <i className="material-icons high">battery_charging_full</i>
-                  </div>
+                    {(() => {
+                      switch (this.state.atvArousal[0]) {
+                        case "high":    return  <div className="verbal-icons"><i className="material-icons low atvSizes">battery_alert</i>
+                                                    <i className="material-icons neutral atvSizes ">battery_full</i>
+                                                    <i className="material-icons high atvSizes energy">battery_charging_full</i></div>;
+                                        break;
+                        case "medium":  return  <div className="verbal-icons"><i className="material-icons low atvSizes">battery_alert</i>
+                                                    <i className="material-icons neutral atvSizes energy">battery_full</i>
+                                                    <i className="material-icons high atvSizes">battery_charging_full</i></div>;
+                                        break;
+                        case "neutral": return  <div className="verbal-icons"><i className="material-icons low atvSizes">battery_alert</i>
+                                                    <i className="material-icons neutral atvSizes energy">battery_full</i>
+                                                    <i className="material-icons high atvSizes">battery_charging_full</i></div>;
+                                        break;
+                        case "low":     return  <div className="verbal-icons"><i className="material-icons low atvSizes energy">battery_alert</i>
+                                                    <i className="material-icons neutral atvSizes ">battery_full</i>
+                                                    <i className="material-icons high atvSizes">battery_charging_full</i></div>;
+                                        break;
+
+                      }
+                    })()}
                   <p>
                   Your Energy was {this.state.atvArousal[0]}</p>
                   <hr/>
                   <p>{this.state.atvArousal[1]}</p>
                 </div>
                 <div className="col s4 center-align card-panel hoverable">
-                  <div className="verbal-icons">
-                    <i className="material-icons low">sentiment_dissatisfied</i>
-                    <i className="material-icons neutral">sentiment_neutral</i>
-                    <i className="material-icons high">sentiment_satisfied</i>
-                  </div>
+                  {(() => {
+                      switch (this.state.atvTemper[0]) {
+                        case "high":    return  <div className="verbal-icons"><i className="material-icons low atvSizes">sentiment_dissatisfied</i>
+                                                    <i className="material-icons neutral atvSizes ">sentiment_neutral</i>
+                                                    <i className="material-icons high atvSizes temper">sentiment_satisfied</i></div>;
+                                        break;
+                        case "medium":  return  <div className="verbal-icons"><i className="material-icons low atvSizes">sentiment_dissatisfied</i>
+                                                    <i className="material-icons neutral atvSizes temper">sentiment_neutral</i>
+                                                    <i className="material-icons high atvSizes">sentiment_satisfied</i></div>;
+                                        break;
+                        case "neutral": return  <div className="verbal-icons"><i className="material-icons low atvSizes">sentiment_dissatisfied</i>
+                                                    <i className="material-icons neutral atvSizes temper">sentiment_neutral</i>
+                                                    <i className="material-icons high atvSizes">sentiment_satisfied</i></div>;
+                                        break;
+                        case "low":     return  <div className="verbal-icons"><i className="material-icons low atvSizes temper">sentiment_dissatisfied</i>
+                                                    <i className="material-icons neutral atvSizes ">sentiment_neutral</i>
+                                                    <i className="material-icons high atvSizes">sentiment_satisfied</i></div>;
+                                        break;
+
+                      }
+                    })()}
                   <p>
                   Your Temper was {this.state.atvTemper[0]}</p>
                   <hr/>
                   <p>{this.state.atvTemper[1]}</p>
                 </div>
                 <div className="col s4 center-align card-panel hoverable">
-                  <div className="verbal-icons">
-                    <i className="material-icons low">thumb_down</i>
-                    <i className="material-icons neutral">thumbs_up_down</i>
-                    <i className="material-icons high">thumb_up</i>
-                  </div>
+                  {(() => {
+                      switch (this.state.atvValence[0]) {
+                        case "positive":    return  <div className="verbal-icons"><i className="material-icons low atvSizes">thumb_down</i>
+                                                    <i className="material-icons neutral atvSizes ">thumbs_up_down</i>
+                                                    <i className="material-icons high atvSizes valence">thumb_up</i></div>;
+                                        break;
+                        case "neutral": return  <div className="verbal-icons"><i className="material-icons low atvSizes">thumb_down</i>
+                                                    <i className="material-icons neutral atvSizes valence">thumbs_up_down</i>
+                                                    <i className="material-icons high atvSizes">thumb_up</i></div>;
+                                        break;
+                        case "negative":     return  <div className="verbal-icons"><i className="material-icons low atvSizes valence">thumb_down</i>
+                                                    <i className="material-icons neutral atvSizes ">thumbs_up_down</i>
+                                                    <i className="material-icons high atvSizes">thumb_up</i></div>;
+                                        break;
+
+                      }
+                    })()}
                   <p>
                   Your Valence was {this.state.atvValence[0]}</p>
                   <hr/>
