@@ -17,7 +17,7 @@ router.post('/api/record', upload.any(), function(req,res){
   var videoFile = wavFile+req.files[1].filename;
   record.merge(req, audioFile, videoFile);
   res.sendStatus(201);
-})
+});
 router.post('/api/analyze', function(req, res){
   analysis.analyze(req.body, req.session.user);
   res.status(201);
