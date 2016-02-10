@@ -1,6 +1,6 @@
 var config;
 
-if(process.env.NODE_ENV ==='production'){
+if(process.env.NODE_ENV !=='production'){
   var localConfig = require('./config/localConfig.js');
   config ={
     mode: 'local',
