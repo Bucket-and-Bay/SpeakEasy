@@ -3,7 +3,7 @@ var VideoPlayer = require('./VideoPlayer.js');
 var helpers = require('../config/helper.js');
 var moment = require('moment');
 var Infinite = require('react-infinite');
-var CommentBoxB = require('./Commentbox.js');
+var CommentBoxB = require('./CommentBox.js');
 
 
 var PublicVideoComments = React.createClass({

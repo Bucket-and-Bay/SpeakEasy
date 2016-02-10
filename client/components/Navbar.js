@@ -5,6 +5,7 @@ var NavWrapper = require('react-materialize').Navbar;
 var NavItem = require('react-materialize').NavItem;
 var Dropdown = require('react-materialize').Dropdown
 var Button = require('react-materialize').Button
+var Logo = require('./Logo.js');
 
 var Navbar = React.createClass({
   logout: function(e){
