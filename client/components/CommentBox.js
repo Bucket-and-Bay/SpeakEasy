@@ -39,6 +39,9 @@ var CommentBox = React.createClass({
   componentWillMount: function() {
     var videoId = this.props.videoId;
     var that = this;
+    helpers.getVideoComments(videoId).then(function(response) {
+      that.setState({data: response.data[0].comments})
+    }.bind(that));
     this.state.interval.push(setInterval(function(){
         helpers.getVideoComments(videoId).then(function(response){
           that.setState({ data: response.data[0].comments })

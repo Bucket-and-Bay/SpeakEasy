@@ -213,6 +213,12 @@ footer.page-footer {
   color: #ffffff;
 }
 
+.verbal-icons {
+  display: flex;
+  justify-content: space-between;
+  padding: 0px 20px 10px 20px;
+}
+
 #menu-wrap, #menu-wrap:active{
   margin-top: -2em;
   background:none;
