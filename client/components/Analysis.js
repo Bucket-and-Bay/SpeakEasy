@@ -120,7 +120,7 @@ var Analysis = React.createClass({
                   },
                   series:[{
                     data: beyondVerbalAnalysisData.arousalData,
-                    name: 'Arousal',
+                    name: 'Energy',
                     color: 'rgba(103, 58, 183, 0.8)'
                   },
                   {
@@ -295,7 +295,7 @@ var Analysis = React.createClass({
 
             <TabPanel>
               <div className="row card-panel explanations">
-                <span className="col s1"><strong>Arousal:</strong></span> <span className="col s11">measures degree of energy ranging from tranquil, bored or sleepy to excited and highly energetic.</span>
+                <span className="col s1"><strong>Energy:</strong></span> <span className="col s11">measures degree of energy ranging from tranquil, bored or sleepy to excited and highly energetic.</span>
                 <span className="col s1"><strong>Temper:</strong></span> <span className="col s11">reflects temperament or emotional state ranging from gloomy or depressive, embracive and friendly, to confrontational or aggressive.</span>
                 <span className="col s1"><strong>Valence:</strong></span> <span className="col s11">measures level of attitude from negative to positive</span>
               </div>
@@ -309,7 +309,7 @@ var Analysis = React.createClass({
                     <i className="material-icons high">battery_charging_full</i>
                   </div>
                   <p>
-                  Your Arousal was {this.state.atvArousal[0]}</p>
+                  Your Energy was {this.state.atvArousal[0]}</p>
                   <hr/>
                   <p>{this.state.atvArousal[1]}</p>
                 </div>
