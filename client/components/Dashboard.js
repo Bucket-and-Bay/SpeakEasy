@@ -19,6 +19,7 @@ var Dashboard = React.createClass({
         userVideos: response.data
       })
     }.bind(this))
+   getElementByClassName('tooltipped').tooltip({delay:50});
   },
 
   onSearch: function(query) {
@@ -65,8 +66,13 @@ var Dashboard = React.createClass({
   render: function(){
     return (
     <div>
-      <div className="container">
-        <Searchbar onSearch={ this.onSearch } />
+      <div className="container"> 
+        <div className="row">
+          <Searchbar className="col s12" onSearch={ this.onSearch } />
+          <a href="#/upload" data-position="top" data-tooltip="Upload a video from your computer" className="btn-offset col s3 waves-effect waves-light btn tooltipped">Upload<i className="fa fa-upload"></i></a>
+          <a href="#/record" data-position="top" data-tooltip="Record a video right here." className="col s3 offset-s1 waves-effect waves-light btn tooltipped">Record<i className="fa fa-video-camera"></i></a>
+          <a href="#/public" data-position="top" data-tooltip="Comment on public vidoes." className="col s3 offset-s1 waves-effect waves-light btn tooltipped">Speak Up<i className="fa fa-bullhorn"></i></a>
+        </div>
         <div className="row">
         <Video delete={this.delete} data={this.state.video}/>
         </div>

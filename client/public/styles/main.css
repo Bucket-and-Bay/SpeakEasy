@@ -275,6 +275,22 @@ footer.page-footer {
 
 }
 
+.btn{
+  margin: 0 auto;
+}
+
+.btn:hover{
+  background-color: #f5f5f5 !important;
+  color: #009688 !important; 
+}
+
+.btn-offset{
+  margin-left: 2.25em !important;
+}
+
+.fa{
+  padding-left : .5em;
+}
 
 
 
