@@ -8,7 +8,6 @@ var createUser = function(req, res){
   var user = {
     username: req.body.username,
     password: req.body.password,
-    phoneNumber: req.body.phoneNumber,
     firstName: req.body.first,
     lastName: req.body.last,
     email: req.body.email,
