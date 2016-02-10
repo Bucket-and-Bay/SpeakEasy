@@ -22,7 +22,18 @@ module.exports.analyze = function (userData, currentUser) {
       analysis.videoUrl = 'https:'+res.files.mp4.url;
       Promise.all([kairos.videoAnalysis(videoURL), audio.audioAnalysis(videoURL, jobID)])
         .then(function(data){
-          analysis.beyondVerbalAnalysis = [data[1][0], data[1][1]];
+          //beyond verbal tends to send back no data if the analysis doesnt catch audio, error checking
+          var beyondVerbalData;
+          if(data[1][0]){
+            if(data[1][0].result.analysisSegments){
+              beyondVerbalData = util.formatBeyondVerbal(data[1][0].result)
+            } else {
+              beyondVerbalData = null
+            }
+          } else {
+            beyondVerbalData = null
+          }
+          analysis.beyondVerbalAnalysis = [beyondVerbalData, data[1][1]];
 
           analysis.watsonAnalysis = data[1][3];
           analysis.alchemyAnalysis = util.getKeywords(data[1][2]);

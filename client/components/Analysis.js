@@ -55,13 +55,9 @@ var Analysis = React.createClass({
           var kairosAnalysisData = response.data.kairosAnalysis
 
           // Beyond Verbal
-          var bvData = response.data.beyondVerbalAnalysis[0];
-          if(bvData){
-            if(bvData.result.analysisSegments){
-              var beyondVerbalAnalysisData = helpers.getBeyondVerbalData(bvData.result);
-            }
-          }
-
+          var bvData = response.data.beyondVerbalAnalysis[0] 
+          var beyondVerbalAnalysisData = bvData;
+        
           // Watson Script and words per minute
           var watsonScript = response.data.watsonAnalysis[1];
           var wpm = helpers.wpmWatson(watsonScript, response.data.kairosAnalysis.length);
@@ -84,147 +80,150 @@ var Analysis = React.createClass({
             wpmWatson: wpm,
             kairosAnalysis: kairosAnalysisData,
           })
-       
-          this.setState({
-            beyondVerbalDataCompPrimary: beyondVerbalAnalysisData.moodDataCompPrimary,
-            beyondVerbalDataCompSecondary: beyondVerbalAnalysisData.moodDataCompSecondary,
-            beyondVerbalDataGroup11: beyondVerbalAnalysisData.moodDataGroup11,
-            atvArousal: beyondVerbalAnalysisData.summary['arousal'],
-            atvTemper: beyondVerbalAnalysisData.summary['temper'],
-            atvValence: beyondVerbalAnalysisData.summary['valence'],
-            moodComposites: beyondVerbalAnalysisData.moodDataGroup11,
-           
-            beyondVerbalAnalysis: {
-                legend: {
-                  backgroundColor: '#FFFFFF',
-                  layout: 'vertical',
-                  floating: true,
-                  align: 'right',
-                  verticalAlign: 'bottom',
-                  x: -30,
-                  y: -60,
-                  shadow: true
-                },
+          if(beyondVerbalAnalysisData){
+            this.setState({
+              beyondVerbalDataCompPrimary: beyondVerbalAnalysisData.moodDataCompPrimary,
+              beyondVerbalDataCompSecondary: beyondVerbalAnalysisData.moodDataCompSecondary,
+              beyondVerbalDataGroup11: beyondVerbalAnalysisData.moodDataGroup11,
+              atvArousal: beyondVerbalAnalysisData.summary['arousal'],
+              atvTemper: beyondVerbalAnalysisData.summary['temper'],
+              atvValence: beyondVerbalAnalysisData.summary['valence'],
+              moodComposites: beyondVerbalAnalysisData.moodDataGroup11,
+              beyondVerbalAnalysis: {
+                  legend: {
+                    backgroundColor: '#FFFFFF',
+                    layout: 'vertical',
+                    floating: true,
+                    align: 'right',
+                    verticalAlign: 'bottom',
+                    x: -30,
+                    y: -60,
+                    shadow: true
+                  },
 
-                chart: {
-                  type: 'bar'
-                },
-                title: {
-                  text: ''
-                },
-                yAxis: {
+                  chart: {
+                    type: 'bar'
+                  },
                   title: {
                     text: ''
-                  }
-                },
-                xAxis: {
-                  categories: ['Verbal Stats'],
+                  },
+                  yAxis: {
+                    title: {
+                      text: ''
+                    }
+                  },
+                  xAxis: {
+                    categories: ['Verbal Stats'],
+                    title: {
+                      text: ''
+                    }
+                  },
+                  series:[{
+                    data: beyondVerbalAnalysisData.arousalData,
+                    name: 'Arousal',
+                    color: 'rgba(103, 58, 183, 0.8)'
+                  },
+                  {
+                    data: beyondVerbalAnalysisData.temperData,
+                    name: 'Temper',
+                    color: 'rgba(233, 30, 99, 0.8)'
+                  },
+                  {
+                    data: beyondVerbalAnalysisData.valenceData,
+                    name: 'Valence',
+                    color: 'rgba(255, 152, 0, 0.8)'
+                  },
+                  {
+                    data: beyondVerbalAnalysisData.audioQData,
+                    name: 'Audio Quality',
+                    visible: false,
+                    color: 'rgba(0, 150, 136, 0.8)'
+                  }]
+              },
+                moodGroup11Analysis: {
+                  chart: {
+                    plotBackgroundColor: null,
+                    plotBorderWidth: null,
+                    plotShadow: false,
+                    type: 'pie'
+                  },
                   title: {
-                    text: ''
-                  }
-                },
-                series:[{
-                  data: beyondVerbalAnalysisData.arousalData,
-                  name: 'Arousal',
-                  color: 'rgba(103, 58, 183, 0.8)'
-                },
-                {
-                  data: beyondVerbalAnalysisData.temperData,
-                  name: 'Temper',
-                  color: 'rgba(233, 30, 99, 0.8)'
-                },
-                {
-                  data: beyondVerbalAnalysisData.valenceData,
-                  name: 'Valence',
-                  color: 'rgba(255, 152, 0, 0.8)'
-                },
-                {
-                  data: beyondVerbalAnalysisData.audioQData,
-                  name: 'Audio Quality',
-                  visible: false,
-                  color: 'rgba(0, 150, 136, 0.8)'
-                }]
-            },
-              moodGroup11Analysis: {
-                chart: {
-                  plotBackgroundColor: null,
-                  plotBorderWidth: null,
-                  plotShadow: false,
-                  type: 'pie'
-                },
-                title: {
-                  text: 'Your voice emotions'
-                },
-                tooltip: {
-                  pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
-                },
-                plotOptions: {
-                  pie: {
-                    allowPointSelect: true,
-                    cursor: 'pointer',
-                    dataLabels: {
-                      enabled: true,
-                      format: '<b>{point.name}</b>: {point.percentage:.1f} %',
-                      style: {
-                        color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+                    text: 'Your voice emotions'
+                  },
+                  tooltip: {
+                    pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+                  },
+                  plotOptions: {
+                    pie: {
+                      allowPointSelect: true,
+                      cursor: 'pointer',
+                      dataLabels: {
+                        enabled: true,
+                        format: '<b>{point.name}</b>: {point.percentage:.1f} %',
+                        style: {
+                          color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+                        }
                       }
                     }
-                  }
-                },
-                series: [{
-                  name: 'Mood',
-                  colorByPoint: true,
-                  data: [{
-                    name: 'Supremacy, Arrogance',
-                    y: beyondVerbalAnalysisData.finalDataGroup11['Supremacy, Arrogance'] || null,
-                    sliced: true,
-                    selected: true,
-                    color: 'rgba(233, 30, 99, 1)'
-                  }, {
-                    name: 'Hostility and Anger',
-                    y: beyondVerbalAnalysisData.finalDataGroup11['Hostility, Anger'] || null,
-                    color: 'rgba(255, 152, 0, 1)'
-                  }, {
-                    name: 'Criticism and Cynicism',
-                    y: beyondVerbalAnalysisData.finalDataGroup11['Criticism, Cynicism'] || null,
-                    color: 'rgba(103, 58, 183, 1)'
-                  }, {
-                    name: 'Self-control and Practicality',
-                    y: beyondVerbalAnalysisData.finalDataGroup11['Self-Control, Practicality'] || null,
-                    color:'rgba(0, 150, 136, 1)'
-                  }, {
-                    name: 'Leadership and Charisma',
-                    y: beyondVerbalAnalysisData.finalDataGroup11['Leadership, Charisma'] || null,
-                    color: 'rgba(255, 152, 0, 0.75)'
-                  }, {
-                    name: 'Creative and Passion',
-                    y: beyondVerbalAnalysisData.finalDataGroup11['Creative, Passionate'] || null,
-                    color: 'rgba(233, 30, 99, 0.75)'
-                  }, {
-                    name: 'Friendliness and Warm',
-                    y: beyondVerbalAnalysisData.finalDataGroup11['Friendly, Warm'] || null,
-                    color: 'rgba(103, 58, 183, 0.75)'
-                  }, {
-                    name: 'Love and Happiness',
-                    y: beyondVerbalAnalysisData.finalDataGroup11['Love, Happiness'] || null,
-                    color:'rgba(0, 150, 136, 0.75)'
-                  }, {
-                    name: 'Loneliness and Unfulfillment',
-                    y: beyondVerbalAnalysisData.finalDataGroup11['Loneliness, Unfulfillment'] || null,
-                    color:'rgba(0, 150, 136, 0.4)'
-                  }, {
-                    name: 'Sadness and Sorrow',
-                    y: beyondVerbalAnalysisData.finalDataGroup11['Sadness, Sorrow'] || null,
-                    color: 'rgba(255, 152, 0, 0.4)'
-                  }, {
-                    name: 'Defensiveness and Anxiety',
-                    y: beyondVerbalAnalysisData.finalDataGroup11['Defensivness, Anxiety'] || null,
-                    color: 'rgba(103, 58, 183, 0.4)'
+                  },
+                  series: [{
+                    name: 'Mood',
+                    colorByPoint: true,
+                    data: [{
+                      name: 'Supremacy, Arrogance',
+                      y: beyondVerbalAnalysisData.finalDataGroup11['Supremacy, Arrogance'] || null,
+                      sliced: true,
+                      selected: true,
+                      color: 'rgba(233, 30, 99, 1)'
+                    }, {
+                      name: 'Hostility and Anger',
+                      y: beyondVerbalAnalysisData.finalDataGroup11['Hostility, Anger'] || null,
+                      color: 'rgba(255, 152, 0, 1)'
+                    }, {
+                      name: 'Criticism and Cynicism',
+                      y: beyondVerbalAnalysisData.finalDataGroup11['Criticism, Cynicism'] || null,
+                      color: 'rgba(103, 58, 183, 1)'
+                    }, {
+                      name: 'Self-control and Practicality',
+                      y: beyondVerbalAnalysisData.finalDataGroup11['Self-Control, Practicality'] || null,
+                      color:'rgba(0, 150, 136, 1)'
+                    }, {
+                      name: 'Leadership and Charisma',
+                      y: beyondVerbalAnalysisData.finalDataGroup11['Leadership, Charisma'] || null,
+                      color: 'rgba(255, 152, 0, 0.75)'
+                    }, {
+                      name: 'Creative and Passion',
+                      y: beyondVerbalAnalysisData.finalDataGroup11['Creative, Passionate'] || null,
+                      color: 'rgba(233, 30, 99, 0.75)'
+                    }, {
+                      name: 'Friendliness and Warm',
+                      y: beyondVerbalAnalysisData.finalDataGroup11['Friendly, Warm'] || null,
+                      color: 'rgba(103, 58, 183, 0.75)'
+                    }, {
+                      name: 'Love and Happiness',
+                      y: beyondVerbalAnalysisData.finalDataGroup11['Love, Happiness'] || null,
+                      color:'rgba(0, 150, 136, 0.75)'
+                    }, {
+                      name: 'Loneliness and Unfulfillment',
+                      y: beyondVerbalAnalysisData.finalDataGroup11['Loneliness, Unfulfillment'] || null,
+                      color:'rgba(0, 150, 136, 0.4)'
+                    }, {
+                      name: 'Sadness and Sorrow',
+                      y: beyondVerbalAnalysisData.finalDataGroup11['Sadness, Sorrow'] || null,
+                      color: 'rgba(255, 152, 0, 0.4)'
+                    }, {
+                      name: 'Defensiveness and Anxiety',
+                      y: beyondVerbalAnalysisData.finalDataGroup11['Defensivness, Anxiety'] || null,
+                      color: 'rgba(103, 58, 183, 0.4)'
+                    }]
                   }]
-                }]
-              },
-           
+                },
             })
+          
+          } else {
+            //beyond verbal data is not defined
+          }
+              
         }
       }.bind(this))
   },

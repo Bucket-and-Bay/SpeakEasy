@@ -15,7 +15,7 @@ var Team = React.createClass({
           <div className="col 12">
             <h2 className="page-header">Our Team</h2>
           </div>
-          <div className="row">
+          <div className="row ">
             <div className="col s12 m6 l3 center-align">
               <a href=""><img className="circle responsive-img img-center hoverable" src="jason.jpg" alt="" /></a>
               <h3>Jason Jensen</h3>
