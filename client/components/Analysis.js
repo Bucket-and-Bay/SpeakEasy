@@ -52,77 +52,49 @@ var Analysis = React.createClass({
           var videosource = response.data.videoUrl;
 
           // Kairos
-          var analysis = response.data.kairosAnalysis.frames;
-          var kairosAnalysisData = helpers.getEmotionData(analysis);
+          var kairosAnalysisData = response.data.kairosAnalysis
 
           // Beyond Verbal
-          var bvData = response.data.beyondVerbalAnalysis[0].result;
-          var beyondVerbalAnalysisData = helpers.getBeyondVerbalData(bvData);
+          var bvData = response.data.beyondVerbalAnalysis[0];
+          if(bvData){
+            if(bvData.result.analysisSegments){
+              var beyondVerbalAnalysisData = helpers.getBeyondVerbalData(bvData.result);
+            }
+          }
 
           // Watson Script and words per minute
           var watsonScript = response.data.watsonAnalysis[1];
           var wpm = helpers.wpmWatson(watsonScript, response.data.kairosAnalysis.length);
 
           // Alchemy API
-          var alchemyData = response.data.alchemyAnalysis;
-          var alchemyAPIKeywordsText = helpers.getAlchemyKeywordsText(alchemyData);
-          var alchemyAPIKeywordsRelevance = helpers.getAlchemyKeywordsRelevance(alchemyData);
-          var alchemyAPIKeywordsSentiment = helpers.getAlchemyKeywordsSentiment(alchemyData);
+          var alchemyAPIKeywordsText = response.data.alchemyAnalysis.alchemyAPIKeywordsText
+          var alchemyAPIKeywordsRelevance = response.data.alchemyAnalysis.alchemyAPIKeywordsRelevance
+          var alchemyAPIKeywordsSentiment = response.data.alchemyAnalysis.alchemyAPIKeywordsSentiment
 
           this.setState({
             videoSource: videosource,
             videoTitle: response.data.title,
             videoDate: videoDate,
-            beyondVerbalDataCompPrimary: beyondVerbalAnalysisData.moodDataCompPrimary,
-            beyondVerbalDataCompSecondary: beyondVerbalAnalysisData.moodDataCompSecondary,
-            beyondVerbalDataGroup11: beyondVerbalAnalysisData.moodDataGroup11,
             watsonFullScript: watsonScript,
             alchemyAPIKeywordsText: alchemyAPIKeywordsText,
             alchemyAPIKeywordsRelevance: alchemyAPIKeywordsRelevance,
             alchemyAPIKeywordsSentiment: alchemyAPIKeywordsSentiment,
+            isPrivate: response.data.isPrivate,
+            videoId: response.data['_id'],
+            wpmWatson: wpm,
+            kairosAnalysis: kairosAnalysisData,
+          })
+       
+          this.setState({
+            beyondVerbalDataCompPrimary: beyondVerbalAnalysisData.moodDataCompPrimary,
+            beyondVerbalDataCompSecondary: beyondVerbalAnalysisData.moodDataCompSecondary,
+            beyondVerbalDataGroup11: beyondVerbalAnalysisData.moodDataGroup11,
             atvArousal: beyondVerbalAnalysisData.summary['arousal'],
             atvTemper: beyondVerbalAnalysisData.summary['temper'],
             atvValence: beyondVerbalAnalysisData.summary['valence'],
             moodComposites: beyondVerbalAnalysisData.moodDataGroup11,
-            wpmWatson: wpm,
-
-            kairosAnalysis: {
-                title: {
-                  text: 'Video Emotional Analysis'
-                },
-                yAxis: {
-                  title: {
-                    text: ''
-                  }
-                },
-                xAxis: {
-                  title: {
-                    text: ''
-                  }
-                },
-                series:[{
-                  data: kairosAnalysisData.attentionData,
-                  name: 'attention',
-                  visible: false,
-                  color:'rgba(0, 150, 136, 0.8)' //teal
-                },
-                {
-                  data: kairosAnalysisData.negativeData,
-                  name: 'negative',
-                  color: 'rgba(233, 30, 99, 0.8)' //pink
-                },
-                {
-                  data: kairosAnalysisData.smileData,
-                  name: 'smile',
-                  color: 'rgba(255, 152, 0, 0.8)' //orange
-                },
-                {
-                  data: kairosAnalysisData.surpriseData,
-                  name:'surprise',
-                  color: 'rgba(103, 58, 183, 0.8)' //purple
-                }]
-              },
-              beyondVerbalAnalysis: {
+           
+            beyondVerbalAnalysis: {
                 legend: {
                   backgroundColor: '#FFFFFF',
                   layout: 'vertical',
@@ -172,7 +144,7 @@ var Analysis = React.createClass({
                   visible: false,
                   color: 'rgba(0, 150, 136, 0.8)'
                 }]
-              },
+            },
               moodGroup11Analysis: {
                 chart: {
                   plotBackgroundColor: null,
@@ -251,8 +223,7 @@ var Analysis = React.createClass({
                   }]
                 }]
               },
-              isPrivate: response.data.isPrivate,
-              videoId: response.data['_id']
+           
             })
         }
       }.bind(this))

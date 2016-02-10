@@ -7,6 +7,7 @@ var util = require('./utils.js')
 var notify = require('./notification.controller.js');
 var apiKeys = require('../config.js');
 var audio = require('./audio.controller.js');
+var helper = require('../config/helper.js')
 
 module.exports.analyze = function (userData, currentUser) {
 
@@ -22,9 +23,11 @@ module.exports.analyze = function (userData, currentUser) {
       Promise.all([kairos.videoAnalysis(videoURL), audio.audioAnalysis(videoURL, jobID)])
         .then(function(data){
           analysis.beyondVerbalAnalysis = [data[1][0], data[1][1]];
+          
           analysis.watsonAnalysis = data[1][3];
-          analysis.alchemyAnalysis = data[1][2];
-          analysis.kairosAnalysis = data[0];
+          analysis.alchemyAnalysis = helper.getKeywords(data[1][2]);
+          analysis.kairosAnalysis = helper.kairosData(data[0].frames);
+          analysis.kairosAnalysis.length = data[0].length;
           analysis.save(function(err){
             if(err){
               console.log(err)
