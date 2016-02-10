@@ -31,7 +31,7 @@ var Home = React.createClass({
                 <h2 className="center teal-text"><i className="material-icons">videocam</i></h2>
                 <h5 className="center">Easy to Use</h5>
 
-                <p className="light">Submit a video recording of yourself or take one on the spot. Just upload the videos you want and we'll send you a text when it's done.</p>
+                <p className="light">Submit a video recording of yourself or take one on the spot. Just upload the videos you want and we'll send you an email when it's done.</p>
               </div>
             </div>
             <div className="col s12 m4">

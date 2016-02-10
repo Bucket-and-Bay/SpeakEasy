@@ -44,6 +44,7 @@ module.exports.analyze = function (userData, currentUser) {
               console.log(err)
             } else {
               console.log('Analysis saved')
+              notify.byText(currentUser)
             }
           })
         })
