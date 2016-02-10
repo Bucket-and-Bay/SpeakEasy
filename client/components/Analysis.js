@@ -294,12 +294,7 @@ var Analysis = React.createClass({
               <br/>
               <div className="row">
                 <div className="col s4 center-align card-panel hoverable">
-                  <p>
-                  <div className="verbal-icons">
-                  <i className="material-icons">sentiment_dissatisfied</i>
-                  <i className="material-icons">sentiment_neutral</i>
-                  <i className="material-icons">sentiment_satisfied</i>
-                  </div>
+                  <p><img className="col s12" src="arousal.png"/>
                   Your Arousal was {this.state.atvArousal[0]}</p>
                   <hr/>
                   <p>{this.state.atvArousal[1]}</p>
