@@ -7,7 +7,7 @@ var alchemyapi = new AlchemyAPI();
 
 module.exports.alchemyAnalysis = function(watsonText) {
 
-  var transcript = watsonText;
+  var transcript = watsonText[1];
   var alchemyResults = {};
   return new Promise(function(resolve, reject){
     alchemyapi.keywords('text', transcript, {sentiment: 1}, function(response){

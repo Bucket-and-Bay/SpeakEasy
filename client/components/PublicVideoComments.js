@@ -3,7 +3,7 @@ var VideoPlayer = require('./VideoPlayer.js');
 var helpers = require('../config/helper.js');
 var moment = require('moment');
 var Infinite = require('react-infinite');
-var CommentBox = require('./Commentbox.js');
+var CommentBoxB = require('./Commentbox.js');
 
 
 var PublicVideoComments = React.createClass({
@@ -49,7 +49,7 @@ var PublicVideoComments = React.createClass({
           </div>
         </div>
         <div className="col 12">
-          <CommentBox data={this.state.comments} author={this.state.author} videoId={this.state.videoId} />
+          <CommentBoxB data={this.state.comments} author={this.state.author} videoId={this.state.videoId} />
         </div>
       </div>
       </div>
