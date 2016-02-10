@@ -20,6 +20,7 @@ var extractAudio = function(videoURL, uniqueID) {
   return new Promise(function(resolve, reject){
     console.log("extracting audio")
     var wavFile = path.join(__dirname + '/wavFiles/' + uniqueID + 'file.wav');
+    
     ffmpeg(videoURL)
       .output(wavFile)
       .on('end', function(){

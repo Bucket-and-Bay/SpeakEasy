@@ -104,21 +104,6 @@ var getVideoAnalysis = function(id) {
     })
 }
 
-var getEmotionData = function(videoEmotionAnalysis) {
-  var emotions = {
-    attentionData: [],
-    negativeData: [],
-    surpriseData: [],
-    smileData: []
-  }
-  videoEmotionAnalysis.forEach(function(item) {
-    emotions.attentionData.push([item.person.time, item.person.emotions.attention]);
-    emotions.negativeData.push([item.person.time, item.person.emotions.negative]);
-    emotions.surpriseData.push([item.person.time, item.person.emotions.surprise]);
-    emotions.smileData.push([item.person.time, item.person.emotions.smile]);
-  });
-  return emotions;
-}
 
 var deleteVideo = function(videoID){
   var options = {
@@ -259,38 +244,7 @@ var bvMoodPhrases = function (moodPhrases) {
   return phrasesAllData;
 };
 
-var getAlchemyKeywordsText = function (alchemyData) {
 
-  var text = [];
-
-  alchemyData.keywords.forEach(function (item) {
-    text.push(item.text || '');
-  });
-
-  return text;
-};
-
-var getAlchemyKeywordsRelevance = function (alchemyData) {
-
-  var relevance = [];
-
-  alchemyData.keywords.forEach(function (item) {
-    relevance.push(item.relevance || '');
-  });
-
-  return relevance;
-};
-
-var getAlchemyKeywordsSentiment = function (alchemyData) {
-
-  var sentiment = [];
-
-  alchemyData.keywords.forEach(function (item) {
-    sentiment.push(item.sentiment.type || '');
-  });
-
-  return sentiment;
-};
 
 var wpmWatson = function (script, videoLength) {
   script = script.split(' ');
@@ -354,13 +308,9 @@ module.exports = {
   logout: logout,
   getUserVideos: getUserVideos,
   getVideoAnalysis: getVideoAnalysis,
-  getEmotionData: getEmotionData,
   submitRecorded: submitRecorded,
   deleteVideo: deleteVideo,
   getBeyondVerbalData: getBeyondVerbalData,
-  getAlchemyKeywordsText: getAlchemyKeywordsText,
-  getAlchemyKeywordsRelevance: getAlchemyKeywordsRelevance,
-  getAlchemyKeywordsSentiment: getAlchemyKeywordsSentiment,
   putPrivacy: putPrivacy,
   getPublicVideos: getPublicVideos,
   getVideoComments: getVideoComments,
