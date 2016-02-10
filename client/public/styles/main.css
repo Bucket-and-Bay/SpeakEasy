@@ -214,26 +214,30 @@ footer.page-footer {
   color: #ffffff;
 }
 
+.atvSizes {
+  font-size: 36px;
+  color: #9e9e9e;
+}
+
 .verbal-icons {
   display: flex;
   justify-content: space-between;
   padding: 10px 20px 10px 20px;
 }
 
-.low {
+.temper {
   color: rgba(233, 30, 99, 0.8);
-  font-size: 36px;
 }
 
-.neutral {
+.valence {
   color: rgba(255, 152, 0, 0.8);
-  font-size: 36px;
 }
 
-.high {
-  color: rgba(0, 150, 136, 0.8);
-  font-size: 36px;
+.energy {
+  color: rgba(103, 58, 183, 0.8);
 }
+
+
 
 #menu-wrap, #menu-wrap:active{
   margin-top: -2em;

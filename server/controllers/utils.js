@@ -165,15 +165,15 @@ module.exports.formatBeyondVerbal = function (bvData) {
 var atvModes = function (summaries) {
   var moods = {
     arousal : {
-      low: 'Low Arousal, conveys low levels of alertness and can be registered in cases of sadness, comfort, relief or sleepiness.',
-      medium: 'Mid Arousal, conveys a medium level of alertness and can be registered in cases of normal conduct, indifference or self-control.',
-      neutral: ' Arousal neutral perhaps not needed...',
-      high: 'High Arousal, conveys a high level of alertness such as excitement, surprise, passionate communication, extreme happiness or anger.'
+      low: 'Low Energy, conveys low levels of alertness and can be registered in cases of sadness, comfort, relief or sleepiness.',
+      medium: 'Mid Energy, conveys a medium level of alertness and can be registered in cases of normal conduct, indifference or self-control.',
+      neutral: ' Your Energy was neutral.',
+      high: 'High Energy, conveys a high level of alertness such as excitement, surprise, passionate communication, extreme happiness or anger.'
     },
     temper : {
       low: 'Low temper occurs when the speaker experiences and expresses depressive emotions in an inhibited fashion, such as sadness, pain, suffering, insult, inferiority, self-blame, self-criticism, regret, fear, anxiety and concern (can also be interpreted as fatigued). It is as though the speaker is waning, growing smaller or pulling back.',
       medium: 'Medium temper occurs when the speaker experiences and expresses the following three types of emotions: Embracive “positive” emotions, communicated in a warm and friendly manner, such as positivity, empathy, acceptance, friendliness, closeness, kindness, affection, love, calmness, and motivation. Self-controlled “neutral” emotions communicated in a “matter-of-fact” intonation. No significant emotions are evident in the speaker’s voice.',
-      neutral: 'Temper neutral perhaps not needed...',
+      neutral: 'Your Temper was neutral.',
       high: 'High temper occurs when the speaker experiences and expresses aggressive emotions, such as active resistance, anger, hatred, hostility, aggressiveness, forceful commandment and/or arrogance.'
     },
     valence : {
