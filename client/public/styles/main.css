@@ -213,6 +213,27 @@ footer.page-footer {
   color: #ffffff;
 }
 
+.verbal-icons {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 20px 10px 20px;
+}
+
+.low {
+  color: rgba(233, 30, 99, 0.8);
+  font-size: 36px;
+}
+
+.neutral {
+  color: rgba(255, 152, 0, 0.8);
+  font-size: 36px;
+}
+
+.high {
+  color: rgba(0, 150, 136, 0.8);
+  font-size: 36px;
+}
+
 #menu-wrap, #menu-wrap:active{
   margin-top: -2em;
   background:none;

@@ -29,6 +29,7 @@ var Main = React.createClass({
                   <li><a className="grey-text text-lighten-3" href="https://www.kairos.com">Kairos</a></li>
                   <li><a className="grey-text text-lighten-3" href="http://www.beyondverbal.com">Beyond Verbal</a></li>
                   <li><a className="grey-text text-lighten-3" href="http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud">IBM Watson</a></li>
+                  <li><a className="grey-text text-lighten-3" href="http://www.alchemyapi.com/">AlchemyAPI</a></li>
                 </ul>
               </div>
             </div>
