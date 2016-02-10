@@ -6,14 +6,14 @@ var Home = React.createClass({
       <div> 
       <div id="index-banner" className="parallax-container"> 
         <div className="section no-pad-bot">
-          <div className="container">
+          <div id="hero-container" className="container">
             <p>&nbsp;</p>
             <p>&nbsp;</p>
             <p>&nbsp;</p>
             <p>&nbsp;</p>
-            <h1 className="header center white-text text-lighten-2">Learn to give motivating speeches</h1>
+            <h1 id="hero-text" className="header center white-text text-lighten-2">Learn to give motivating speeches </h1>
             <div className="row center">
-              <h5 className="header col s12 light">Improve your speeches dramatically</h5>
+              <h5 className="header col s12 light">Improve your public speaking dramatically</h5>
             </div>
             <div className="row center">
               <a href="#/signin" id="download-button" className="btn-large waves-effect waves-light teal lighten-1">Get Started</a>

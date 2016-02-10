@@ -15,7 +15,7 @@ module.exports.poll = function(options, interval,condition){
         if(condition && condition(data)){
           resolve(data);
         }else{
-          console.log('Polling');
+          console.log('Polling', data);
           setTimeout(function(){sub(options, interval, condition);}, interval);
         }
       }

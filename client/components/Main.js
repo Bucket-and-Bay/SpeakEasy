@@ -13,9 +13,9 @@ var Main = React.createClass({
           <div>{this.props.children}</div>
         </div>
         <footer className="page-footer teal">
-          <div className="container">
+          <div>
             <div className="row">
-              <div className="col l6 s12">
+              <div className="offset-s3 col s4 ">
                 <h5 className="white-text">About us</h5>
                  <ul>
                   <li><a className="grey-text text-lighten-3" href="#/about">The Team</a></li>
@@ -23,7 +23,7 @@ var Main = React.createClass({
                   <li><a className="grey-text text-lighten-3" href="https://github.com/Bucket-and-Bay/SpeakEasy">Github</a></li>
                 </ul>
               </div>
-              <div className="col l4 offset-l2 s12">
+              <div className="offset-s1 col s4 ">
                 <h5 className="white-text">APIs Used</h5>
                 <ul>
                   <li><a className="grey-text text-lighten-3" href="https://www.kairos.com">Kairos</a></li>

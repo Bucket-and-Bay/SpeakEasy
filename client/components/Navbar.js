@@ -8,11 +8,6 @@ var Dropdown = require('react-materialize').Dropdown
 var Button = require('react-materialize').Button
 
 var Navbar = React.createClass({
-  getInitialState: function(){
-    return {
-      loggedIn: Auth.isLoggedIn(),
-    }
-  },
   logout: function(e){
 
     delete localStorage.token;
@@ -26,10 +21,9 @@ var Navbar = React.createClass({
       return [<NavItem key="1" href="#/signup">Signup</NavItem>, <NavItem key="2" href="#/signin">Log In</NavItem>]
     }
   },
-
   render:function(){
     return (
-      <nav >
+      <nav>
         <div className="nav-wrap">
          <a href="#" className="brand-logo left">
           <Logo/>
