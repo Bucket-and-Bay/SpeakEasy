@@ -98,6 +98,19 @@ var VideoInput = React.createClass({
               </Loader>
             </div>
           </div>
+          <div className="row col s12 card-panel explanations">
+            For optimal analysis results, please follow these video upload guidelines:
+            <ol>
+              <li>Please speak clearly into the microphone. Audio quality improves with a headset or dedicated microphone.</li>
+              <li>Decrease background noise by recording in a moderately quiet room.</li>
+              <li>Record a single speaker only. More than one speaker may provide unreliable results.</li>
+              <li>For best results, take off glasses, hats, or anything covering your face or forehead.</li>
+              <li>While speaking, please face towards the camera.</li>
+              <li>Verbal analysis results require at least 13 seconds of speaking.</li>
+              <li>Please limit videos to less than 60 seconds.</li>
+              <li>Valid video format types include: .mp4, .mov, and .avi</li>
+            </ol>
+          </div>
         </div>
       </div>
     )
