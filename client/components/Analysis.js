@@ -88,7 +88,7 @@ var Analysis = React.createClass({
 
             kairosAnalysis: {
                 title: {
-                  text: 'Kairos Video Analysis'
+                  text: 'Video Emotional Analysis'
                 },
                 yAxis: {
                   title: {
@@ -103,19 +103,23 @@ var Analysis = React.createClass({
                 series:[{
                   data: kairosAnalysisData.attentionData,
                   name: 'attention',
-                  visible: false
+                  visible: false,
+                  color:'rgba(0, 150, 136, 0.8)' //teal
                 },
                 {
                   data: kairosAnalysisData.negativeData,
-                  name: 'negative'
+                  name: 'negative',
+                  color: 'rgba(233, 30, 99, 0.8)' //pink
                 },
                 {
                   data: kairosAnalysisData.smileData,
-                  name: 'smile'
+                  name: 'smile',
+                  color: 'rgba(255, 152, 0, 0.8)' //orange
                 },
                 {
                   data: kairosAnalysisData.surpriseData,
-                  name:'surprise'
+                  name:'surprise',
+                  color: 'rgba(103, 58, 183, 0.8)' //purple
                 }]
               },
               beyondVerbalAnalysis: {
@@ -149,20 +153,24 @@ var Analysis = React.createClass({
                 },
                 series:[{
                   data: beyondVerbalAnalysisData.arousalData,
-                  name: 'Arousal'
+                  name: 'Arousal',
+                  color: 'rgba(103, 58, 183, 0.8)'
                 },
                 {
                   data: beyondVerbalAnalysisData.temperData,
-                  name: 'Temper'
+                  name: 'Temper',
+                  color: 'rgba(233, 30, 99, 0.8)'
                 },
                 {
                   data: beyondVerbalAnalysisData.valenceData,
-                  name: 'Valence'
+                  name: 'Valence',
+                  color: 'rgba(255, 152, 0, 0.8)'
                 },
                 {
                   data: beyondVerbalAnalysisData.audioQData,
                   name: 'Audio Quality',
-                  visible: false
+                  visible: false,
+                  color: 'rgba(0, 150, 136, 0.8)'
                 }]
               },
               moodGroup11Analysis: {
@@ -198,37 +206,48 @@ var Analysis = React.createClass({
                     name: 'Supremacy, Arrogance',
                     y: beyondVerbalAnalysisData.finalDataGroup11['Supremacy, Arrogance'] || null,
                     sliced: true,
-                    selected: true
+                    selected: true,
+                    color: 'rgba(233, 30, 99, 1)'
                   }, {
                     name: 'Hostility and Anger',
-                    y: beyondVerbalAnalysisData.finalDataGroup11['Hostility, Anger'] || null
+                    y: beyondVerbalAnalysisData.finalDataGroup11['Hostility, Anger'] || null,
+                    color: 'rgba(255, 152, 0, 1)'
                   }, {
                     name: 'Criticism and Cynicism',
-                    y: beyondVerbalAnalysisData.finalDataGroup11['Criticism, Cynicism'] || null
+                    y: beyondVerbalAnalysisData.finalDataGroup11['Criticism, Cynicism'] || null,
+                    color: 'rgba(103, 58, 183, 1)'
                   }, {
                     name: 'Self-control and Practicality',
-                    y: beyondVerbalAnalysisData.finalDataGroup11['Self-Control, Practicality'] || null
+                    y: beyondVerbalAnalysisData.finalDataGroup11['Self-Control, Practicality'] || null,
+                    color:'rgba(0, 150, 136, 1)'
                   }, {
                     name: 'Leadership and Charisma',
-                    y: beyondVerbalAnalysisData.finalDataGroup11['Leadership, Charisma'] || null
+                    y: beyondVerbalAnalysisData.finalDataGroup11['Leadership, Charisma'] || null,
+                    color: 'rgba(255, 152, 0, 0.75)'
                   }, {
                     name: 'Creative and Passion',
-                    y: beyondVerbalAnalysisData.finalDataGroup11['Creative, Passionate'] || null
+                    y: beyondVerbalAnalysisData.finalDataGroup11['Creative, Passionate'] || null,
+                    color: 'rgba(233, 30, 99, 0.75)'
                   }, {
                     name: 'Friendliness and Warm',
-                    y: beyondVerbalAnalysisData.finalDataGroup11['Friendly, Warm'] || null
+                    y: beyondVerbalAnalysisData.finalDataGroup11['Friendly, Warm'] || null,
+                    color: 'rgba(103, 58, 183, 0.75)'
                   }, {
                     name: 'Love and Happiness',
-                    y: beyondVerbalAnalysisData.finalDataGroup11['Love, Happiness'] || null
+                    y: beyondVerbalAnalysisData.finalDataGroup11['Love, Happiness'] || null,
+                    color:'rgba(0, 150, 136, 0.75)'
                   }, {
                     name: 'Loneliness and Unfulfillment',
-                    y: beyondVerbalAnalysisData.finalDataGroup11['Loneliness, Unfulfillment'] || null
+                    y: beyondVerbalAnalysisData.finalDataGroup11['Loneliness, Unfulfillment'] || null,
+                    color:'rgba(0, 150, 136, 0.4)'
                   }, {
                     name: 'Sadness and Sorrow',
-                    y: beyondVerbalAnalysisData.finalDataGroup11['Sadness, Sorrow'] || null
+                    y: beyondVerbalAnalysisData.finalDataGroup11['Sadness, Sorrow'] || null,
+                    color: 'rgba(255, 152, 0, 0.4)'
                   }, {
                     name: 'Defensiveness and Anxiety',
-                    y: beyondVerbalAnalysisData.finalDataGroup11['Defensivness, Anxiety'] || null
+                    y: beyondVerbalAnalysisData.finalDataGroup11['Defensivness, Anxiety'] || null,
+                    color: 'rgba(103, 58, 183, 0.4)'
                   }]
                 }]
               },
@@ -273,39 +292,35 @@ var Analysis = React.createClass({
           </div>
         </div>
         <div className="col 12">
-          <Tabs onSelect={this.handleSelect} selectedIndex={4}>
+          <Tabs onSelect={this.handleSelect} selectedIndex={2}>
 
             <TabList>
-              <Tab>Kairos Video Analysis</Tab>
-              <Tab>Beyond Verbal Analysis</Tab>
+              <Tab>Video Emotion</Tab>
+              <Tab>Voice Emotion</Tab>
               <Tab>Verbal Mood Groups</Tab>
-              <Tab>Watson</Tab>
-              <Tab>AlchemyAPI</Tab>
+              <Tab>Transcript & Pace</Tab>
+              <Tab>Keyword Sentiment</Tab>
               <Tab>Comments</Tab>
             </TabList>
 
             <TabPanel>
-              <div className="row col s12 card-panel teal">
-                  Analyze and understand facial expressions and engagement in most videos.
-                  We look for faces in your footage and pass the facial features and expressions through our Emotion Algorithms.
+              <div className="row col s12 card-panel explanations">
+                  Analyze and understand facial expressions and engagement in your videos.
+                  Your facial features and expressions are passed through an emotion recognition algorithm.
                   Every 250ms we will return values for things like "smile", "surprise", "negative" and "attention".
-                  This helps you figure out how someone might be feeling.
+                  This helps you figure out how you may be perceived.
               </div>
               <Graph className="row col s12" data={this.state.kairosAnalysis}/>
             </TabPanel>
 
             <TabPanel>
-              <div className="row col s12 card-panel teal">
-                *BETA
-                Valence is an output which measures speaker’s level of negativity / positivity.
-                The Valence output is divided into two distinct measurements:
-                Continuous Scale ranging from 0 to 100, representing a valence shift from negative attitude at the
-                lower part of the scale to a positive attitude at the higher part of the same scale.
-                Valence groups which consist of three distinct groups: Negative, Neutral and Positive.
+              <div className="row card-panel explanations">
+                <span className="col s1"><strong>Arousal:</strong></span> <span className="col s11">measures degree of energy ranging from tranquil, bored or sleepy to excited and highly energetic.</span>
+                <span className="col s1"><strong>Temper:</strong></span> <span className="col s11">reflects temperament or emotional state ranging from gloomy or depressive, embracive and friendly, to confrontational or aggressive.</span>
+                <span className="col s1"><strong>Valence:</strong></span> <span className="col s11">measures level of attitude from negative to positive</span>
               </div>
               <Graph data={this.state.beyondVerbalAnalysis}/>
-              <h5 className="row col s12 center-align">Scroll down to read what your results mean</h5>
-
+              <br/>
               <div className="row">
                 <div className="col s4 center-align card-panel hoverable">
                   <p><img className="col s12" src="arousal.png"/>
@@ -329,22 +344,21 @@ var Analysis = React.createClass({
             </TabPanel>
 
             <TabPanel>
-              <div className="row col s12 card-panel teal">
+              <div className="row col s12 card-panel explanations">
                 Mood groups are an indicator of a speaker’s emotional state during the analyzed voice section.
                 There are 432 combined emotions which are grouped into eleven main mood groups.
-                Mood groups are distinct outputs and not measured in a scale.
               </div>
-              <h5>Mood Composites</h5>
-              <div className="row">
-                <div className="col s6 center-align card-panel hoverable">
-                  <p>Your Primary Mood Composites</p>
-                  <hr/>
-                  <p>{this.state.beyondVerbalDataCompPrimary}</p>
+              <h5>Emotions</h5>
+              <div className=" row card-panel hoverable">
+                <div >
+                  <p className="col s6 center-align"><strong>Your Primary Emotions</strong></p>
+                  <p className="col s6 center-align"><strong>Your Secondary Emotions</strong></p>
                 </div>
-                <div className="col s6 center-align card-panel hoverable">
-                  <p>Your Secondary Mood Composites</p>
+                <div >
+                  <br/>
                   <hr/>
-                  <p>{this.state.beyondVerbalDataCompSecondary}</p>
+                  <p className="col s6">{this.state.beyondVerbalDataCompPrimary}</p>
+                  <p className="col s6">{this.state.beyondVerbalDataCompSecondary}</p>
                 </div>
               </div>
 
@@ -353,8 +367,9 @@ var Analysis = React.createClass({
               <Graph data={this.state.moodGroup11Analysis}/>
               <div className="row">
                 {this.state.moodComposites.map(function (item) {
-                  return <div className="col s5 offset-s1 center-align card-panel hoverable">
-                      <p>{item[0]}</p>
+                  return <div className="col s5 offset-s1 card-panel hoverable">
+                      <br/>
+                      <p className="center-align"><strong>{item[0]}</strong></p>
                     <hr/>
                     <p>{item[1]}</p>
                   </div>
@@ -363,29 +378,34 @@ var Analysis = React.createClass({
             </TabPanel>
 
             <TabPanel>
-              <div className="row col s12 card-panel teal">
-                This is your whole script back from Alchemy API. Do Words per minute here
+              <div className="row col s12 card-panel explanations">
+                Here is the full transcript of your speech, courtesy of speech-to-text software,
+                which is used to calculate your pace and word count.
               </div>
-            <h5>The Full Script</h5>
+              <div className="card-panel hoverable">
+              <h5>The Full Script</h5>
               {this.state.watsonFullScript}
+              </div>
               <hr/>
               <div className="card-panel hoverable">
+                <h5>Word Count & Pace</h5>
                 <p>
-                  The  average American English speaker engaged in a friendly
+                  The average American English speaker engaged in a friendly
                   conversation speaks at a rate of approximately 110–150 words per minute.
                 </p>
                 <p>
-                  Your words per minute were: <b>{this.state.wpmWatson}</b>
+                  Your word count: <b>{this.state.wpmWatson[0]} words</b>
+                  <br/>
+                  Your pace: <b>{this.state.wpmWatson[1]} words per minute</b>
                 </p>
               </div>
             </TabPanel>
 
             <TabPanel>
-              <div className="row col s12 card-panel teal">
-                Make a treemap and table of the keywords and their sentiment and relevance and click to see website
+              <div className="row col s12 card-panel explanations">
+                Sophisticated natural language processing techniques are used to analyze the content of your speech.
+                Relevant keywords are extracted and analyzed for sentiment.
               </div>
-              <h5>Alchemy</h5>
-
               <div className="row">
                 <table className="striped bordered col s4">
                   <tbody>

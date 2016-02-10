@@ -300,7 +300,7 @@ var wpmWatson = function (script, videoLength) {
     }
   });
 
-  return (script.length / videoLength * 60).toFixed();
+  return [script.length, (script.length / videoLength * 60).toFixed()];
 };
 
 var putPrivacy = function(isPrivate, videoId) {
