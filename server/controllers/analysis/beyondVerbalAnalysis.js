@@ -73,10 +73,10 @@ function analyzeFile(content, token) {
 }
 //3. if response.status is 'success' then Upstream POST request w/ 
 //   auth token and wav file to get response(response.analysisSegments)
-function upstreamRequest(recID, wavFile, token) {
+function upstreamRequest(identify, wavFile, token) {
   return new Promise(function(resolve, reject){
     console.log('line 84 upstreamRequest called');
-    var upstreamUrl = options.url.serverUrl + recID;
+    var upstreamUrl = 'https://apiv3.beyondverbal.com/v3/recording/' + identify;
     fs.readFile(wavFile, function(err, response) {
       if (err) {
         console.log('error reading file: ', err)
@@ -89,11 +89,11 @@ function upstreamRequest(recID, wavFile, token) {
           },
           body: response
         };
+        console.log(response, 'file read')
 
         request(optionsUR)
           .then(function(data){
             resolve(data)
-
           })
           .catch(function(err){
             reject(err, 'Err from upstreamRequest');
