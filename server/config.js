@@ -11,7 +11,9 @@ if(process.env.NODE_ENV !=='production'){
     alchemyKey: localConfig.alchemyKey,
     watsonUsername: localConfig.watsonUsername,
     watsonPassword: localConfig.watsonPassword,
-    beyondVerbalKey:localConfig.beyondVerbalKey
+    beyondVerbalKey:localConfig.beyondVerbalKey,
+    email: localConfig.email,
+    password: localConfig.password
   };
 }else{
   config = {
@@ -23,7 +25,9 @@ if(process.env.NODE_ENV !=='production'){
     alchemyKey: process.env.alchemyKey,
     watsonUsername: process.env.watsonUsername,
     watsonPassword: process.env.watsonPassword,
-    beyondVerbalKey:process.env.beyondVerbalKey
+    beyondVerbalKey:process.env.beyondVerbalKey,
+    email: process.env.email,
+    password: process.env.password
   };
 }
 

@@ -8,7 +8,10 @@ var createUser = function(req, res){
   var user = {
     username: req.body.username,
     password: req.body.password,
-    phoneNumber: req.body.phoneNumber
+    phoneNumber: req.body.phoneNumber,
+    firstName: req.body.first,
+    lastName: req.body.last,
+    email: req.body.email,
   }
   User.findOne({username: user.username})
     .then(function(exists){

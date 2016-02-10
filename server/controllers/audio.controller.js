@@ -19,12 +19,12 @@ var fs = require('fs');
 var extractAudio = function(videoURL, uniqueID) {
   return new Promise(function(resolve, reject){
     console.log("extracting audio")
-    var wavFile = path.join(__dirname + '/wavFiles/' + uniqueID + 'file.wav');
+    var extractedLocation = path.join(__dirname + '/wavFiles/' + uniqueID + 'file.wav');
     
     ffmpeg(videoURL)
-      .output(wavFile)
+      .output(extractedLocation)
       .on('end', function(){
-        resolve(wavFile);
+        resolve(extractedLocation);
       })
       .on('error', function(err){
         reject('extracted audio error');
