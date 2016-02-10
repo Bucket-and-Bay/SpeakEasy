@@ -1,7 +1,6 @@
 var React = require('react');
 var helper = require('../config/helper.js');
 var Auth = require('../config/Auth.js');
-var Logo = require('./logo');
 var NavWrapper = require('react-materialize').Navbar;
 var NavItem = require('react-materialize').NavItem;
 var Dropdown = require('react-materialize').Dropdown
