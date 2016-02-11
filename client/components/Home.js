@@ -59,8 +59,38 @@ var Home = React.createClass({
           </div>
         </div>
       </div>
-        <Parallax bgImage="combinevideoverbal.jpg" bgHeight="auto" bgWidth="auto" strength={300}>
-        </Parallax>
+      <div id="analysis-banner" className="teal">
+        <h1 id="hero-text" className="header center white-text text-lighten-2">With our data driven feedback...</h1>
+      </div>
+      <Parallax bgImage="combinevideoverbal.jpg" bgHeight="auto" bgWidth="auto" strength={300}>  
+        <p>&nbsp;</p>
+        <p>&nbsp;</p>
+        <p>&nbsp;</p>
+        <p>&nbsp;</p>
+        <p>&nbsp;</p>
+        <p>&nbsp;</p>
+        <p>&nbsp;</p>
+        <p>&nbsp;</p>
+        <p>&nbsp;</p>
+        <p>&nbsp;</p>
+        <p>&nbsp;</p>
+        <p>&nbsp;</p>
+        <div id="analysis-banner" className="teal">
+          <h1 id="hero-text" className="header center white-text text-lighten-2">You can find out what youre really telling your audience.</h1> 
+        </div>
+         <p>&nbsp;</p>
+        <p>&nbsp;</p>
+        <p>&nbsp;</p>
+        <p>&nbsp;</p>
+        <p>&nbsp;</p>
+        <p>&nbsp;</p>
+        <p>&nbsp;</p>
+        <p>&nbsp;</p>
+        <p>&nbsp;</p>
+        <p>&nbsp;</p>
+        <p>&nbsp;</p>
+        <p>&nbsp;</p>
+      </Parallax>
     </div>
     )
   }

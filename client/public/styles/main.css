@@ -285,6 +285,7 @@ footer.page-footer {
 
 .btn{
   margin: 0 auto;
+  z-index: 0;
 }
 
 .btn:hover{
@@ -319,9 +320,10 @@ footer.page-footer {
   z-index: 99;
 }
 
-#fallback{
-  z-index: 0;
+#analysis-banner{
+ padding:7.5em;
 }
+
 
 
 
@@ -329,5 +331,10 @@ footer.page-footer {
   position: absolute;
   background-color: rgba(0, 0, 0, 0.6);
   height: 100%;
+}
+
+
+.react-parallax-bgimage{
+  margin-top: 35em;
 }
 

@@ -3,6 +3,18 @@ var helpers = require('../config/helper.js');
 var RecordRTC = require('recordrtc');
 var helpers = require('../config/helper.js');
 var Loader = require('react-loader');
+var Modal = require('react-modal');
+
+var customStyles = {
+  content : {
+    top                   : '50%',
+    left                  : '50%',
+    right                 : 'auto',
+    bottom                : 'auto',
+    marginRight           : '-50%',
+    transform             : 'translate(-50%, -50%)'
+  }
+};
 
 function videoError(){
   console.log('error')
@@ -94,6 +106,7 @@ var Record = React.createClass({
     return m+":"+s+"."+ms;
   },
   submit: function(e){
+    this.openModal();
     e.preventDefault();
     if(this.checkForm()){
       var title = this.refs.title;
@@ -153,8 +166,30 @@ var Record = React.createClass({
       return false;
     }
   },
+  openModal: function() {
+    this.setState({modalIsOpen: true});
+  },
+ 
+  closeModal: function() {
+    this.setState({modalIsOpen: false});
+  },
   render:function(){
     return(
+    <div>
+        <Modal
+          isOpen={this.state.modalIsOpen}
+          onRequestClose={this.closeModal}
+          style={customStyles} >
+          <div className="container">
+            <div className="col s12 m4">
+                  <div className="icon-block">
+                    <h2 className="center teal-text"><i className="material-icons">group</i>Tips</h2>
+                    <h5 className="center">Thanks for submitting. We'll let you know your analysis is ready. In the meantime, here's a tip to help you improve.</h5>
+                    <p className="light">Imagining  the audience  naked misdirects  your  focus.  You should connect with  your  audience</p>
+                  </div>
+                </div>
+          </div>
+        </Modal>
       <div>
         <div className="container">
           <div className="row">
@@ -208,6 +243,7 @@ var Record = React.createClass({
           </div>
         </div>
       </div>
+    </div>
     )
   }
 })

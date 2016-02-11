@@ -1,6 +1,5 @@
 var React = require('react');
 var helpers = require('../config/helper.js');
-var Loader = require('react-loader');
 var Modal = require('react-modal');
 
 var customStyles = {
@@ -46,7 +45,7 @@ var VideoInput = React.createClass({
             }
             helpers.sendCode(data)
             .then(function(response){
-              this.closeModal();
+              setTimeout(function(){this.closeModal();}, 100000);
               this.refs.line.value = '';
               this.refs.video.value = '';
               this.refs.title.value = '';
