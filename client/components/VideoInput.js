@@ -1,10 +1,22 @@
 var React = require('react');
 var helpers = require('../config/helper.js');
 var Loader = require('react-loader');
+var Modal = require('react-modal');
+
+var customStyles = {
+  content : {
+    top                   : '50%',
+    left                  : '50%',
+    right                 : 'auto',
+    bottom                : 'auto',
+    marginRight           : '-50%',
+    transform             : 'translate(-50%, -50%)'
+  }
+};
 
 var VideoInput = React.createClass({
   getInitialState: function () {
-    return { loaded: true };
+    return {modalIsOpen: false};
   },
 
   componentDidMount: function() {
@@ -12,7 +24,7 @@ var VideoInput = React.createClass({
   },
   
   handleSubmit: function(e) {
-    openModal();
+    this.openModal();
     e.preventDefault();
     if(this.checkForm()){
       var video = this.refs.video.files[0];
@@ -27,7 +39,6 @@ var VideoInput = React.createClass({
 
         helpers.submitVideo(video)
           .then(function(shortcode){
-
             var data = {
               shortcode: shortcode,
               description: description,
@@ -35,7 +46,7 @@ var VideoInput = React.createClass({
             }
             helpers.sendCode(data)
             .then(function(response){
-              document.getElementById('modal').closeModal();
+              this.closeModal();
               this.refs.line.value = '';
               this.refs.video.value = '';
               this.refs.title.value = '';
@@ -61,13 +72,36 @@ var VideoInput = React.createClass({
       return false;
     }
   },
+  openModal: function() {
+    this.setState({modalIsOpen: true});
+  },
+ 
+  closeModal: function() {
+    this.setState({modalIsOpen: false});
+  },
+
   render: function() {
     return (
       <div>
+      <div>
+          <Modal
+              isOpen={this.state.modalIsOpen}
+              onRequestClose={this.closeModal}
+              style={customStyles} >
+            <div className="container">
+              <div className="col s12 m4">
+                    <div className="icon-block">
+                      <h2 className="center teal-text"><i className="material-icons">group</i>Tips</h2>
+                      <h5 className="center">Thanks for submitting. We'll let you know your analysis is ready. In the meantime, here's a tip to help you improve.</h5>
+                      <p className="light">Imagining  the audience  naked misdirects  your  focus.  You should connect with  your  audience</p>
+                    </div>
+                  </div>
+            </div>
+          </Modal>
+        </div>
         <div className="container">
           <div className="card-panel">
             <div className="row">
-              <Loader loaded={this.state.loaded}>
                 <form onSubmit={this.handleSubmit} className="col s12">
                   <h5>Video Submission</h5>
                   <h6>We will send you an email when its done!</h6>
@@ -90,21 +124,11 @@ var VideoInput = React.createClass({
                     <input ref="description"type="text" className="validate" placeholder="Description"/>
                   </div>
                   <div className="text-center"> 
-                    <button type="button" type="submit" href="#modal" className="btn btn-info waves-effect waves-light">Submit</button>
+                    <button type="button" type="submit" href="#modal" id="fallback" className="btn waves-effect waves-light">Submit</button>
                   </div>
                 </form>
-              </Loader>
             </div>
           </div>
-          <div id="modal" className="modal">
-            <div className="modal-content">
-              <h4>Modal Header</h4>
-              <p>A bunch of text</p>
-            </div>
-             <div className="modal-footer">
-            <a href="#!" className=" modal-action modal-close waves-effect waves-green btn-flat">Agree</a>
-          </div>
-        </div>
           <div className="row col s12 card-panel explanations">
             For optimal analysis results, please follow these video upload guidelines:
             <ol>
@@ -123,7 +147,7 @@ var VideoInput = React.createClass({
     )
   }
 });
-
+ 
 
 module.exports = VideoInput;
 

@@ -308,9 +308,19 @@ footer.page-footer {
   margin-top: 5em;
 }
 
-#videorecorder{
-  padding-top: 10px;
+
+
+.no-shadow{
+  box-shadow: none !important;
 }
 
+.modal{
+  max-width: 80%;
+  z-index: 99;
+}
+
+#fallback{
+  z-index: 0;
+}
 
 

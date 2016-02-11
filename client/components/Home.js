@@ -1,4 +1,5 @@
 var React = require('react');
+var Parallax = require('react-parallax');
 
 var Home = React.createClass({
   componentDidMount() {
@@ -58,6 +59,8 @@ var Home = React.createClass({
           </div>
         </div>
       </div>
+        <Parallax bgImage="combinevideoverbal.jpg" bgHeight="auto" bgWidth="auto" strength={300}>
+        </Parallax>
     </div>
     )
   }
