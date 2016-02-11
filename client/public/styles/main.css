@@ -324,24 +324,22 @@ footer.page-footer {
  padding:7.5em;
 }
 
-
+/*
 .react-parallax-content{
   position: absolute;
-  background-color: rgba(0, 0, 0, 0.6);
   height: 100%;
 }
-
-
+*/
 
 .react-parallax-bgimage{
-  margin-top: 52em;
+  margin-top: 50em;
   max-width: 80%;
 }
-.react-parallax-content{
+/*.react-parallax-content{
   position: absolute;
   z-index: 99;
   height: 100%;
-}
+}*/
 
 .ReactModal__Overlay--after-open{
    background-color: rgba(0, 0, 0, 0.6) !important;

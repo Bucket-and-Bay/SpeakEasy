@@ -184,7 +184,7 @@ var Record = React.createClass({
             <div className="col s12 m4">
                   <div className="icon-block">
                     <h2 className="center teal-text"><i className="material-icons">group</i>Tips</h2>
-                    <h5 className="center">Thanks for submitting. We'll let you know your analysis is ready. In the meantime, here's a tip to help you improve.</h5>
+                    <h5 className="center">Thanks for submitting. We'll email you when your analysis is ready.</h5>
                   </div>
               </div>
           </div>
