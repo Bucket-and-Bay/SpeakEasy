@@ -16,15 +16,15 @@ var Navbar = React.createClass({
   buttons: function(){
     // console.log('LOGGED IN', this.state.loggedIn)
     if(Auth.isLoggedIn()){
-    return [<NavItem key="1" href="#/upload">Upload a Video</NavItem>, <NavItem key="2"href="#/record">Record a Video</NavItem>,  <NavItem key="3" href="#/dashboard">Your Videos</NavItem>, <NavItem key="4" href="#/public">Public Videos</NavItem>, <NavItem key="5" href="#/signin" onClick={this.logout}>Logout</NavItem>]
+    return [<NavItem key="1" href="#/upload"> Upload a Video </NavItem>, <NavItem key="2"href="#/record"> Record a Video </NavItem>,  <NavItem key="3" href="#/dashboard"> Your Videos </NavItem>, <NavItem key="4" href="#/public"> Public Videos </NavItem>, <NavItem key="5" href="#/signin" onClick={this.logout}> Logout </NavItem>]
     } else {
-      return [<NavItem key="1" href="#/signup">Signup</NavItem>, <NavItem key="2" href="#/signin">Log In</NavItem>]
+      return [<NavItem key="1" href="#/signup"> Signup </NavItem>, <NavItem key="2" href="#/signin"> Log In </NavItem>]
     }
   },
   render:function(){
     return (
       <nav>
-        <div className="nav-wrap">
+        <div id="nav-wrap">
          <a href="#" className="brand-logo left">
           <Logo/>
          </a> 

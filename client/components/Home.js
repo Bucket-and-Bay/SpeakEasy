@@ -7,10 +7,10 @@ var Home = React.createClass({
   
   render: function(){
     return ( 
-      <div> 
+      <div id="home-container"> 
       <div id="index-banner" className="parallax-container"> 
         <div className="section no-pad-bot">
-          <div id="hero-container" className="container">
+          <div id="hero-container" className="container center">
             <p>&nbsp;</p>
             <p>&nbsp;</p>
             <p>&nbsp;</p>

@@ -241,12 +241,20 @@ footer.page-footer {
 
 #menu-wrap, #menu-wrap:active{
   margin-top: -2em;
-  background:none;
+  margin-right: 3em;
+  background:none !important;
   box-shadow: none;
   border:none;
   outline:none;
 }
 
+.dropdown-content{
+  border: 1px solid #9e9e9e;
+}
+
+.dropdown-content li{
+  border: .5px solid #9e9e9e;
+}
 
 #logo-wrap{
   padding: .5em !important;
@@ -292,6 +300,13 @@ footer.page-footer {
   padding-left : .5em;
 }
 
+#searchbar{
+  height: 25%;
+}
+
+#top-spacer{
+  margin-top: 5em;
+}
 
 #videorecorder{
   padding-top: 10px;

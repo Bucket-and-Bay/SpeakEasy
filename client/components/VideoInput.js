@@ -12,6 +12,7 @@ var VideoInput = React.createClass({
   },
   
   handleSubmit: function(e) {
+    openModal();
     e.preventDefault();
     if(this.checkForm()){
       var video = this.refs.video.files[0];
@@ -22,9 +23,6 @@ var VideoInput = React.createClass({
         'video/quicktime': true,
         'video/avi': true
       };
-      this.setState({
-        loaded:false
-      });
       if (validVideoFormats[video.type]){
 
         helpers.submitVideo(video)
@@ -37,7 +35,7 @@ var VideoInput = React.createClass({
             }
             helpers.sendCode(data)
             .then(function(response){
-              this.onSuccess();
+              document.getElementById('modal').closeModal();
               this.refs.line.value = '';
               this.refs.video.value = '';
               this.refs.title.value = '';
@@ -51,11 +49,6 @@ var VideoInput = React.createClass({
     } else {
       console.log('choose a file');
     }
-  },
-  onSuccess:function(){
-    this.setState({
-      loaded: true
-    });
   },
   handleFile: function() {
     this.refs.line.value = this.refs.video.files[0].name;
@@ -97,12 +90,21 @@ var VideoInput = React.createClass({
                     <input ref="description"type="text" className="validate" placeholder="Description"/>
                   </div>
                   <div className="text-center"> 
-                    <button type="button" type="submit" className="btn btn-info waves-effect waves-light">Submit</button>
+                    <button type="button" type="submit" href="#modal" className="btn btn-info waves-effect waves-light">Submit</button>
                   </div>
                 </form>
               </Loader>
             </div>
           </div>
+          <div id="modal" className="modal">
+            <div className="modal-content">
+              <h4>Modal Header</h4>
+              <p>A bunch of text</p>
+            </div>
+             <div className="modal-footer">
+            <a href="#!" className=" modal-action modal-close waves-effect waves-green btn-flat">Agree</a>
+          </div>
+        </div>
           <div className="row col s12 card-panel explanations">
             For optimal analysis results, please follow these video upload guidelines:
             <ol>

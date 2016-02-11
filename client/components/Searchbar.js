@@ -16,7 +16,7 @@ var Searchbar = React.createClass({
 
   render: function() {
     return (
-      <div className="card-panel">
+      <div id="searchbar" className="card-panel">
         <div className="input-field">
           <i className="material-icons prefix">search</i>
           <input
