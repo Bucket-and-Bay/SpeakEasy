@@ -19,7 +19,6 @@ var Dashboard = React.createClass({
         userVideos: response.data
       })
     }.bind(this))
-   getElementByClassName('tooltipped').tooltip({delay:50});
   },
 
   onSearch: function(query) {
