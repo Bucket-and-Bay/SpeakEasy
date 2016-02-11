@@ -263,8 +263,8 @@ footer.page-footer {
 
 
 #index-banner{
-  overflow:visible;
   background-color: rgba(0, 0, 0, 0.6);
+  overflow:visible;
 }
 
 
@@ -275,8 +275,6 @@ footer.page-footer {
 
 #hero-container{
   margin-top: 5em;
-  z-index: 4;
-  position: relative;
 }
 
 #hero-text{
@@ -324,6 +322,7 @@ footer.page-footer {
 #fallback{
   z-index: 0;
 }
+
 
 
 .react-parallax-content{
