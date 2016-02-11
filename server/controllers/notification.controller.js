@@ -16,7 +16,6 @@ module.exports.byText = function(user){
     console.log('intexting function')
     User.findOne({username:user})
     .then(function(data){
-        console.log(data, 'user info')
         // if(data.phoneNumber){
         //     console.log(data, 'user should be here');
         //     client.sendMessage({

@@ -60,7 +60,12 @@ var Analysis = React.createClass({
         
           // Watson Script and words per minute
           var watsonScript = response.data.watsonAnalysis[1];
-          var wpm = helpers.wpmWatson(watsonScript, response.data.kairosAnalysis.length);
+          if(response.data.kairosAnalysis){
+            var wpm = helpers.wpmWatson(watsonScript, response.data.kairosAnalysis.length);
+          } else {
+            //not correct, but for now its error checking
+            var wpm = helpers.wpmWatson(watsonScript, 30)
+          }
 
           // Alchemy API
           var alchemyAPIKeywordsText = response.data.alchemyAnalysis.alchemyAPIKeywordsText

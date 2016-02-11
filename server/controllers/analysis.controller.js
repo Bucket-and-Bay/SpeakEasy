@@ -37,8 +37,10 @@ module.exports.analyze = function (userData, currentUser) {
 
           analysis.watsonAnalysis = data[1][3];
           analysis.alchemyAnalysis = util.getKeywords(data[1][2]);
-          analysis.kairosAnalysis = util.kairosData(data[0].frames);
-          analysis.kairosAnalysis.length = data[0].length;
+          if(data[0]){    
+            analysis.kairosAnalysis = util.kairosData(data[0].frames);
+            analysis.kairosAnalysis.length = data[0].length;
+          }
           analysis.save(function(err){
             if(err){
               console.log(err)

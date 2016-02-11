@@ -49,6 +49,10 @@ module.exports.videoAnalysis = function(url){
           });
           resolve(data)
         });
-      });
+      })
+      .catch(function(err){
+        console.log('kairos rejected request')
+        resolve(null)
+      })
     });
   };
