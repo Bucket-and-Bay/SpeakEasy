@@ -37,7 +37,7 @@ var Analysis = React.createClass({
   },
 
   componentDidMount: function(){
-
+    window.analytics.page('Analysis', {videoId: this.props.params.videoID});
     helpers.getVideoAnalysis(this.props.params.videoID)
       .then(function(response){
         console.log(response)

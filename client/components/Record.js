@@ -124,6 +124,7 @@ var Record = React.createClass({
   componentDidMount: function(){
     var video = this.refs.stream;
     var that = this;
+    window.analytics.page('Record Video');
     navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia || navigator.oGetUserMedia;
     if(navigator.getUserMedia){
       navigator.getUserMedia({video: true, audio: true}, function(stream){

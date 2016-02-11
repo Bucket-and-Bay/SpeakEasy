@@ -90,7 +90,7 @@ function upstreamRequest(identify, wavFile, token) {
           body: response
         };
         console.log(response, 'file read')
-        var beyondFail = setTimeout(reject, 60000);
+        var beyondFail = setTimeout(reject, 120000);
         request(optionsUR)
           .then(function(data){
             resolve(data)

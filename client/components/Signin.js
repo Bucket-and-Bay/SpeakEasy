@@ -3,6 +3,10 @@ var helpers = require('../config/helper.js');
 
 var Signin = React.createClass({
 
+  componentDidMount: function() {
+    window.analytics.page('Signin');
+  },
+
   handleSubmit: function(e){ 
     e.preventDefault();
     var user = {

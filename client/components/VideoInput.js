@@ -6,6 +6,11 @@ var VideoInput = React.createClass({
   getInitialState: function () {
     return { loaded: true };
   },
+
+  componentDidMount: function() {
+    window.analytics.page('Upload Video');
+  },
+  
   handleSubmit: function(e) {
     e.preventDefault();
     if(this.checkForm()){

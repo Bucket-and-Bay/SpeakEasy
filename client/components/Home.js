@@ -1,6 +1,10 @@
 var React = require('react');
 
 var Home = React.createClass({
+  componentDidMount() {
+    window.analytics.page('Home Page');
+  },
+  
   render: function(){
     return ( 
       <div> 

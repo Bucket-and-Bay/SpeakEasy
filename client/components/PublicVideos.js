@@ -12,6 +12,7 @@ var PublicVideos = React.createClass({
   },
 
   componentDidMount: function(){
+    window.analytics.page('Video Comment Page');
     helper.getPublicVideos().then(function(response){
       this.setState({
         videos: response.data,

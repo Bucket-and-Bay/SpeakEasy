@@ -1,6 +1,10 @@
 var React = require('react');
 
 var Team = React.createClass({
+  componentDidMount: function() {
+    window.analytics.page('About');
+  },
+  
   render: function(){
     return(
       <div>
