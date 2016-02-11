@@ -6,7 +6,7 @@ var AlchemyAPI = require('../../alchemyapi.js');
 var alchemyapi = new AlchemyAPI();
 
 module.exports.alchemyAnalysis = function(watsonText) {
-
+  console.log('started AlchemyAPI analysis')
   var transcript = watsonText[1];
   var alchemyResults = {};
   return new Promise(function(resolve, reject){

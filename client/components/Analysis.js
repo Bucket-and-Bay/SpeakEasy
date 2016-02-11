@@ -52,7 +52,7 @@ var Analysis = React.createClass({
           var videosource = response.data.videoUrl;
 
           // Kairos
-          var kairosAnalysisData = response.data.kairosAnalysis
+          var kairosAnalysisData = response.data.kairosAnalysis || {}
 
           // Beyond Verbal
           var bvData = response.data.beyondVerbalAnalysis[0] 
