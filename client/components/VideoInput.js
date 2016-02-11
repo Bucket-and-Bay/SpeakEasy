@@ -81,18 +81,17 @@ var VideoInput = React.createClass({
 
   render: function() {
     return (
-      <div>
+      <div className="top-spacer">
       <div>
           <Modal
               isOpen={this.state.modalIsOpen}
               onRequestClose={this.closeModal}
               style={customStyles} >
-            <div className="container">
+            <div id="modal-background" className="container">
               <div className="col s12 m4">
                     <div className="icon-block">
                       <h2 className="center teal-text"><i className="material-icons">group</i>Tips</h2>
                       <h5 className="center">Thanks for submitting. We'll let you know your analysis is ready. In the meantime, here's a tip to help you improve.</h5>
-                      <p className="light">Imagining  the audience  naked misdirects  your  focus.  You should connect with  your  audience</p>
                     </div>
                   </div>
             </div>

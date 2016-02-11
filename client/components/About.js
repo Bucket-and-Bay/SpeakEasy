@@ -7,7 +7,7 @@ var Team = React.createClass({
   
   render: function(){
     return(
-      <div>
+      <div className="top-spacer">
         <div className="container">
           <div className="row">
             <div className="col l12">
@@ -28,8 +28,8 @@ var Team = React.createClass({
             </div>
             <div className="col s12 m6 l3 center-align">
               <a href=""><img className="circle responsive-img img-center hoverable" src="user.png" alt=""/></a>
-              <h3>John Smith</h3>
-              <medium>Job Title</medium>        
+              <h3>Zan Rosenthal</h3>
+              <medium>Full Stack Developer</medium>        
               <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
             </div>
             <div className="col s12 m6 l3 center-align">

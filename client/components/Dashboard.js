@@ -73,7 +73,7 @@ var Dashboard = React.createClass({
   },
   render: function(){
     return (
-    <div>
+    <div className="top-spacer">
       <div className="container"> 
         <div className="row">
           <Searchbar className="col s12" onSearch={ this.onSearch } />

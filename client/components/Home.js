@@ -8,6 +8,7 @@ var Home = React.createClass({
   
   render: function(){
     return ( 
+
       <div id="home-container"> 
       <div id="index-banner" className="parallax-container"> 
         <div className="section no-pad-bot">
@@ -24,9 +25,11 @@ var Home = React.createClass({
               <a href="#/signin" id="download-button" className="btn-large waves-effect waves-light teal lighten-1">Get Started</a>
             </div>
           </div>
+
         </div>
         <div className="parallax"><img src="main_1200.jpg" alt="Unsplashed background img 1"/></div>
       </div>
+
 
       <div className="container">
         <div className="section">
@@ -92,8 +95,8 @@ var Home = React.createClass({
         <p>&nbsp;</p>
       </Parallax>
     </div>
-    )
+   )
   }
-})
+});
 
 module.exports = Home;
