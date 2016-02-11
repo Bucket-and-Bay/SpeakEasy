@@ -2,6 +2,7 @@ var React = require('react');
 var Video = require('./Video.js');
 var helper = require('../config/helper.js');
 var Searchbar = require('./Searchbar.js');
+var Auth = require('../config/Auth.js');
 
 
 var Dashboard = React.createClass({
@@ -13,6 +14,14 @@ var Dashboard = React.createClass({
   },
 
   componentDidMount: function(){
+    window.analytics.page('Dashboard');
+    if (Auth.isLoggedIn) {
+      var username = localStorage.token;
+      var pathname = this.props.location.pathname;
+      window.analytics.identify(username, {
+        username: username
+      });
+    }
     helper.getUserVideos().then(function(response){
       this.setState({
         video: response.data,

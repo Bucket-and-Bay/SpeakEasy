@@ -19,6 +19,10 @@ var PublicVideoComments = React.createClass({
     }
   },
 
+  componentDidMount: function() {
+    window.analytics.page('Video Comments', {videoId: this.props.params.videoID});
+  },
+
   componentWillMount: function() {
     helpers.getVideoComments(this.props.params.videoID)
       .then(function(response){

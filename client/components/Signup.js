@@ -3,6 +3,10 @@ var helpers = require('../config/helper.js');
 
 
 var Signup = React.createClass({
+  componentDidMount: function() {
+    window.analytics.page('Signup');
+  },
+
   handleSubmit: function(e){
     e.preventDefault();
     if(this.refs.password.value.length > 0 || this.refs.username.value.length > 0 || this.refs.email.value > 0){
@@ -19,6 +23,7 @@ var Signup = React.createClass({
       
         helpers.signup(user).then(function(response){
           if(response.status === 201){
+            analytics.track('Signed Up', {"Username": user.username})
             //redirect to dashboard
             localStorage.token = user.username;
             this.props.history.transitionTo({
