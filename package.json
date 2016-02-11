@@ -49,6 +49,8 @@
     "react-infinite": "^0.8.0",
     "react-loader": "^2.0.0",
     "react-materialize": "^0.14.2",
+    "react-modal": "^0.6.1",
+    "react-parallax": "^0.3.2",
     "react-router": "^1.0.3",
     "react-tabs": "^0.5.3",
     "recordrtc": "^5.2.7",

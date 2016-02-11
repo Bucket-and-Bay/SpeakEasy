@@ -38,7 +38,7 @@ var PublicVideoComments = React.createClass({
 
   render: function() {
     return (
-      <div>
+      <div className="top-spacer">
         <div className="container">
           <div className="row">
             <div className="col s8">

@@ -14,17 +14,17 @@ var Video = React.createClass({
       var date = moment(item.date).format('MMM Do YYYY, h:mm a');
       var location = "#/analysis/" + item._id
       return    <div className="col s4" key={idx}>
-                  <div className="card hoverable small">
+                  <div className="card hoverable small video-cards">
                     <a href={location}>
                       <div className="card-image">
                         
                         <image src={item.thumbnail_url}/>
-                        <span className="card-title">{item.title}</span>
+                        <span className="card-title no-shadow">{item.title}</span>
 
                       </div>
                     </a>
                     <div className="card-content">
-                      <p>Description: {item.description}</p>
+                      <p className="truncate">{item.description}</p>
                     </div>
                     <div id='time'>
                       Created: {date}

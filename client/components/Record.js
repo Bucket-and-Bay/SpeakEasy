@@ -3,6 +3,18 @@ var helpers = require('../config/helper.js');
 var RecordRTC = require('recordrtc');
 var helpers = require('../config/helper.js');
 var Loader = require('react-loader');
+var Modal = require('react-modal');
+
+var customStyles = {
+  content : {
+    top                   : '50%',
+    left                  : '50%',
+    right                 : 'auto',
+    bottom                : 'auto',
+    marginRight           : '-50%',
+    transform             : 'translate(-50%, -50%)'
+  }
+};
 
 function videoError(){
   console.log('error')
@@ -94,6 +106,7 @@ var Record = React.createClass({
     return m+":"+s+"."+ms;
   },
   submit: function(e){
+    this.openModal();
     e.preventDefault();
     if(this.checkForm()){
       var title = this.refs.title;
@@ -153,10 +166,31 @@ var Record = React.createClass({
       return false;
     }
   },
+  openModal: function() {
+    this.setState({modalIsOpen: true});
+  },
+ 
+  closeModal: function() {
+    this.setState({modalIsOpen: false});
+  },
   render:function(){
     return(
+    <div className="top-spacer">
+        <Modal
+          isOpen={this.state.modalIsOpen}
+          onRequestClose={this.closeModal}
+          style={customStyles} >
+          <div className="container">
+            <div className="col s12 m4">
+                  <div className="icon-block">
+                    <h2 className="center teal-text"><i className="material-icons">group</i>Tips</h2>
+                    <h5 className="center">Thanks for submitting. We'll email you when your analysis is ready.</h5>
+                  </div>
+              </div>
+          </div>
+        </Modal>
       <div>
-        <div className="container">
+        <div id="modal-background" className="container">
           <div className="row">
             <div id="videorecorder" className="center-align">
               <video autoPlay="true" ref='stream'width="400" height="300" muted /> 
@@ -208,6 +242,7 @@ var Record = React.createClass({
           </div>
         </div>
       </div>
+    </div>
     )
   }
 })

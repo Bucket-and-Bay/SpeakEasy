@@ -1,4 +1,5 @@
 var React = require('react');
+var Parallax = require('react-parallax');
 
 var Home = React.createClass({
   componentDidMount() {
@@ -7,10 +8,11 @@ var Home = React.createClass({
   
   render: function(){
     return ( 
-      <div> 
+
+      <div id="home-container"> 
       <div id="index-banner" className="parallax-container"> 
         <div className="section no-pad-bot">
-          <div id="hero-container" className="container">
+          <div id="hero-container" className="container center">
             <p>&nbsp;</p>
             <p>&nbsp;</p>
             <p>&nbsp;</p>
@@ -23,9 +25,11 @@ var Home = React.createClass({
               <a href="#/signin" id="download-button" className="btn-large waves-effect waves-light teal lighten-1">Get Started</a>
             </div>
           </div>
+
         </div>
         <div className="parallax"><img src="main_1200.jpg" alt="Unsplashed background img 1"/></div>
       </div>
+
 
       <div className="container">
         <div className="section">
@@ -58,9 +62,41 @@ var Home = React.createClass({
           </div>
         </div>
       </div>
+      <div id="analysis-banner" className="teal">
+        <h1 id="hero-text" className="header center white-text text-lighten-2">With our data driven feedback...</h1>
+      </div>
+      <Parallax bgImage="combinevideoverbal.jpg" bgHeight="auto" bgWidth="auto" strength={300}>  
+        <p>&nbsp;</p>
+        <p>&nbsp;</p>
+        <p>&nbsp;</p>
+        <p>&nbsp;</p>
+        <p>&nbsp;</p>
+        <p>&nbsp;</p>
+        <p>&nbsp;</p>
+        <p>&nbsp;</p>
+        <p>&nbsp;</p>
+        <p>&nbsp;</p>
+        <p>&nbsp;</p>
+        <p>&nbsp;</p>
+        <div id="analysis-banner" className="teal">
+          <h1 id="hero-text" className="header center white-text text-lighten-2">You can find out what youre really telling your audience.</h1> 
+        </div>
+         <p>&nbsp;</p>
+        <p>&nbsp;</p>
+        <p>&nbsp;</p>
+        <p>&nbsp;</p>
+        <p>&nbsp;</p>
+        <p>&nbsp;</p>
+        <p>&nbsp;</p>
+        <p>&nbsp;</p>
+        <p>&nbsp;</p>
+        <p>&nbsp;</p>
+        <p>&nbsp;</p>
+        <p>&nbsp;</p>
+      </Parallax>
     </div>
-    )
+   )
   }
-})
+});
 
 module.exports = Home;

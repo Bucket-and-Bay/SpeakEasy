@@ -1,10 +1,21 @@
 var React = require('react');
 var helpers = require('../config/helper.js');
-var Loader = require('react-loader');
+var Modal = require('react-modal');
+
+var customStyles = {
+  content : {
+    top                   : '50%',
+    left                  : '50%',
+    right                 : 'auto',
+    bottom                : 'auto',
+    marginRight           : '-50%',
+    transform             : 'translate(-50%, -50%)'
+  }
+};
 
 var VideoInput = React.createClass({
   getInitialState: function () {
-    return { loaded: true };
+    return {modalIsOpen: false};
   },
 
   componentDidMount: function() {
@@ -12,6 +23,7 @@ var VideoInput = React.createClass({
   },
   
   handleSubmit: function(e) {
+    this.openModal();
     e.preventDefault();
     if(this.checkForm()){
       var video = this.refs.video.files[0];
@@ -22,14 +34,10 @@ var VideoInput = React.createClass({
         'video/quicktime': true,
         'video/avi': true
       };
-      this.setState({
-        loaded:false
-      });
       if (validVideoFormats[video.type]){
 
         helpers.submitVideo(video)
           .then(function(shortcode){
-
             var data = {
               shortcode: shortcode,
               description: description,
@@ -37,7 +45,7 @@ var VideoInput = React.createClass({
             }
             helpers.sendCode(data)
             .then(function(response){
-              this.onSuccess();
+              setTimeout(function(){this.closeModal();}, 100000);
               this.refs.line.value = '';
               this.refs.video.value = '';
               this.refs.title.value = '';
@@ -52,11 +60,6 @@ var VideoInput = React.createClass({
       console.log('choose a file');
     }
   },
-  onSuccess:function(){
-    this.setState({
-      loaded: true
-    });
-  },
   handleFile: function() {
     this.refs.line.value = this.refs.video.files[0].name;
   },
@@ -68,13 +71,35 @@ var VideoInput = React.createClass({
       return false;
     }
   },
+  openModal: function() {
+    this.setState({modalIsOpen: true});
+  },
+ 
+  closeModal: function() {
+    this.setState({modalIsOpen: false});
+  },
+
   render: function() {
     return (
+      <div className="top-spacer">
       <div>
+          <Modal
+              isOpen={this.state.modalIsOpen}
+              onRequestClose={this.closeModal}
+              style={customStyles} >
+            <div id="modal-background" className="container">
+              <div className="col s12 m4">
+                    <div className="icon-block">
+                      <h2 className="center teal-text"><i className="material-icons">group</i>Tips</h2>
+                      <h5 className="center">Thanks for submitting. We'll email you when your analysis is ready.</h5>
+                    </div>
+                  </div>
+            </div>
+          </Modal>
+        </div>
         <div className="container">
           <div className="card-panel">
             <div className="row">
-              <Loader loaded={this.state.loaded}>
                 <form onSubmit={this.handleSubmit} className="col s12">
                   <h5>Video Submission</h5>
                   <h6>We will send you an email when its done!</h6>
@@ -97,10 +122,9 @@ var VideoInput = React.createClass({
                     <input ref="description"type="text" className="validate" placeholder="Description"/>
                   </div>
                   <div className="text-center"> 
-                    <button type="button" type="submit" className="btn btn-info waves-effect waves-light">Submit</button>
+                    <button type="button" type="submit" href="#modal" id="fallback" className="btn waves-effect waves-light">Submit</button>
                   </div>
                 </form>
-              </Loader>
             </div>
           </div>
           <div className="row col s12 card-panel explanations">
@@ -121,7 +145,7 @@ var VideoInput = React.createClass({
     )
   }
 });
-
+ 
 
 module.exports = VideoInput;
 

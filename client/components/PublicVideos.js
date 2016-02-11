@@ -43,7 +43,7 @@ var PublicVideos = React.createClass({
 
   render: function() {
     return (
-      <div>
+      <div className="top-spacer">
         <div className="container">
           <Searchbar onSearch={ this.onSearch } />
           <div className="row">
