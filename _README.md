@@ -47,7 +47,7 @@ npm install
 npm ffmpeg
 ```
 
-![Before, tab space example](http://www.gfycat.com/JubilantGloriousBull)
+![readmegif](/client/public/readmevid.gif)
 
 ### Roadmap
 
