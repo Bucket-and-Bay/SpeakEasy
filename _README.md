@@ -44,7 +44,13 @@ From within the root directory:
 ```sh
 npm install webpack -g
 npm install
+npm ffmpeg
 ```
+
+## App Example
+### Here is a example of the analysis page 
+
+![readmegif](/client/public/readmevid.gif)
 
 ### Roadmap
 
