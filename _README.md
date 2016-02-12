@@ -44,7 +44,11 @@ From within the root directory:
 ```sh
 npm install webpack -g
 npm install
+npm ffmpeg
 ```
+
+
+![alt tag](http://i.imgur.com/64FDYjU.webm)
 
 ### Roadmap
 
