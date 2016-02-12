@@ -47,8 +47,7 @@ npm install
 npm ffmpeg
 ```
 
-
-![alt tag](http://i.imgur.com/64FDYjU.webm)
+![Before, tab space example](http://i.imgur.com/GIT1Fr0.png)
 
 ### Roadmap
 
